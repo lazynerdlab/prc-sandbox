@@ -27,7 +27,7 @@ const Login = () => {
     setErrMsg("");
   }, [user, pwd]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
@@ -35,7 +35,6 @@ const Login = () => {
       setUser("");
       setPwd("");
       navigate("/");
-      console.log(person);
     } catch (err) {}
   };
 
@@ -89,6 +88,7 @@ const Login = () => {
               size="small"
               color="success"
               className="signIn"
+              onClick={handleSubmit}
             >
               Sign In
             </Button>

@@ -27,7 +27,7 @@ const Register = () => {
     userRef.current.focus();
   }, [city]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     try {
@@ -124,6 +124,7 @@ const Register = () => {
               size="small"
               color="success"
               className="signIn"
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
