@@ -33,6 +33,10 @@
     .content-img {
       height: 40rem;
       width: 40rem;
+      @media only screen and (max-width: 600px) {
+        height: 10rem;
+        width: 10rem;
+      }
     }
   }
 }
