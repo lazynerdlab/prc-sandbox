@@ -125,7 +125,7 @@ const Register = () => {
               color="success"
               className="signIn"
             >
-              Sign In
+              Sign Up
             </Button>
           </form>
           <p>
@@ -139,7 +139,7 @@ const Register = () => {
                   navigate("/login");
                 }}
               >
-                Sign Up
+                Sign In
               </div>
             </span>
           </p>

@@ -107,6 +107,9 @@ const Login = () => {
                 Sign Up
               </div>
             </span>
+            <span className="resetlink" onClick={()=>{
+                navigate("/resetpassword")
+            }}>forgot Password</span>
           </p>
         </div>
       </main>
