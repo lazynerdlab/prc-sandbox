@@ -131,7 +131,7 @@ const Register = () => {
                   <option value={e}>{e}</option>
                 ))}
               </select>
-              <label htmlFor="lga">State:</label>
+              <label htmlFor="lga">LGA:</label>
               <select
                 name="lga"
                 id="lga"

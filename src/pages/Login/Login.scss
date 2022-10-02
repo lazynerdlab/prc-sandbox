@@ -48,6 +48,10 @@
     }
   }
 }
+.select-grp {
+  display: flex;
+  flex-direction: column;
+}
 .router,
 .resetlink {
   cursor: pointer;

@@ -57,7 +57,7 @@ const Home = () => {
           <h1 className="content-header">WE PROTECT WHAT WE LOVE</h1>
           <p className="content-text">
             welcome to the number #1 antiseptic in the world. 2sure protects
-            from up to 100 illness caausing germs and has helped protect
+            from up to 100 illness causing germs and has helped protect
             families from illness for decades
           </p>
         </div>
