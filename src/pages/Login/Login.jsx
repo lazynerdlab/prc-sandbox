@@ -23,19 +23,17 @@ const Login = () => {
     userRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
+    if (user && email && pwd) {
       dispatch(login({ name: user, email: email }));
       setUser("");
       setPwd("");
+      setEmail("");
       navigate("/");
-    } catch (err) {}
+    } else {
+      alert("please input all required fields");
+    }
   };
 
   return (
@@ -107,9 +105,14 @@ const Login = () => {
                 Sign Up
               </div>
             </span>
-            <span className="resetlink" onClick={()=>{
-                navigate("/resetpassword")
-            }}>forgot Password</span>
+            <span
+              className="resetlink"
+              onClick={() => {
+                navigate("/resetpassword");
+              }}
+            >
+              forgot Password
+            </span>
           </p>
         </div>
       </main>

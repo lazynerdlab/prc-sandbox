@@ -18,9 +18,9 @@ const Register = () => {
   const [Cpwd, setCPwd] = useState("");
   const [city, setCity] = useState("");
   const [lga, setLga] = useState("");
+  const [filter, setFilter] = useState("");
   const [phone, setPhone] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     console.log(city);
@@ -29,15 +29,30 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      dispatch(login({ name: user, email: email }));
-      setUser("");
-      setPwd("");
-      navigate("/");
-    } catch (err) {}
+    if (user && email && pwd && Cpwd && city && lga && phone) {
+      if (pwd === Cpwd) {
+        dispatch(login({ name: user, email: email }));
+        setUser("");
+        setPwd("");
+        setPhone("");
+        setCPwd("");
+        setCity("");
+        setLga("");
+        setEmail("");
+        navigate("/");
+      } else {
+        alert("Please ensure password matches");
+      }
+    } else {
+      alert("please input all required fields");
+    }
   };
-
+  const local = Object.keys(LGA);
+  useEffect(() => {
+    const arr = local.filter((e) => e === city);
+    console.log(arr);
+    setFilter(arr[0]);
+  }, [city, filter]);
   return (
     <div className="LoginContainer">
       <main className="Loginsection">
@@ -53,7 +68,7 @@ const Register = () => {
             {errMsg}
           </p>
           <h1>Sign Up</h1>
-          <form onSubmit={handleSubmit} className="form">
+          <form className="form">
             <label htmlFor="firstname">Username:</label>
             <input
               type="text"
@@ -108,7 +123,7 @@ const Register = () => {
                 name="state"
                 id="state"
                 placeholder="state"
-                onChange={(e) => setCity(e.value)}
+                onChange={(e) => setCity(e.target.value)}
               >
                 {state.map((e) => (
                   <option value={e}>{e}</option>
@@ -116,7 +131,7 @@ const Register = () => {
               </select>
               <label htmlFor="lga">State:</label>
               <select name="lga" id="lga" onChange={(e) => setLga(e.value)}>
-                {city && LGA.city.map((e) => <option value={e}>{e}</option>)}
+                {city && LGA[filter].map((e) => <option value={e}>{e}</option>)}
               </select>
             </div>
             <Button
