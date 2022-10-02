@@ -23,13 +23,12 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    console.log(city);
     userRef.current.focus();
-  }, [city]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user && email && pwd && Cpwd && city && lga && phone) {
+    if (user && email && pwd && Cpwd && city && phone) {
       if (pwd === Cpwd) {
         dispatch(login({ name: user, email: email }));
         setUser("");
@@ -48,11 +47,12 @@ const Register = () => {
     }
   };
   const local = Object.keys(LGA);
-  useEffect(() => {
+  const loadLga = (city) => {
     const arr = local.filter((e) => e === city);
     console.log(arr);
     setFilter(arr[0]);
-  }, [city, filter]);
+  };
+
   return (
     <div className="LoginContainer">
       <main className="Loginsection">
@@ -122,16 +122,23 @@ const Register = () => {
               <select
                 name="state"
                 id="state"
-                placeholder="state"
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                  loadLga(e.target.value);
+                }}
               >
                 {state.map((e) => (
                   <option value={e}>{e}</option>
                 ))}
               </select>
               <label htmlFor="lga">State:</label>
-              <select name="lga" id="lga" onChange={(e) => setLga(e.value)}>
-                {city && LGA[filter].map((e) => <option value={e}>{e}</option>)}
+              <select
+                name="lga"
+                id="lga"
+                onChange={(e) => setLga(e.target.value)}
+              >
+                {filter &&
+                  LGA[filter].map((e) => <option value={e}>{e}</option>)}
               </select>
             </div>
             <Button
