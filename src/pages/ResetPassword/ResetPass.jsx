@@ -24,7 +24,7 @@ const ResetPass = () => {
         Enter the email address associated with your account and we'll send you
         a link to reset your Password
       </div>
-      <form onSubmit={handleSubmit} className="resetForm">
+      <form className="resetForm">
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -39,6 +39,7 @@ const ResetPass = () => {
           size="small"
           color="success"
           className="continue"
+          onClick={handleSubmit}
         >
           continue
         </Button>
