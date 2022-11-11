@@ -1,7 +1,6 @@
 import "./ResetPass.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Img from "../../assets/sanitizerlogo.png";
 import Button from "@mui/material/Button";
 const ResetPass = () => {
   const [email, setEmail] = useState("");
@@ -17,9 +16,6 @@ const ResetPass = () => {
   };
   return (
     <div className="reset">
-      <div className="header-img">
-        <img src={Img} className="head-img" />
-      </div>
       <div className="info">
         Enter the email address associated with your account and we'll send you
         a link to reset your Password

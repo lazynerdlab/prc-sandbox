@@ -4,52 +4,62 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../features/user";
 import Button from "@mui/material/Button";
-import Img from "../../assets/sanitizers.jpg";
+import axios from "../../api/axios";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userRef = useRef();
-  const errRef = useRef();
-  const person = useSelector((state) => state.user.value);
 
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
+  const LoginUrl = "";
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (user && email && pwd) {
-      dispatch(login({ name: user, email: email }));
-      setUser("");
-      setPwd("");
-      setEmail("");
-      navigate("/");
+      try {
+        const res = await axios.post(
+          LoginUrl,
+          {
+            username: { user },
+            email: { email },
+            password: { pwd },
+          },
+          { headers: { "content-Type": "application/json" } }
+        );
+        const data = res.data;
+        dispatch(login({ name: data.username, email: data.email }));
+        setUser("");
+        setPwd("");
+        setEmail("");
+        navigate("/");
+      } catch (err) {
+        if (err.request) {
+          alert("Network error occured");
+        }
+        if (err.response) {
+          if (err.status >= 400 && err.status < 500) {
+            alert("email or userName incorrect");
+          } else {
+            alert("server error occured");
+          }
+        }
+      }
     } else {
       alert("please input all required fields");
+      return;
     }
   };
 
   return (
     <div className="LoginContainer">
       <main className="Loginsection">
-        <div className="side-img">
-          <img className="img" src={Img} alt="" />
-        </div>
         <div className="LoginForm">
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
           <h1>Sign In</h1>
           <form onSubmit={handleSubmit} className="form">
             <label htmlFor="username">Username:</label>
@@ -77,7 +87,9 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              onChange={(e) => setPwd(e.target.value)}
+              onChange={(e) => {
+                setPwd(e.target.value);
+              }}
               value={pwd}
               required
             />
@@ -104,14 +116,6 @@ const Login = () => {
               >
                 Sign Up
               </div>
-            </span>
-            <span
-              className="resetlink"
-              onClick={() => {
-                navigate("/resetpassword");
-              }}
-            >
-              forgot Password
             </span>
           </p>
         </div>

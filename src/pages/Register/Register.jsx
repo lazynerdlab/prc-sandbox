@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../features/user";
 import Button from "@mui/material/Button";
-import { state, LGA } from "../../assets/Data";
-import Img from "../../assets/gel-sanitizer.jpg";
+import axios from "../../api/axios";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -16,57 +15,50 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [Cpwd, setCPwd] = useState("");
-  const [city, setCity] = useState("");
-  const [lga, setLga] = useState("");
-  const [filter, setFilter] = useState("");
-  const [phone, setPhone] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-
+  const registerUrl = "/register";
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user && email && pwd && Cpwd && city && phone) {
-      if (pwd === Cpwd) {
+    if (!user) {
+      alert("Please input username");
+      return;
+    }
+    if (pwd !== Cpwd) {
+      alert("Password and confirm password doesn't match");
+      return;
+    }
+    if (user && email && pwd && Cpwd) {
+      try {
+        const res = await axios.post(
+          registerUrl,
+          { username: { user }, email: { email }, password: { pwd } },
+          { headers: { "content-Type": "application/json" } }
+        );
         dispatch(login({ name: user, email: email }));
         setUser("");
         setPwd("");
-        setPhone("");
         setCPwd("");
-        setCity("");
-        setLga("");
         setEmail("");
         navigate("/");
-      } else {
-        alert("Please ensure password matches");
+      } catch (err) {
+        if (err.response) {
+          alert("server error occured");
+        }
+        if (err.request) {
+          alert("Network error occured");
+        }
       }
     } else {
-      alert("please input all required fields");
+      alert("Please Input all required Field");
     }
   };
-  const local = Object.keys(LGA);
-  const loadLga = (city) => {
-    const arr = local.filter((e) => e === city);
-    console.log(arr);
-    setFilter(arr[0]);
-  };
-
   return (
     <div className="LoginContainer">
       <main className="Loginsection">
-        <div className="side-img">
-          <img className="img" src={Img} alt="" />
-        </div>
         <div className="LoginForm">
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
           <h1>Sign Up</h1>
           <form className="form">
             <label htmlFor="firstname">Username:</label>
@@ -107,40 +99,6 @@ const Register = () => {
               value={Cpwd}
               required
             />
-
-            <label htmlFor="phone">Phone Number:</label>
-            <input
-              type="tel"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-              id="phone"
-              onChange={(e) => setPhone(e.target.value)}
-              value={phone}
-              required
-            />
-            <div className="select-grp">
-              <label htmlFor="state">State:</label>
-              <select
-                name="state"
-                id="state"
-                onChange={(e) => {
-                  setCity(e.target.value);
-                  loadLga(e.target.value);
-                }}
-              >
-                {state.map((e) => (
-                  <option value={e}>{e}</option>
-                ))}
-              </select>
-              <label htmlFor="lga">LGA:</label>
-              <select
-                name="lga"
-                id="lga"
-                onChange={(e) => setLga(e.target.value)}
-              >
-                {filter &&
-                  LGA[filter].map((e) => <option value={e}>{e}</option>)}
-              </select>
-            </div>
             <Button
               variant="contained"
               size="small"
