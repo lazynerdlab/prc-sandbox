@@ -13,13 +13,16 @@ const forgotPassword = async (req,res)=>{
 
 const resetPassword = async (req,res)=>{
  
- try {
+    const usermail = await User.findOne({email: req.body.email});
     
- } catch (error) {
-    
- }
-      
+    req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString();
 
+    try {
+        const userUpate = await User.findByIdAndUpdate(usermail._id, {$set: req.body}, {new: true});
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }    
   }
   
   
