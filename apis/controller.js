@@ -43,6 +43,19 @@ const Login = async (req,res) => {
     res.status(500).json(err);
   }
 }
+const Verify = async (req,res) => {
+  try{
+    const {email} = req.body 
+    const userVerify = await User.findOne({email: req.body.email})
+    if (!userVerify)
+    
+
+    res.status(200).json({});
+
+  } catch(err){
+    res.status(500).json(err);
+  }
+}
 
 const Update = async (req,res)=>{
  
@@ -62,20 +75,23 @@ const Update = async (req,res)=>{
         subject: 'RESET YOUR PASSWORD',
         text: `<P> Click the link below, to reset your password</p><br>
                 <p>http://localhost:3000/passwordreset/${email}/${token}</p>`
-      };
-    
-      userPassword.updateOne({resent: token })
+      }
  
-      mailgun.messages().send(data, function (err, body)
+
+      mailgun.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+
+      /*mailgun.messages().send(data, function (err, body)
        {
         if(err){
               res.status(400).json('message not sent');
             }else{
-              res.status(200).json('mail sent');
+              res.status(200).json(body);
             }
             console.log(body);
        }
-      )
+      )*/
           }catch(err){
             res.status(500).json(err);
           }
@@ -98,4 +114,4 @@ const Update = async (req,res)=>{
 
 
 
-module.exports = {Register, Login, Update};
+module.exports = {Register, Login, Update, Verify};
