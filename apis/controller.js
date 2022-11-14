@@ -43,11 +43,20 @@ const Login = async (req,res) => {
     res.status(500).json(err);
   }
 }
+
 const Verify = async (req,res) => {
   try{
-    const {email} = req.body 
     const userVerify = await User.findOne({email: req.body.email})
-    if (!userVerify)
+    if (!userVerify){
+      res.status(403).json('not verified')
+    }else{
+      try {
+        userVerify.updateOne({isverified: true})
+      } catch (err) {
+        res.status(403).json(err);
+      }
+      
+    }
     
 
     res.status(200).json({});
@@ -65,8 +74,8 @@ const Update = async (req,res)=>{
       !userPassword && res.status(401).json('no user with this email')
       
       const token = jwt.sign({_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"600sec"})
-      const api_key = MAIL_GUN_SEC_KEY;
-      const domain = MAIL_GUN_DOMAIN;
+      const api_key = process.env.MAIL_GUN_SEC_KEY;
+      const domain = process.env.MAIL_GUN_DOMAIN;
       const mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
       
       var data = {
@@ -93,6 +102,7 @@ const Update = async (req,res)=>{
        }
       )*/
           }catch(err){
+            console.log(err);
             res.status(500).json(err);
           }
     
