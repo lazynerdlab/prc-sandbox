@@ -17,18 +17,17 @@ const Home = () => {
 
   return (
     <main>
-      {/* {user.name ? (
+      {user.name && (
         <>
           <Navigation />
           <Sidebar />
         </>
-      ) : (
-        <Login />
-      )} */}
-      <>
+      )}
+      {!user.name && <Login />}
+      {/* <>
         <Navigation />
         <Sidebar />
-      </>
+      </> */}
     </main>
   );
 };
