@@ -6,7 +6,7 @@ const router = require('express').Router();
 
 
 router.post('/register', Register);
-router.get('/login', Login);
+router.post('/login', Login);
 router.put('/forgotpassword', forgotPassword);
 router.put('/resetpassword', resetPassword);
 router.put('/verify', Verify);

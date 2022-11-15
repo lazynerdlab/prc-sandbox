@@ -56,12 +56,12 @@ try{
         to: req.body.email,
         subject: 'RESET YOUR PASSWORD',
         text: `<P> Click the link below, to reset your password</p><br>
-                <p>http://localhost:3000/passwordreset/${email}/${token}</p>`
+                <p>http://localhost:3000/passwordreset/${req.body.email}/${token}</p>`
       }
  
 
       mailgun.messages().send(data, function (error, body) {
-        res.status(201).json({message: body})
+        console.log(body);
       });
 
 
