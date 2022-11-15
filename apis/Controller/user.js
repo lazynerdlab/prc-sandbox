@@ -5,6 +5,10 @@ const CryptoJS = require('crypto-js');
 const {registerMail} = require('./component/mailer')
 
 const Register =  async (req,res) =>{
+  const findEmail = await User.findOne({email: req.body.email})
+  findEmail && res.status(401).json({message: 'mail already exist'});
+
+
  const newUser = new User({
     username: req.body.username,
     email: req.body.email,
@@ -14,7 +18,7 @@ const Register =  async (req,res) =>{
  )
  try{
     const saveUser = await newUser.save();
-    registerMail(req.body, res.body);
+    registerMail(req, res);
     res.status(201).json(saveUser); 
  }catch(err){
     res.status(500).json(err); 
@@ -25,7 +29,7 @@ const Register =  async (req,res) =>{
 const Login = async (req,res) => {
   try{
     const user = await User.findOne({username: req.body.username})
-    !user && res.status(401).json('not a user');
+    !user && res.status(401).json({message: 'not a user'});
 
     const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)
     

@@ -12,22 +12,21 @@ const registerMail = async (req,res)=>{
 try{
 
 
-    const userVerify = await User.findOne({email: req.email}) 
-      !userVerify && res.status(401).json('no user with this email')
+    const userVerify = await User.findOne({email: req.body.email}) 
+      !userVerify && res.status(401).json({message: 'no user with this email'})
         
     const token = jwt.sign({_id: userVerify._id}, process.env.PASSSEC, {expiresIn:"600sec"})
       
       var data = {
         from: 'noreply@mail.com',
-        to: req.email,
+        to: req.body.email,
         subject: 'Verify Your Mail',
         text: `<P> Click the link below, to verify your account</p><br>
-                <p>http://localhost:3000/userauth/?.${req.email}/#.${token}</p>`
+                <p>http://localhost:3000/userauth/?.${req.body.email}/#.${token}</p>`
       }
  
 
       mailgun.messages().send(data, function (error, body) {
-        res.status(203).json('sent')
         console.log(body);
       });
 
@@ -44,11 +43,12 @@ try{
 const verifyPasswordMail = async (req,res)=>{
 
 try{
-    const token = jwt.sign({_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
 
     const userPassword = await User.findOne({email: req.body.email}) 
-      !userPassword && res.status(401).json('no user with this email')
+      !userPassword && res.status(401).json({message: 'no user with this email'})
       
+    const token = jwt.sign({_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
+
       
       
       var data = {
@@ -61,7 +61,7 @@ try{
  
 
       mailgun.messages().send(data, function (error, body) {
-        res.status(201).json({body})
+        res.status(201).json({message: body})
       });
 
 
