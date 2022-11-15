@@ -15,7 +15,7 @@ try{
     const userVerify = await User.findOne({email: req.body.email}) 
       !userVerify && res.status(401).json({message: 'no user with this email'})
         
-    const token = jwt.sign({_id: userVerify._id}, process.env.PASSSEC, {expiresIn:"600sec"})
+    const token = jwt.sign({_id: userVerify._id}, process.env.PASSSEC, {expiresIn:"1d"})
       
       var data = {
         from: 'noreply@mail.com',

@@ -6,8 +6,10 @@ const {registerMail} = require('./component/mailer')
 
 const Register =  async (req,res) =>{
   const findEmail = await User.findOne({email: req.body.email})
-  findEmail && res.status(401).json({message: 'mail already exist'});
+  findEmail && res.status(401).json({message: 'Mail already exist'});
 
+  const findUser = await User.findOne({email: req.body.username})
+  findUser && res.status(401).json({message: 'Username already exist'});
 
  const newUser = new User({
     username: req.body.username,

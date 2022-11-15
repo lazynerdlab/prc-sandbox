@@ -20,11 +20,12 @@ const resetPassword = async (req,res)=>{
  
     const usermail = await User.findOne({email: req.body.email});
     
-    req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString();
-
+    const newPassword = CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString();
+    
     try {
-        const userUpate = await User.findByIdAndUpdate(usermail._id, {$set: req.body}, {new: true});
-        
+
+        const userUpdate = await User.findByIdAndUpdate(usermail._id, {password: newPassword}, {new: true});
+        res.status(200).json('password sent');
     } catch (err) {
         res.status(500).json(err);
     }    
