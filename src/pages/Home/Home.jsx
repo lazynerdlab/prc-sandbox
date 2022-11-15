@@ -11,23 +11,24 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/login");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <main>
-      {
-        // user && (
-        //   <>
-        //   <Navigation/>
-        //   <Sidebar />
-        //   </>
-        // )
-      }
-      {!user && <Login />}
+      {/* {user.name ? (
+        <>
+          <Navigation />
+          <Sidebar />
+        </>
+      ) : (
+        <Login />
+      )} */}
+      <>
+        <Navigation />
+        <Sidebar />
+      </>
     </main>
   );
 };

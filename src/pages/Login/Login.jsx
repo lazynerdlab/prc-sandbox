@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../features/user";
 import Button from "@mui/material/Button";
-import axios from "../../api/axios";
-
+import { LoginSubmit } from "../../utils/Login.utils";
+import axios from "axios";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,36 +14,44 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const LoginUrl = "";
+  const LoginUrl = "/login";
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const LoginSubmit = async (e) => {
     e.preventDefault();
-    if (user && email && pwd) {
+    if (user && pwd) {
       try {
-        const res = await axios.post(
-          LoginUrl,
-          {
-            username: { user },
-            email: { email },
-            password: { pwd },
-          },
-          { headers: { "content-Type": "application/json" } }
-        );
+        const res = await axios.get("localhost:7000/api/register", {
+          username: { user },
+          password: { pwd },
+        });
         const data = res.data;
-        dispatch(login({ name: data.username, email: data.email }));
+        console.log(data);
+        console.log(res);
+        dispatch(
+          login({
+            name: data.username,
+            email: data.email,
+            isVerified: data.isVerified,
+          })
+        );
         setUser("");
         setPwd("");
         setEmail("");
-        navigate("/");
+        if (data.isVerified) {
+          navigate("/");
+        } else if (!data.isVerified) {
+          navigate("/verify");
+        }
       } catch (err) {
+        console.log(err);
         if (err.request) {
           alert("Network error occured");
         }
         if (err.response) {
-          if (err.status >= 400 && err.status < 500) {
+          if (err.response.status >= 400 && err.response.status < 500) {
             alert("email or userName incorrect");
           } else {
             alert("server error occured");
@@ -61,7 +69,7 @@ const Login = () => {
       <main className="Loginsection">
         <div className="LoginForm">
           <h1>Sign In</h1>
-          <form onSubmit={handleSubmit} className="form">
+          <form onSubmit={LoginSubmit} className="form">
             <label htmlFor="username">Username:</label>
             <input
               type="text"
@@ -98,7 +106,7 @@ const Login = () => {
               size="small"
               color="success"
               className="signIn"
-              onClick={handleSubmit}
+              onClick={LoginSubmit}
             >
               Sign In
             </Button>
