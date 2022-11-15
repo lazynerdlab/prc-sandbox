@@ -7,8 +7,13 @@ const CryptoJS = require('crypto-js');
 
 
 const forgotPassword = async (req,res)=>{
- 
+ try {
     verifyPasswordMail();
+    res.status(200).json('message sent')
+ } catch (err) {
+  res.status(500).json(err);  
+ }
+    
 }
 
 const resetPassword = async (req,res)=>{

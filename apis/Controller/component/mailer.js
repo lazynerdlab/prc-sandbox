@@ -1,5 +1,6 @@
 const User =  require('../../models/user');
 const api_key = "63904ddf079ad98962f932620b235f65-48c092ba-eaa2bbd7";
+const jwt = require('jsonwebtoken');
 /*process.env.MAIL_GUN_SEC_KEY;*/
 const domain = process.env.MAIL_GUN_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
@@ -9,24 +10,25 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 const registerMail = async (req,res)=>{
 
 try{
-   
 
-    const userVerify = await User.findOne({email: req.body.email}) 
+
+    const userVerify = await User.findOne({email: req.email}) 
       !userVerify && res.status(401).json('no user with this email')
         
     const token = jwt.sign({_id: userVerify._id}, process.env.PASSSEC, {expiresIn:"600sec"})
       
       var data = {
         from: 'noreply@mail.com',
-        to: req.body,email,
+        to: req.email,
         subject: 'Verify Your Mail',
         text: `<P> Click the link below, to verify your account</p><br>
-                <p>http://localhost:3000/userauth/?.${email}/#.${token}</p>`
+                <p>http://localhost:3000/userauth/?.${req.email}/#.${token}</p>`
       }
  
 
       mailgun.messages().send(data, function (error, body) {
-        res.status(201).json(body)
+        res.status(203).json('sent')
+        console.log(body);
       });
 
 
@@ -51,7 +53,7 @@ try{
       
       var data = {
         from: 'noreply@mail.com',
-        to: email,
+        to: req.body.email,
         subject: 'RESET YOUR PASSWORD',
         text: `<P> Click the link below, to reset your password</p><br>
                 <p>http://localhost:3000/passwordreset/${email}/${token}</p>`

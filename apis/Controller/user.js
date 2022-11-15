@@ -14,7 +14,7 @@ const Register =  async (req,res) =>{
  )
  try{
     const saveUser = await newUser.save();
-    registerMail(req.body.email);
+    registerMail(req.body, res.body);
     res.status(201).json(saveUser); 
  }catch(err){
     res.status(500).json(err); 
