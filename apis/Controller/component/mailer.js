@@ -70,5 +70,47 @@ try{
             res.status(500);
           }
 }
+const transactionMail = async (req,res, newBalance)=>{
 
-module.exports = {verifyPasswordMail, registerMail}
+try{
+
+    const userPassword = await User.findOne({email: req.body.email}) 
+      !userPassword && res.status(401).json({message: 'no user with this email'})
+      
+      if(req.body.type === "increase"){
+
+      var data = {
+        from: 'noreply@mail.com',
+        to: req.body.email,
+        subject: 'Transaction Information',
+        text: `<P> You account has been credited</p><br>
+                <p>You received ${req.body.value} and your balance is/${newBalance}</p>`
+      }
+      
+    }else if(req.body.type === "decrease"){
+
+      var data = {
+        from: 'noreply@mail.com',
+        to: req.body.email,
+        subject: 'Transaction Information',
+        text: `<P> You account has been debited</p><br>
+                <p>You sent ${req.body.value} and your balance is/${newBalance}</p>`
+      }
+      
+    }
+
+      mailgun.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+
+
+  }catch(err){
+            console.log(err);
+            res.status(500);
+          }
+}
+
+
+
+
+module.exports = {verifyPasswordMail, registerMail, transactionMail}

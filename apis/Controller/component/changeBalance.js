@@ -1,5 +1,6 @@
 const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
+const { transactionMail } = require('./mailer');
 
 
 
@@ -34,6 +35,7 @@ const changeBalance = async (req, res) =>{
         )
 
         const savetransaction = await newtransaction.save();
+        transactionMail(req, res, newBalance);
         res.status(201).json(savetransaction);
 
 
@@ -64,6 +66,7 @@ const changeBalance = async (req, res) =>{
             )
 
             const savetransaction = await newtransaction.save();
+            transactionMail(req, res, newBalance);
             res.status(201).json(savetransaction); 
     
     
