@@ -8,7 +8,7 @@ const { transactionMail } = require('./mailer');
 const changeBalance = async (req, res) =>{
 
     const user = await User.findOne({email: req.body.email})
-    !user && res.status(401).json({message: 'Cannot find user'});
+   if(!user) { return res.status(401).json({message: 'Cannot find user'});}
 
    
     

@@ -6,10 +6,10 @@ const {registerMail} = require('./component/mailer')
 
 const Register =  async (req,res) =>{
   const findEmail = await User.findOne({email: req.body.email})
-  findEmail && res.status(401).json({message: 'Mail already exist'});
+  if(findEmail) {return res.status(401).json({message: 'Mail already exist'});}
 
   const findUser = await User.findOne({email: req.body.username})
-  findUser && res.status(401).json({message: 'Username already exist'});
+  if(findUser) {return res.status(401).json({message: 'Username already exist'});}
 
  const newUser = new User({
     username: req.body.username,
@@ -33,13 +33,16 @@ const Login = async (req,res) => {
 
   try{
     const user = await User.findOne({email: req.body.email})
-    !user && res.status(401).json({message: 'not a user'});
+    if(!user) {return res.status(401).json({message: 'not a user'});}
   
     
       const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
       const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
-      logpassword !== req.body.password && res.status(401).json('password');
-    
+
+      if(logpassword !== req.body.password) {
+        return res.status(401).json('password');
+        } 
+
      const {password, ...others} = user._doc;
      res.status(200).json({others});
 
