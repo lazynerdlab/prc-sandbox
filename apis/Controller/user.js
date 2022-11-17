@@ -29,15 +29,16 @@ const Register =  async (req,res) =>{
 };
 
 const Login = async (req,res) => {
-  const user = await User.findOne({email: req.body.email})
-  !user && res.status(401).json({message: 'not a user'});
 
-  
-    const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
-    const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
-    logpassword !== req.body.password && res.status(401).json('password');
 
   try{
+    const user = await User.findOne({email: req.body.email})
+    !user && res.status(401).json({message: 'not a user'});
+  
+    
+      const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
+      const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
+      logpassword !== req.body.password && res.status(401).json('password');
     
      const {password, ...others} = user._doc;
      res.status(200).json({others});
