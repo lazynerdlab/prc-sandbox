@@ -1,7 +1,7 @@
 const User =  require('../models/user');
 const CryptoJS = require('crypto-js');
 
-const Verify = async (req,res) => {
+const verify = async (req,res) => {
     
       const userVerify = await User.findOne({email: req.body.email})
       if (!userVerify){
@@ -16,4 +16,4 @@ const Verify = async (req,res) => {
       }
 }
 
-  module.exports = {Verify};
+  module.exports = {verify};
