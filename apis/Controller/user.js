@@ -44,7 +44,7 @@ const Login = async (req,res) => {
         } 
 
      const {password, ...others} = user._doc;
-     res.status(200).json({others});
+     res.status(200).json(others);
 
   } catch(err){
     res.status(500).json(err);

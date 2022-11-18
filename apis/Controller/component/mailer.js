@@ -74,7 +74,7 @@ const transactionMail = async (req,res, newBalance)=>{
 
 try{
 
-    const userPassword = await User.findOne({email: req.body.email}) 
+    const userPassword = await User.findOne({email: req.body.receiverEmail}) 
       !userPassword && res.status(401).json({message: 'no user with this email'})
       
       if(req.body.type === "increase"){
