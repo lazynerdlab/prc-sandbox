@@ -15,7 +15,7 @@ const ForgotPass = () => {
     if (email & pwd & cpwd) {
       if (pwd === cpwd) {
         try {
-          await Apis("post", "/resetpassword", {
+          await Apis("put", "/resetpassword", {
             password: pwd,
             email: search,
           });

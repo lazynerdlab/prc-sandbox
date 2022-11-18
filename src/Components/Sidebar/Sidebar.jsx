@@ -1,22 +1,26 @@
 import "./Sidebar.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/user";
+import { fetchBalance } from "../../features/balance";
+import { FaSignOutAlt } from "react-icons/fa";
+import SidebarOption from "../SidebarOptions/SidebarOptions";
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
   return (
     <div className="sidebar">
       <nav className="nav">
-        <div className="nav-item">Dashboard</div>
-        <div className="nav-item">Wallet</div>
-        <div className="nav-item">Profile</div>
-        <div
-          onClick={() => {
-            dispatch(logout);
+        <SidebarOption title={"Dashboard"} />
+        <SidebarOption title={"Wallet"} className="nav-item" />
+        <SidebarOption title={"Profile"} className="nav-item" />
+        <SidebarOption
+          title={"Sign Out"}
+          icon={<FaSignOutAlt />}
+          event={() => {
+            dispatch(logout());
+            dispatch(fetchBalance(""));
           }}
-          className="nav-item"
-        >
-          Sign out
-        </div>
+        />
       </nav>
     </div>
   );

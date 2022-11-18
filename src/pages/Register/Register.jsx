@@ -1,23 +1,19 @@
 import { useRef, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../features/user";
+import { register } from "../../features/user";
 import Button from "@mui/material/Button";
-// import axios from "../../api/axios";
-import axios from "axios";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userRef = useRef();
-  const errRef = useRef();
 
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [Cpwd, setCPwd] = useState("");
   const [success, setSuccess] = useState(false);
-  const registerUrl = "/register";
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -34,25 +30,20 @@ const Register = () => {
     }
     if (user && email && pwd && Cpwd) {
       try {
-        const res = await axios.post("http://localhost:7000/api/register", {
-          username: user,
-          email: email,
-          password: pwd,
-        });
+        dispatch(
+          register({
+            username: user,
+            email,
+            password: pwd,
+          })
+        );
         setUser("");
         setPwd("");
         setCPwd("");
         setEmail("");
         setSuccess(true);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
-        if (!err.response) {
-          // alert("server error occured");
-        }
-        if (!err.request) {
-          // alert("Network error occured");
-        }
       }
     } else {
       alert("Please Input all required Field");

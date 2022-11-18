@@ -1,9 +1,13 @@
-.navigation{
-    .flex{
-        display:flex;
-        justify-content: space-between;
-        position: fixed;
-        background-color: #fff;
-        padding: 1rem 1.5rem;
-    }
+.navigation {
+  width: 100vw;
+  background-color: rgb(40, 87, 189);
+  position: fixed;
+  height: 4rem;
+  left: 0;
+  top: 0;
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0.5rem;
+  }
 }

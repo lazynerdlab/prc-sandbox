@@ -6,11 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import userReducer from "./features/user";
+import userSlice from "./features/user"
+import balanceSlice from "./features/balance"
 
 const store = configureStore({
   reducer: {
-    user: userReducer,
+    user: userSlice,
+    balance: balanceSlice
   },
 });
 const root = ReactDOM.createRoot(document.getElementById("root"));

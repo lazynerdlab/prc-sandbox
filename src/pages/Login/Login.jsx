@@ -1,62 +1,36 @@
 import "./Login.scss";
+import Loader from "../../utils/Loader";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../features/user";
 import Button from "@mui/material/Button";
-import { LoginSubmit } from "../../utils/Login.utils";
-import axios from "axios";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userRef = useRef();
+  const emailRef = useRef();
+  const user = useSelector((state) => state.user.value);
 
-  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const LoginUrl = "/login";
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
 
   const LoginSubmit = async (e) => {
     e.preventDefault();
-    if (user && pwd) {
+    if (email && pwd) {
       try {
-        const res = await axios.get("localhost:7000/api/register", {
-          username: { user },
-          password: { pwd },
-        });
-        const data = res.data;
-        console.log(data);
-        console.log(res);
         dispatch(
           login({
-            name: data.username,
-            email: data.email,
-            isVerified: data.isVerified,
+            email: email,
+            password: pwd,
           })
         );
-        setUser("");
-        setPwd("");
-        setEmail("");
-        if (data.isVerified) {
+        if (user.username) {
+          setPwd("");
+          setEmail("");
           navigate("/");
-        } else if (!data.isVerified) {
-          navigate("/verify");
         }
       } catch (err) {
         console.log(err);
-        if (err.request) {
-          alert("Network error occured");
-        }
-        if (err.response) {
-          if (err.response.status >= 400 && err.response.status < 500) {
-            alert("email or userName incorrect");
-          } else {
-            alert("server error occured");
-          }
-        }
       }
     } else {
       alert("please input all required fields");
@@ -68,24 +42,17 @@ const Login = () => {
     <div className="LoginContainer">
       <main className="Loginsection">
         <div className="LoginForm">
-          <h1>Sign In</h1>
-          <form onSubmit={LoginSubmit} className="form">
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
-
+          <div className="flex">
+            <h1>Sign In</h1>
+            {user.isLoading && <Loader />}
+          </div>
+          {user?.error && <h5 className="err">{user?.error}</h5>}
+          <form className="form">
             <label htmlFor="email">Email:</label>
             <input
-              type="email"
+              type="text"
               id="email"
-              autoComplete="off"
+              ref={emailRef}
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
@@ -126,6 +93,7 @@ const Login = () => {
               </div>
             </span>
           </p>
+          <Link to="/resetpassword">forgot Password</Link>
         </div>
       </main>
     </div>
