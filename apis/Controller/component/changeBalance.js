@@ -12,6 +12,9 @@ const changeBalance = async (req, res) =>{
     const user = await User.findOne({email: req.body.senderEmail} )
    if(!user) { return res.status(401).json({message: 'Cannot find user'});}
     
+   const receiveruser = await User.findOne({email: req.body.receiverEmail} )
+   if(!receiveruser) { return res.status(401).json({message: 'no account with this email'});}
+    
    
 
    if(typeof req.body.value !== "number"){
@@ -56,15 +59,15 @@ const changeBalance = async (req, res) =>{
        
             const newBalance = user.balance -= req.body.value
 
-            const newreceiveBalance = user.balance += req.body.value
+            const newreceiveBalance = receiveruser.balance += req.body.value
 
             if(newBalance < 1){
                 return res.status(401).json({message:"You have exceeded account limit"});
             }
 
-            const transact = await User.findOneAndUpdate({email: req.body.senderEmail}, {balance: newBalance, lastSent: req.body.value} );
+            const transact = await User.findOneAndUpdate({email: req.body.senderEmail}, {balance: newBalance} );
             
-            const recievetransact = await User.findOneAndUpdate({email: req.body.receiverEmail}, {balance: newreceiveBalance, lastRecieve: req.body.value} );
+            const recievetransact = await User.findOneAndUpdate({email: req.body.receiverEmail}, {balance: newreceiveBalance} );
     
             const newtransaction =  new Transaction(
                 {
@@ -92,7 +95,7 @@ const changeBalance = async (req, res) =>{
            
            
             const saverecievetransaction = await newrecievetransact.save();
-            res.status(201).json(savetransaction); 
+            res.status(201).json({savetransaction,recievetransact}); 
            
     
     
