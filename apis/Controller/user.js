@@ -40,7 +40,7 @@ const Login = async (req,res) => {
       const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
 
       if(logpassword !== req.body.password) {
-        return res.status(401).json('password');
+        return res.status(401).json({message: 'Wrong password'});
         } 
 
      const {password, ...others} = user._doc;

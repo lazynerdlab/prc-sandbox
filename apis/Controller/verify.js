@@ -5,7 +5,7 @@ const verify = async (req,res) => {
     
       const userVerify = await User.findOne({email: req.body.email})
       if (!userVerify){
-        res.status(403).json({message: 'not verified'})
+        return res.status(403).json({message: 'not a user'})
       }else{
         try {
           userVerify.updateOne({isverified: true})
