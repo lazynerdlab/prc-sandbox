@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "online wallet",
   "main": "index.js",
-  "engines" : { 
-    "node" : "14.17.6"
+  "engines": {
+    "node": "14.17.6"
   },
-
- 
   "scripts": {
     "start": "node"
   },
@@ -19,6 +17,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20"
   }
