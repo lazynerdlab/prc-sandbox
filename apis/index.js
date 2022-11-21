@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(bodyParser.json({limit:"30mb", extended: true}));
 app.use('/api', router)
 
- app.listen(7000, ()=>{
+ app.listen( process.env.SERVER_URL|| 7000, ()=>{
     console.log('tested');
  });
 

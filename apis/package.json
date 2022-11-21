@@ -4,10 +4,10 @@
   "description": "online wallet",
   "main": "index.js",
   "engines": {
-    "node": "14.*"
+    "node": "14.17.6"
   },
   "scripts": {
-    "start": "nodemon"
+    "start": "node"
   },
   "author": "mujeeb",
   "license": "ISC",
