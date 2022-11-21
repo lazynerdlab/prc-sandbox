@@ -20,5 +20,14 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Purscliq/prc-sandbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Purscliq/prc-sandbox/issues"
+  },
+  "homepage": "https://github.com/Purscliq/prc-sandbox#readme"
 }
