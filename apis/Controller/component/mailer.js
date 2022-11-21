@@ -32,8 +32,7 @@ try{
 
 
   }catch(err){
-            console.log(err);
-            res.status(500);
+            res.status(500).json({message: err});
           }
 }
 
@@ -66,8 +65,8 @@ try{
 
 
   }catch(err){
-            console.log(err);
-            res.status(500);
+            
+            res.status(500).json({message: err});
           }
 }
 const transactionMail = async (req,res, newBalance)=>{
@@ -105,8 +104,7 @@ try{
 
 
   }catch(err){
-            console.log(err);
-            res.status(500);
+            res.status(500).json({message: err});
           }
 }
 
