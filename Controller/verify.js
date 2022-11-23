@@ -9,10 +9,10 @@ const verify = async (req,res) => {
       if (!jwtUser){
         return res.status(402).json({message: 'Not verify'});
       }
-      console.log(jwtUser);
-      console.log(jwtUser.payload.id);
 
-      const newUser = await User.findOne({_id: jwtUser.payload.id});
+      console.log(jwtUser.id);
+
+      const newUser = await User.findOne({_id: jwtUser.id});
       const userMail = newUser.email
 
       const userVerify = await User.findOne({email: req.body.email});
