@@ -7,7 +7,7 @@
     "node": "14.17.6"
   },
   "scripts": {
-    "start": "node"
+    "start": "nodemon index.js"
   },
   "author": "mujeeb",
   "license": "ISC",
