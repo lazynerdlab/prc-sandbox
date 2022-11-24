@@ -1,10 +1,9 @@
 const User =  require('../../models/user');
-const api_key = "63904ddf079ad98962f932620b235f65-48c092ba-eaa2bbd7";
 const jwt = require('jsonwebtoken');
-process.env.MAIL_GUN_SEC_KEY;
-const domain = process.env.MAIL_GUN_DOMAIN;
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-
+const mailgun = require("mailgun-js");
+const DOMAIN = 'sandboxcc2c2c4b297b426cb61bb7bc67c1273b.mailgun.org';
+const api_key = '533048384d80e863c0a1e8e04ff04ecb-69210cfc-a017c0fe';
+const mg = mailgun({apiKey: api_key, domain: DOMAIN});
 
 
 const registerMail = async (req,res)=>{
@@ -16,20 +15,19 @@ try{
       !userVerify && res.status(401).json({message: 'no user with this email'})
         
     const token = jwt.sign({id: userVerify._id}, process.env.PASSSEC, {expiresIn:"1d"})
-      
-      var data = {
-        from: 'noreply@mail.com',
-        to: req.body.email,
-        subject: 'Verify Your Mail',
-        text: `<P> Click the link below, to verify your account</p><br>
-                <p>http://localhost:3000/userauth/${req.body.email}/${token}</p>`
-      }
-      console.log(token);
-      
-      mailgun.messages().send(data, function (error, body) {
-        console.log(body);
-        
-      });
+
+
+
+    const data = {
+      from: 'me@samples.mailgun.org',
+      to: req.body.email,
+      subject: 'Verify Your Mail',
+      text: `<P> Click the link below, to verify your account</p><br>
+      <p>http://localhost:3000/userauth/${req.body.email}/${token}</p>`
+    };
+    mg.messages().send(data, function (error, body) {
+      console.log(body);
+    });
 
 
   }catch(err){
@@ -49,20 +47,16 @@ try{
       
     const token = jwt.sign({_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
 
-      
-      
-      var data = {
-        from: 'noreply@mail.com',
-        to: req.body.email,
-        subject: 'RESET YOUR PASSWORD',
-        text: `<P> Click the link below, to reset your password</p><br>
-                <p>http://localhost:3000/passwordreset/${req.body.email}/${token}</p>`
-      }
- 
-
-      mailgun.messages().send(data, function (error, body) {
-        console.log(body);
-      });
+    const data = {
+      from: 'me@samples.mailgun.org',
+      to: req.body.email,
+      subject: 'RESET YOUR PASSWORD',
+      text: `<P> Click the link below, to reset your password</p><br>
+              <p>http://localhost:3000/passwordreset/${req.body.email}/${token}</p>`
+    };
+    mg.messages().send(data, function (error, body) {
+      console.log(body);
+    });
 
 
   }catch(err){
@@ -79,35 +73,45 @@ try{
       
       if(req.body.type === "increase"){
 
-      var data = {
+        const data = {
+          from: 'noreply@mail.com',
+          to: req.body.email,
+          subject: 'Transaction Information',
+          text: `<P> You account has been credited</p><br>
+                  <p>You received ${req.body.value} and your balance is/${newBalance}</p>`
+        };
+        mg.messages().send(data, function (error, body) {
+          console.log(body);
+        });
+    
+
+      
+      
+    }else if(req.body.type === "decrease"){
+
+      
+      const data = {
         from: 'noreply@mail.com',
         to: req.body.email,
         subject: 'Transaction Information',
         text: `<P> You account has been credited</p><br>
                 <p>You received ${req.body.value} and your balance is/${newBalance}</p>`
-      }
-      
-    }else if(req.body.type === "decrease"){
-
-      var data = {
-        from: 'noreply@mail.com',
-        to: req.body.email,
-        subject: 'Transaction Information',
-        text: `<P> You account has been debited</p><br>
-                <p>You sent ${req.body.value} and your balance is/${newBalance}</p>`
-      }
-      
-    }
-
-      mailgun.messages().send(data, function (error, body) {
+      };
+      mg.messages().send(data, function (error, body) {
         console.log(body);
       });
+  
+
+      
+    }
 
 
   }catch(err){
             res.status(500).json({message: err});
           }
 }
+
+
 
 
 

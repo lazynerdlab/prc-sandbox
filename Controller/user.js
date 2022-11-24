@@ -6,6 +6,7 @@ const {registerMail} = require('./component/mailer');
 const userIdDigit = require('./component/userIdDigit');
 const digitGenerator = require('crypto-secure-random-digit');
 
+
 const Register =  async (req,res) =>{
   const findEmail = await User.findOne({email: req.body.email})
   if(findEmail) {return res.status(401).json({message: 'Mail already exist'});}

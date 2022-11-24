@@ -20,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.7.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "v3": "^0.0.0"
   },
   "repository": {
     "type": "git",

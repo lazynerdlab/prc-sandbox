@@ -8,7 +8,7 @@ const { transactionMail } = require('./mailer');
 const increaseBalance = async (req, res) =>{
 
 
-   const user = await User.findOne({email: req.body.receiverEmail} )
+   const user = await User.findOne({email: req.body.email} )
    if(!user) { return res.status(401).json({message: 'no account with this email'});}
 
    if(typeof req.body.value !== "number"){
@@ -23,12 +23,12 @@ const increaseBalance = async (req, res) =>{
        
         const newBalance = user.balance += req.body.value
         
-        const transact = await User.findOneAndUpdate({email: req.body.receiverEmail}, {balance: newBalance, lastRecieve: req.body.value} );
+        const transact = await User.findOneAndUpdate({email: req.body.email}, {balance: newBalance, lastRecieve: req.body.value} );
             
 
         const newtransaction =  new Transaction(
             {
-                transactionUserEmail: req.body.receiverEmail,
+                transactionUserEmail: req.body.email,
                 balance: newBalance,
                 Recieve: req.body.value,
                 Sent: null
