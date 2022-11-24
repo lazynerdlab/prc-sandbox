@@ -10,7 +10,7 @@ const app = express();
 dotenv.config();
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGO_URL_ON)
 .then(() => console.log('DB connected'))
 .catch((err) => {
  console.log({message: err});    
