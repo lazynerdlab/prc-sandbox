@@ -14,19 +14,14 @@ const verify = async (req,res) => {
 
       const newUser = await User.findOne({_id: jwtUser.id});
       const userMail = newUser.email
-
-      const userVerify = await User.findOne({email: req.body.email});
-      if (!userVerify){
-        return res.status(403).json({message: 'not a user'})
-      }
-      
       
       if(userMail == req.body.email){
         try {
-          userVerify.updateOne({isverified: true})
+          const userVerify = await User.findOneAndUpdate({email: req.body.email},{isverified: true});
+          if(!userVerify){return res.status(401).json({message: 'not updated'});}
           res.status(200).json({message: 'User verified'});
         } catch (err) {
-          res.status(403).json({message: err});
+          res.status(500).json({message: err});
         }     
       }
 }
