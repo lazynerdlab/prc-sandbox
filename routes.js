@@ -14,7 +14,7 @@ router.put('/forgotpassword', forgotPassword);
 router.put('/resetpassword', resetPassword);
 router.put('/verify', verify);
 router.put('/transaction', transaction);
-router.put('/history/:quantity', transactionHistory);
+router.post('/history/:quantity', transactionHistory);
 router.post('/fund', Fund);
 
 

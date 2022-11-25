@@ -3,6 +3,7 @@ const User =  require('../models/user');
 const {verifyPasswordMail} = require('./component/mailer');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
+const dotenv = require('dotenv');
 
 
 

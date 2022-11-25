@@ -1,9 +1,11 @@
 const User =  require('../../models/user');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxcc2c2c4b297b426cb61bb7bc67c1273b.mailgun.org';
+const DOMAIN = process.env.MAIL_GUN_DOMAIN;
 const api_key = '533048384d80e863c0a1e8e04ff04ecb-69210cfc-a017c0fe';
 const mg = mailgun({apiKey: api_key, domain: DOMAIN});
+
 
 
 const registerMail = async (req,res)=>{

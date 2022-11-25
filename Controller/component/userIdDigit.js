@@ -1,5 +1,6 @@
 const digitGenerator = require('crypto-secure-random-digit');
 const User =  require('../../models/user');
+const dotenv = require('dotenv');
 
 
 

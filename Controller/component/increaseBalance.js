@@ -1,44 +1,38 @@
 const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
-const { transactionMail } = require('./mailer');
+const dotenv = require('dotenv');
 
 
 
 
-const increaseBalance = async (req, res) =>{
+const increaseBalance = async (response, res) =>{
 
-
-   const user = await User.findOne({email: req.body.email} )
-   if(!user) { return res.status(401).json({message: 'no account with this email'});}
-
-   if(typeof req.body.value !== "number"){
-    return res.status(401).json({message: "not a number"});
-   }
     
 
-    if (req.body.type === "increase"){
+   const user = await User.findOne({email: response.data.customer.email} )
+   if(!user) { return res.status(401).json({message: 'no account with this email'});}
+
 
         try {
             
        
-        const newBalance = user.balance += req.body.value
+        const newBalance = user.balance += response.data.amount
         
-        const transact = await User.findOneAndUpdate({email: req.body.email}, {balance: newBalance, lastRecieve: req.body.value} );
+        const transact = await User.findOneAndUpdate({email: response.data.customer.email}, {balance: newBalance, lastRecieve: response.data.value} );
             
 
         const newtransaction =  new Transaction(
             {
-                transactionUserEmail: req.body.email,
+                transactionUserEmail: response.data.customer.email,
                 balance: newBalance,
-                Recieve: req.body.value,
+                Recieve: response.data.amount,
                 Sent: null
             }
 
         )
 
         const savetransaction = await newtransaction.save();
-        transactionMail(req, res, newBalance);
-        res.status(201).json(savetransaction);
+        res.status(201).json(balance)
 
 
     } catch (err) {
@@ -48,6 +42,6 @@ const increaseBalance = async (req, res) =>{
 
     }
 
-}
+
 
 module.exports = increaseBalance;
