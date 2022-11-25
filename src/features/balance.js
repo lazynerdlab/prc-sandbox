@@ -43,7 +43,7 @@ const balanceSlice = createSlice({
     });
     builder.addCase(updateBalance.fulfilled, (state, action) => {
       state.value.isFetching = false;
-      state.value.balance = action.payload.balance;
+      state.value.balance = action.payload;
       state.value.error = "";
     });
     builder.addCase(updateBalance.rejected, (state, action) => {

@@ -4,7 +4,7 @@ export const updateBalance = createAsyncThunk(
   "balance/increaseBalance",
   async (data) => {
     try {
-      const res = await Apis("post", "transaction", data);
+      const res = await Apis("post", "balance", data);
       return res.data.balance;
     } catch (error) {
       console.log(error);
