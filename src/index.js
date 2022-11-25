@@ -4,17 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { configureStore } from "@reduxjs/toolkit";
+import { store } from "./features/store";
 import { Provider } from "react-redux";
-import userSlice from "./features/user"
-import balanceSlice from "./features/balance"
 
-const store = configureStore({
-  reducer: {
-    user: userSlice,
-    balance: balanceSlice
-  },
-});
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

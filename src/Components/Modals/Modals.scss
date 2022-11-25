@@ -17,7 +17,6 @@
   }
   &-flex {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
 
@@ -46,10 +45,24 @@
     }
   }
   button {
-    background-color: crimson;
+    background-color: rgb(26, 112, 193);
     border: none;
     border-radius: 5px;
-    padding: 0.5rem;
-    margin-top: 2rem;
+    padding: 1rem;
+    color: #fff;
+    font-size: 1.2rem;
+    width: 15rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    cursor: pointer;
   }
 }
+input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }

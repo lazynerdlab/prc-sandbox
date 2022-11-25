@@ -1,65 +1,29 @@
 import "./Dashboard.scss";
 import Img from "../../assets/cardblackH.jpg";
-import Modals from "../Modals/Modals";
-import { useState, useEffect } from "react";
-import { increaseBalance, decreaseBalance } from "../../features/balance";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchBalance } from "../../features/balance";
+import { useEffect } from "react";
+import useActions from "../../utils/hookActions";
+import {getTransactions} from "../../features/actions.transactions";
+import {updateBalance} from "../../features/actions.balance";
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  const balance = useSelector((state) => state.balance.value);
-  const user = useSelector((state) => state.user.value);
-  const [withdraw, setWithdraw] = useState(false);
-  const [loan, setLoan] = useState(false);
+  const { dispatch, state } = useActions();
+  const balance = state.balance.value;
+  const user = state.user.value;
   useEffect(() => {
-    console.log("rendered", balance);
-    if (user.balance) {
-      dispatch(fetchBalance(user.balance));
+    if (user.email) {
+      dispatch(updateBalance({ email: user.email }));
+      dispatch(getTransactions({ email: user.email }));
     }
   }, []);
   return (
-    <div className="wallet">
-      <div>
-        <img src={Img} className="wallet-Card" />
+    <div className="ml-[12%] mt-[3%] relative">
+      <div className="pt-[2%]">
+        <img src={Img} className="h-[15rem] w-[25rem]" />
         <h2>{user?.userName}</h2>
         <p>Balance:</p>
-        <h5 className="balance">${balance?.balance}.00</h5>
-        <div className="button-flex">
-          <div className="wallet-flex">
-            <div>
-              <button
-                onClick={() => {
-                  setWithdraw(!withdraw);
-                  setLoan(false);
-                }}
-              >
-                Transfer
-              </button>
-            </div>
-            <div>
-              <button
-                onClick={() => {
-                  setLoan(!loan);
-                  setWithdraw(false);
-                }}
-              >
-                Request Loan
-              </button>
-            </div>
-          </div>
-          <Modals
-            event={increaseBalance}
-            action={"send request"}
-            type={"increase"}
-            display={loan}
-          />
-          <Modals
-            event={decreaseBalance}
-            action={"Transfer"}
-            type={"decrease"}
-            display={withdraw}
-          />
-        </div>
+        <h5 className="balance">NGN {balance?.balance}.00</h5>
+      </div>
+      <div className="flex flex-col w-[80%] bg-gray-400">
+        <div className="">No Transactions History</div>
       </div>
     </div>
   );

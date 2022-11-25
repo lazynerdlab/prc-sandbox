@@ -1,10 +1,12 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import userSlice from "./user";
-// import balanceSlice from "./balance";
+import { configureStore } from "@reduxjs/toolkit";
+import user from "./user";
+import balance from "./balance";
+import transactions from "./transactions";
 
-// export default configureStore({
-//     reducer:{
-//         user: userSlice,
-//         balance: balanceSlice
-//     }
-// })
+export const store = configureStore({
+    reducer: {
+      user,
+      balance,
+      transactions
+    },
+});

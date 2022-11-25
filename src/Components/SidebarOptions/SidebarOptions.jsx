@@ -1,7 +1,10 @@
 import "./SidebarOptions.scss";
 const SidebarOption = ({ title, icon, event }) => {
   return (
-    <div onClick={event} className="sidebaroption">
+    <a
+      onClick={event}
+      className="sidebaroption block active:bg-primary-bold cursor-pointer p-[1rem] text-[1.5rem]"
+    >
       {icon && (
         <>
           <p>{title}</p>
@@ -9,7 +12,7 @@ const SidebarOption = ({ title, icon, event }) => {
         </>
       )}
       {!icon && <h4>{title}</h4>}
-    </div>
+    </a>
   );
 };
 

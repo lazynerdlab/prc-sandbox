@@ -14,48 +14,20 @@ export const login = createAsyncThunk("user/login", async (data) => {
   try {
     const res = await Apis("post", "login", data);
     console.log(res.data);
-    return {
-      email: res.data.email,
-      username: res.data.username,
-      isVerified: res.data.isverified,
-      balance: res.data.balance,
-      error: "",
-      isLoading: false,
-    };
+    return res.data;
   } catch (error) {
     console.log(error);
-    return {
-      email: "",
-      username: "",
-      isVerified: null,
-      balance: null,
-      error: error.response.data.message,
-      isLoading: false,
-    };
+    return error;
   }
 });
 export const register = createAsyncThunk("user/register", async (data) => {
   try {
     const res = await Apis("post", "register", data);
     console.log(res.data);
-    return {
-      email: res.data.others.email,
-      username: res.data.others.username,
-      isVerified: res.data.others.isverified,
-      balance: res.data.others.balance,
-      error: "",
-      isLoading: false,
-    };
+    return res.data;
   } catch (error) {
     console.log(error);
-    return {
-      email: "",
-      username: "",
-      isVerified: null,
-      balance: null,
-      error: error.response.data,
-      isLoading: false,
-    };
+    return error;
   }
 });
 const userSlice = createSlice({
@@ -71,19 +43,29 @@ const userSlice = createSlice({
       state.value.isLoading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      state.value = action.payload;
+      state.value.balance = action.payload.balance;
+      state.value.email = action.payload.email;
+      state.value.isVerified = action.payload.isVerified;
+      state.value.username = action.payload.username;
+      state.value.isLoading = false;
     });
     builder.addCase(login.rejected, (state, action) => {
-      state.value = action.payload;
+      state.value.error = action.payload;
+      state.value.isLoading = false;
     });
     builder.addCase(register.pending, (state) => {
       state.value.isLoading = true;
     });
     builder.addCase(register.fulfilled, (state, action) => {
-      state.value = action.payload;
+      state.value.balance = action.payload.balance;
+      state.value.email = action.payload.email;
+      state.value.isVerified = action.payload.isVerified;
+      state.value.username = action.payload.username;
+      state.value.isLoading = false;
     });
     builder.addCase(register.rejected, (state, action) => {
-      state.value = action.payload;
+      state.value.error = action.payload.error;
+      state.value.isLoading = false;
     });
   },
 });
