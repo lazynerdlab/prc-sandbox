@@ -29,6 +29,7 @@ const TransferModal = ({ action, type }) => {
           e.preventDefault();
           console.log(payload);
           dispatch(decreaseBalance(payload));
+          navigate(-1)
         }}
       >
         <InputAmount title="Amount" value={value} state={setValue} />

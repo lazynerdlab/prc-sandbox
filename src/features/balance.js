@@ -3,7 +3,7 @@ import { fundBalance, updateBalance, decreaseBalance } from "./actions.balance";
 
 const Balance = {
   isFetching: null,
-  balance: 5000,
+  balance: null,
   error: "",
 };
 
@@ -30,7 +30,6 @@ const balanceSlice = createSlice({
     });
     builder.addCase(decreaseBalance.fulfilled, (state, action) => {
       state.value.isFetching = false;
-      state.value.balance = action.payload;
       state.value.error = "";
     });
     builder.addCase(decreaseBalance.rejected, (state, action) => {
@@ -43,7 +42,7 @@ const balanceSlice = createSlice({
     });
     builder.addCase(updateBalance.fulfilled, (state, action) => {
       state.value.isFetching = false;
-      state.value.balance = action.payload.balance;
+      state.value.balance = action.payload;
       state.value.error = "";
     });
     builder.addCase(updateBalance.rejected, (state, action) => {

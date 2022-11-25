@@ -3,12 +3,12 @@ import { getTransactions } from "./actions.transactions";
 
 const initialStateValue = {
   isLoading: null,
-  transctions: [],
+  transactions: [],
   error: "",
 };
 
 const transactionsSlice = createSlice({
-  name: "transactionsHistory",
+  name: "transactions",
   initialState: { value: initialStateValue },
   reducers: {},
   extraReducers: (builder) => {
@@ -17,7 +17,7 @@ const transactionsSlice = createSlice({
     });
     builder.addCase(getTransactions.fulfilled, (state, action) => {
       state.value.isLoading = false;
-      state.value.transctions = action.payload;
+      state.value.transactions = action.payload;
     });
     builder.addCase(getTransactions.rejected, (state, action) => {
       state.value.isLoading = false;
