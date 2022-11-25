@@ -1,6 +1,7 @@
 const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
+const digitGenerator = require('crypto-secure-random-digit');
 
 
 
@@ -24,6 +25,19 @@ const decreaseBalance = async (req, res) =>{
 
         try {
             
+            let randomDigits = 0;
+
+            const userIdDigit = async () =>{
+               randomDigits = digitGenerator.randomDigits(11).join("");
+              const checkId = await Transaction.findOne({transactionId: randomDigits});
+              if(checkId){
+                userIdDigit();
+                 }
+                 return randomDigits;
+              }
+          
+          
+            userIdDigit();
        
             const newBalance = user.balance -= req.body.value
 
@@ -41,8 +55,9 @@ const decreaseBalance = async (req, res) =>{
                 {
                     transactionUserEmail: req.body.senderEmail,
                     balance: newBalance,
-                    Recieve: req.body.value,
-                    Sent: req.body.value
+                    Recieve: null,
+                    Sent: req.body.value,
+                    recieverUserEmail: req.body.receiverEmail
                 }
     
             )
@@ -52,7 +67,9 @@ const decreaseBalance = async (req, res) =>{
                     transactionUserEmail: req.body.receiverEmail,
                     balance: newreceiveBalance,
                     Recieve: null,
-                    Sent: req.body.value
+                    Sent: req.body.value,
+                    senderUserEmail: req.body.senderEmail,
+                    transactId: randomDigits
                 }
     
             )

@@ -2,7 +2,7 @@ const User =  require('../models/user');
 
 
 
-const balance = async (req,req) =>{
+const balance = async (req,res) =>{
     try{
     const userBalance = await User.findOne({email: req.body.email});
     const viewBalance = userBalance.balance
