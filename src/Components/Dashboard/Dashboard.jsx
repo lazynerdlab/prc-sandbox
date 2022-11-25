@@ -2,16 +2,18 @@ import "./Dashboard.scss";
 import Img from "../../assets/cardblackH.jpg";
 import { useEffect } from "react";
 import useActions from "../../utils/hookActions";
-import {getTransactions} from "../../features/actions.transactions";
-import {updateBalance} from "../../features/actions.balance";
+import { getTransactions } from "../../features/actions.transactions";
+import { updateBalance } from "../../features/actions.balance";
 const Dashboard = () => {
   const { dispatch, state } = useActions();
   const balance = state.balance.value;
   const user = state.user.value;
+  const transactions = state.transactions.value.transactions;
   useEffect(() => {
     if (user.email) {
       dispatch(updateBalance({ email: user.email }));
       dispatch(getTransactions({ email: user.email }));
+      console.log(transactions);
     }
   }, []);
   return (
