@@ -11,4 +11,4 @@ export const getTransactions = createAsyncThunk("transactions/getTransactions",a
       // return error.message;
     }
 }
-)
+);

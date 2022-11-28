@@ -2,12 +2,14 @@ import { combineReducers } from "redux";
 import user from "./user";
 import balance from "./balance";
 import transactions from "./transactions";
-import sessionStorage from "redux-persist/es/storage/session";
+import storage from "redux-persist/lib/storage";
+import storageSession from 'redux-persist/lib/storage/session'
+import session from "redux-persist/lib/storage/session";
 import { persistReducer} from "redux-persist";
 
 const persistConfig = {
   key: "root",
-  storage:sessionStorage,
+  storage:session,
   whitelist: ["user"],
 };
 
