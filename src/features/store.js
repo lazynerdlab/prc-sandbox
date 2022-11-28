@@ -5,6 +5,6 @@ import thunk from "redux-thunk";
 
 export const store = configureStore({
   reducer: PersistedReducer,
-  middleware: thunk,
+  middleware: [thunk],
 });
 export const persistor = persistStore(store);

@@ -7,7 +7,7 @@ import { persistReducer} from "redux-persist";
 
 const persistConfig = {
   key: "root",
-  sessionStorage,
+  storage:sessionStorage,
   whitelist: ["user"],
 };
 
