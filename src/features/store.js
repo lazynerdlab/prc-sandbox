@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user from "./user";
-import balance from "./balance";
-import transactions from "./transactions";
+import persistStore from "redux-persist/es/persistStore";
+import { PersistedReducer } from "./root-reducer";
+import thunk from "redux-thunk";
 
 export const store = configureStore({
-    reducer: {
-      user,
-      balance,
-      transactions
-    },
+  reducer: PersistedReducer,
+  middleware: thunk,
 });
+export const persistor = persistStore(store);
