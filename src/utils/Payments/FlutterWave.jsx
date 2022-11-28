@@ -32,13 +32,14 @@ const FlutterWave = ({ amount, email, name }) => {
           handlePayment({
             callback: (response) => {
               console.log(response);
-              const { transaction_id, trx_ref, amount } = response;
+              const { transaction_id, tx_ref, amount } = response;
               const payload = {
                 id: transaction_id,
-                trx_ref: trx_ref,
+                trx_ref: tx_ref,
                 value: amount,
                 email: state.user.value.email,
               };
+              console.log(payload)
               dispatch(fundBalance(payload));
               closePaymentModal();
             },

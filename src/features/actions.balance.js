@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Apis } from "../utils/fetchData";
 export const updateBalance = createAsyncThunk(
-  "balance/increaseBalance",
+  "balance/updateBalance",
   async (data) => {
     try {
       const res = await Apis("post", "balance", data);
-      return res.data.balance;
+      console.log(res);
+      return res.data;
     } catch (error) {
       console.log(error);
       return error.message;
