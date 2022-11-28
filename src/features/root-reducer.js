@@ -3,7 +3,7 @@ import user from "./user";
 import balance from "./balance";
 import transactions from "./transactions";
 import sessionStorage from "redux-persist/es/storage/session";
-import { persistReducer} from "redux-persist";
+import { persistReducer } from "redux-persist";
 
 const persistConfig = {
   key: "root",
