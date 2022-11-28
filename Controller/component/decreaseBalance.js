@@ -8,6 +8,11 @@ const digitGenerator = require('crypto-secure-random-digit');
 
 const decreaseBalance = async (req, res) =>{
 
+    if(req.body.senderEmail === req.body.receiverEmail){
+        return res.status(401).json({message: 'cannot send send money to your self'});
+
+    }
+    
     const user = await User.findOne({email: req.body.senderEmail} )
    if(!user) { return res.status(401).json({message: 'Cannot find user'});}
     
