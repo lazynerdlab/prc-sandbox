@@ -37,22 +37,23 @@ const Dashboard = () => {
           <tbody>
             {transactions.map((transactions) => {
               const date = new Date(transactions?.createdAt);
+              console.log(date)
               return (
                 <tr>
                   <td>
                     <div
                       className={
                         transactions?.Recieve
-                          ? " bg-green-500 rounded-full p-[1rem]"
-                          : "bg-red-500 rounded-full p-[1rem]"
+                          ? " bg-green-500 inline-block rounded-full p-[1rem]"
+                          : "bg-red-500 rounded-full inline-block p-[1rem]"
                       }
                     >
-                      {transactions?.Receive ? "CR" : "DR"}
+                      {transactions?.Recieve ? "CR" : "DR"}
                     </div>
                   </td>
-                  <td>
+                  {/* <td>
                     <div>{date}</div>
-                  </td>
+                  </td> */}
                   <td>
                     <p
                       className={
@@ -66,7 +67,7 @@ const Dashboard = () => {
                   </td>
                   <td>
                     {transactions?.senderUserEmail ||
-                      transactions?.recieverEmail}
+                      transactions?.recieverUserEmail}
                   </td>
                 </tr>
               );

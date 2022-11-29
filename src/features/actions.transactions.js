@@ -3,7 +3,7 @@ import { Apis } from "../utils/fetchData";
 
 export const getTransactions = createAsyncThunk("transactions/getTransactions",async (data) => {
     try {
-      const res = await Apis("post", "history/10", data);
+      const res = await Apis("post", "history/0", data);
       console.log(res);
       return res.data;
     } catch (error) {
