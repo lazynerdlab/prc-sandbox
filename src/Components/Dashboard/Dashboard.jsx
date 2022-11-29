@@ -24,28 +24,53 @@ const Dashboard = () => {
         <p>Balance:</p>
         <h5 className="balance">NGN {balance?.balance}.00</h5>
       </div>
-      <div className="flex flex-col w-[80%] bg-gray-400">
+      <div className="flex flex-col w-[80%]">
+        <div className="text-[1.5rem] text-primary-light">Transactions</div>
         {transactions?.length < 1 && <div>No Transaction History</div>}
         <table class="table-fixed">
-          <thead>
+          {/* <thead>
             <tr>
               <th>Amount</th>
               <th>Description</th>
             </tr>
-          </thead>
+          </thead> */}
           <tbody>
-            {transactions.map((transactions) => (
-              <tr>
-                <td>{transactions?.Recieve || transactions?.Sent}</td>
-                <td>
-                  you{" "}
-                  {transactions?.Recieve &&
-                    `received ${transactions?.Recieve} from ${transactions?.senderUserEmail}`}{" "}
-                  {transactions?.Sent &&
-                    `sent ${transactions?.Sent} to ${transactions?.recieverUserEmail}`}
-                </td>
-              </tr>
-            ))}
+            {transactions.map((transactions) => {
+              const date = new Date(transactions?.createdAt);
+              return (
+                <tr>
+                  <td>
+                    <div
+                      className={
+                        transactions?.Recieve
+                          ? " bg-green-500 rounded-full p-[1rem]"
+                          : "bg-red-500 rounded-full p-[1rem]"
+                      }
+                    >
+                      {transactions?.Receive ? "CR" : "DR"}
+                    </div>
+                  </td>
+                  <td>
+                    <div>{date}</div>
+                  </td>
+                  <td>
+                    <p
+                      className={
+                        transactions?.Recieve
+                          ? " text-green-500"
+                          : "text-red-500"
+                      }
+                    >
+                      {transactions?.Recieve || transactions?.Sent}
+                    </p>
+                  </td>
+                  <td>
+                    {transactions?.senderUserEmail ||
+                      transactions?.recieverEmail}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
