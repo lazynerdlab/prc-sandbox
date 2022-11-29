@@ -8,7 +8,7 @@ const balance = async (req,res) =>{
     const viewBalance = userBalance.balance
 
     res.status(200).json(viewBalance);
-    }catch{
+    }catch{s
 
     }
 }

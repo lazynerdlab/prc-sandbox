@@ -4,9 +4,12 @@ const dotenv = require('dotenv');
 
 
 const transactionHistory = async (req,res) =>{
-    quanitiy = parseInt(req.param.quantity);
-
-    const history = await Transaction.find({transactionUserEmail: req.body.email}).limit(req.param.quantity);
+    
+    
+    const skipContent = req.params.quantity * 10
+    quantitySend = 10;
+        
+    const history = await Transaction.find({transactionUserEmail: req.body.email}).skip(skipContent).limit(quantitySend);
     
     res.status(200).json(history);
 }

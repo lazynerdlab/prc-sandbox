@@ -12,7 +12,7 @@ const decreaseBalance = async (req, res) =>{
         return res.status(401).json({message: 'cannot send send money to your self'});
 
     }
-    
+
     const user = await User.findOne({email: req.body.senderEmail} )
    if(!user) { return res.status(401).json({message: 'Cannot find user'});}
     
@@ -52,7 +52,12 @@ const decreaseBalance = async (req, res) =>{
                 return res.status(401).json({message:"You have exceeded account limit"});
             }
 
-            const transact = await User.findOneAndUpdate({email: req.body.senderEmail}, {balance: newBalance} );
+            const transact = await User.findOneAndUpdate({email: req.body.senderEmail}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
+            
+
+            if (user.transactionCount % 3 == 0){
+                mtCharge = 10;
+            }
             
             const recievetransact = await User.findOneAndUpdate({email: req.body.receiverEmail}, {balance: newreceiveBalance} );
     
@@ -62,7 +67,12 @@ const decreaseBalance = async (req, res) =>{
                     balance: newBalance,
                     Recieve: null,
                     Sent: req.body.value,
-                    recieverUserEmail: req.body.receiverEmail
+                    recieverUserEmail: req.body.receiverEmail,
+                    transactId: randomDigits,
+                    acccountCharge: 5,
+                    managmentCharge: 5,
+                    maintenanceCharge: mtCharge,
+            
                 }
     
             )
@@ -71,8 +81,8 @@ const decreaseBalance = async (req, res) =>{
                 {
                     transactionUserEmail: req.body.receiverEmail,
                     balance: newreceiveBalance,
-                    Recieve: null,
-                    Sent: req.body.value,
+                    Recieve: req.body.value,
+                    Sent: null,
                     senderUserEmail: req.body.senderEmail,
                     transactId: randomDigits
                 }

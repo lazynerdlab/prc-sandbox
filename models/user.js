@@ -9,7 +9,8 @@ const UserSchema = new mongoose.Schema(
         isverified: { type: Boolean, default: false},
         balance: {type: Number, default: 500},
         lastSent: {type: Number, default: 0},
-        lastRecieve: {type: Number, default: 0}
+        lastRecieve: {type: Number, default: 0},
+        transactionCount: {type: Number, default: 0}
     },
     {timestamps: true}
 )

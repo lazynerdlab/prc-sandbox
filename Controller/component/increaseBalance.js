@@ -32,8 +32,11 @@ const increaseBalance = async (response, res) =>{
        
         const newBalance = user.balance += response.data.amount
         
-        const transact = await User.findOneAndUpdate({email: response.data.customer.email}, {balance: newBalance, lastRecieve: response.data.value} );
+        const transact = await User.findOneAndUpdate({email: response.data.customer.email}, {balance: newBalance, lastRecieve: response.data.value}, {$inc: {transactionCount: 1}} );
             
+        if (user.transactionCount % 3 == 0){
+            mtCharge = 10;
+        }
 
         const newtransaction =  new Transaction(
             {
@@ -42,7 +45,11 @@ const increaseBalance = async (response, res) =>{
                 Recieve: response.data.amount,
                 Sent: null,
                 transactionId: randomDigits,
-                senderUserEmail: 'Flutter Wave Payment'
+                senderUserEmail: 'Flutter Wave Payment',
+                acccountCharge: 5,
+                managmentCharge: 5,
+                maintenanceCharge: mtCharge
+        
             }
 
         )

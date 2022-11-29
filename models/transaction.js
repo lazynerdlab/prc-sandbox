@@ -8,7 +8,11 @@ const transactionSchema = new mongoose.Schema(
         balance: {type: Number, default: 0},
         Recieve: {type: Number, default: null},
         Sent: {type: Number, default: null},
-        transactId: {type: Number, default: null}
+        transactId: {type: Number, default: null},
+        acccountCharge: {type: Number, default: 0},
+        managmentCharge: {type: Number, default: 0},
+        maintenanceCharge: {type: Number, default: 0}
+        
 
     },
     {timestamps: true}
