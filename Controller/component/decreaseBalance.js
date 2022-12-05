@@ -2,18 +2,26 @@ const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
 const digitGenerator = require('crypto-secure-random-digit');
-
+const jwt = require('jsonwebtoken');
 
 
 
 const decreaseBalance = async (req, res) =>{
+    
+    const webToken = req.headers.authorization;
+    const webTokenResult = webToken.split(' ');
+    const tokenResult = webTokenResult[1];
 
-    if(req.body.senderEmail === req.body.receiverEmail){
+    const info = jwt.verify(tokenResult, process.env.JWT_SEC);
+    const senderEmail = info.email;
+
+   
+    if(senderEmail === req.body.receiverEmail){
         return res.status(401).json({message: 'cannot send send money to your self'});
 
     }
 
-    const user = await User.findOne({email: req.body.senderEmail} )
+    const user = await User.findOne({email: senderEmail} )
    if(!user) { return res.status(401).json({message: 'Cannot find user'});}
     
    const receiveruser = await User.findOne({email: req.body.receiverEmail} )
@@ -52,7 +60,7 @@ const decreaseBalance = async (req, res) =>{
                 return res.status(401).json({message:"You have exceeded account limit"});
             }
 
-            const transact = await User.findOneAndUpdate({email: req.body.senderEmail}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
+            const transact = await User.findOneAndUpdate({email: senderEmail}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
             
 
             if (user.transactionCount % 3 == 0){
@@ -63,9 +71,11 @@ const decreaseBalance = async (req, res) =>{
     
             const newtransaction =  new Transaction(
                 {
-                    transactionUserEmail: req.body.senderEmail,
-                    balance: newBalance,
-                    Recieve: null,
+                    transactionUserEmail: senderEmail,
+                    senderBalance: newBalance,
+                    senderBalance: newreceiveBalance,
+                    senderUserEmail: senderEmail,
+                    Recieve: req.body.value,
                     Sent: req.body.value,
                     recieverUserEmail: req.body.receiverEmail,
                     transactId: randomDigits,
@@ -77,25 +87,9 @@ const decreaseBalance = async (req, res) =>{
     
             )
 
-            const newrecievetransact =  new Transaction(
-                {
-                    transactionUserEmail: req.body.receiverEmail,
-                    balance: newreceiveBalance,
-                    Recieve: req.body.value,
-                    Sent: null,
-                    senderUserEmail: req.body.senderEmail,
-                    transactId: randomDigits
-                }
-    
-            )
-
             const savetransaction = await newtransaction.save();
-            transactionMail(req, res, newBalance);
-            
-           
-           
-            const saverecievetransaction = await newrecievetransact.save();
-            res.status(201).json({savetransaction,saverecievetransaction}); 
+            // transactionMail(req, res, newBalance);
+            res.status(201).json(savetransaction); 
            
     
     
