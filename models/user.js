@@ -10,7 +10,10 @@ const UserSchema = new mongoose.Schema(
         balance: {type: Number, default: 500},
         lastSent: {type: Number, default: 0},
         lastRecieve: {type: Number, default: 0},
-        transactionCount: {type: Number, default: 0}
+        transactionCount: {type: Number, default: 0},
+        isAdmin: { type: Boolean, default: false},
+        isSuperAdmin: { type: Boolean, default: false},
+        isActive: { type: Boolean, default: true}
     },
     {timestamps: true}
 )

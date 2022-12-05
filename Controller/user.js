@@ -65,7 +65,10 @@ const Login = async (req,res) => {
         } 
 
      const {password, ...others} = user._doc;
-     res.status(200).json(others);
+
+     const accessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '1000sec'})
+     const refreshAccessToken = jwt.sign(others, process.env.REFRESH_JWT_SEC,{expiresIn: '10d'})
+     res.status(200).json({others, accessToken, refreshAccessToken });
 
   } catch(err){
     res.status(500).json(err);
