@@ -54,15 +54,15 @@ const Login = async (req,res) => {
 
   try{
     const user = await User.findOne({email: req.body.email})
-    if(!user) {return res.status(401).json({message: 'not a user'});}
-  
+    if(!user) {return res.status(401).json({message: 'Email or password is incorrect'});}
     
-      const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
-      const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
+    const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
+    const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
 
-      if(logpassword !== req.body.password) {
-        return res.status(401).json({message: 'Wrong password'});
-        } 
+    console.log(user)
+    if( !user || (logpassword !== req.body.password)) {
+      return res.status(401).json({ message: 'Email or password is incorrect'});
+    } 
 
      const {password, ...others} = user._doc;
 
