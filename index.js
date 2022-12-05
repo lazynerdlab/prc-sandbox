@@ -6,9 +6,6 @@ const router = require('./routes');
 const bodyParser =require('body-parser');
 const app = express();
 
-const createInvoice = require('./Controller/invoice/createInvoice'),
-   invoiceSchema = require('./Controller/invoice/invoice') 
-createInvoice(invoiceSchema, 'invoice.pdf')
 
 dotenv.config();
 app.use(cors());

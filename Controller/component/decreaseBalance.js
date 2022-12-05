@@ -2,6 +2,7 @@ const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
 const digitGenerator = require('crypto-secure-random-digit');
+const createInvoice = require('../invoice/createInvoice')
 
 
 
@@ -90,6 +91,23 @@ const decreaseBalance = async (req, res) =>{
             )
 
             const savetransaction = await newtransaction.save();
+            console.log({savetransaction})
+            const invoiceSchema = {
+                senderDetails: {
+                    senderEmail: savetransaction.transactionUserEmail
+                },
+                receiverDetails: {
+                    receiverEmail: savetransaction.recieverUserEmail
+                },
+                transactionDetails: {
+                    amountSent: savetransaction.Sent,
+                    accountCharge: savetransaction.acccountCharge,
+                    transactId: savetransaction.transactId,
+
+                }
+            }
+            createInvoice(invoiceSchema, 'transanctionInvoice.pdf')
+
             transactionMail(req, res, newBalance);
             
            

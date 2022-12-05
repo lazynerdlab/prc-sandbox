@@ -1,5 +1,14 @@
-const invoice = {
-	shipping: {
+const Transaction = require('../../models/transaction')
+
+// const findTransanction = (req, res) => {
+// 	const transactionId = Transaction.findOne({transactId: req.body.transactId})
+// 	console.log(transactionId)
+// 	return transactionId
+// }
+// findTransanction()
+
+const invoiceSchema = {
+	senderDetails: {
 		name: 'John Doe',
 		address: '1234 Main Street',
 		city: 'San Francisco',
@@ -26,4 +35,4 @@ const invoice = {
 	invoice_nr: 1234,
 };
 
-module.exports = invoice;
+module.exports = invoiceSchema;
