@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 const useActions = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  return { dispatch, navigate, state };
+  const user = useSelector((state) => state.user.value);
+  const userName = useSelector((state) => state.user.value?.username);
+  const userEmail = useSelector((state) => state.user.value?.email);
+  return { dispatch, navigate, user, userEmail, userName };
 };
 
 export default useActions;

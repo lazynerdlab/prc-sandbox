@@ -1,9 +1,8 @@
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
-import useActions from "../hookActions";
-import { fundBalance } from "../../features/actions.balance";
+import { useFundMutation } from "../../features/api/transactionApiSlice";
 import { randomRef } from "./TransactRef";
 const FlutterWave = ({ amount, email, name }) => {
-  const { dispatch, state } = useActions();
+  const [fund, { isSuccess }] = useFundMutation();
   const config = {
     public_key: "FLWPUBK_TEST-ebda4d502301b0ddb917d2f7d75c04b5-X",
     tx_ref: randomRef(name),
@@ -13,7 +12,7 @@ const FlutterWave = ({ amount, email, name }) => {
     customer: {
       email: email,
       phone_number: "070********",
-      name: "john doe",
+      name,
     },
     customizations: {
       title: "E-wallet Funds",
@@ -30,18 +29,17 @@ const FlutterWave = ({ amount, email, name }) => {
       onClick={() => {
         if (amount && amount >= 1) {
           handlePayment({
-            callback: (response) => {
+            callback: async (response) => {
               console.log(response);
               const { transaction_id, tx_ref, amount } = response;
               const payload = {
                 id: transaction_id,
                 trx_ref: tx_ref,
                 value: amount,
-                email: state.user.value.email,
               };
-              console.log(payload)
-              dispatch(fundBalance(payload));
-              closePaymentModal();
+              const res = await fund(payload);
+              console.log(res);
+              if (isSuccess) closePaymentModal();
             },
             onClose: () => {},
           });

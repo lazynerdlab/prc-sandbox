@@ -12,25 +12,18 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const balance = useSelector((state) => state.balance.value);
+  // const balance = useSelector((state) => state.balance.value);
   useEffect(() => {
-    console.log(user, balance);
-  }, [user, balance]);
+    console.log(user);
+  }, [user]);
 
   return (
     <main>
-      {user?.username && (
-        <div>
-          <Navigation />
-          <Sidebar />
-          <Routes>
-            <Route path={"/"} element={<Dashboard />} />
-            <Route path="/transfer" element={<Transfer />} />
-            <Route path="/fund" element={<Fund />} />
-          </Routes>
-        </div>
-      )}
-      {!user?.username && <Login />}
+      <Routes>
+        <Route path={"/"} element={<Dashboard />} />
+        <Route path="/transfer" element={<Transfer />} />
+        <Route path="/fund" element={<Fund />} />
+      </Routes>
     </main>
   );
 };
