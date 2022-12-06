@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const router = require('./routes');
+const transactionRouthes = require('./routes/transaction');
+const authRouthes = require('./routes/transaction');
+const verifyRouthes = require('./routes/transaction');
 const bodyParser =require('body-parser');
 const app = express();
 
@@ -20,7 +22,10 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 
 app.use(bodyParser.json({limit:"30mb", extended: true}));
-app.use('/api', router)
+app.use('/transaction', transactionRouthes);
+app.use('/auth', authRouthes);
+app.use('/verify', verifyRouthes);
+
 
  app.listen( process.env.SERVER_URL || 7000, ()=>{
     console.log('tested');
