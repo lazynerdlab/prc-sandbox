@@ -12,10 +12,18 @@ const authPermission = (req, res, next) => {
 }
 
 const adminPermission = (req, res, next) => {
-    const user = req.user
+    const token  = req.header('access-token')
 
-    if (!user.isAdmin) {
-        return res.status(401).json('You are not authorized to access this page')
+    try {
+        const verified = jwt.verify(token, process.env.JWT_SEC)
+        req.user = verified
+        console.log(req.user)
+
+    } catch (error) {
+        
+    }
+    if (!req.user.isAdmin == true) {
+        return res.status(401).json('You are not an admin')
     }
 
     next()

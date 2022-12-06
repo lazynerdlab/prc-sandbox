@@ -19,7 +19,7 @@ router.put('/transaction', transaction);
 router.post('/history/:quantity', transactionHistory);
 router.post('/fund', Fund);
 router.post('/balance', balance);
-router.get('/transaction/download', authPermission,  downloadTransactionInvoice)
+router.get('/transaction/download', authPermission, adminPermission, downloadTransactionInvoice)
 
 
 
