@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useGetTransactionsQuery } from "../../features/api/transactionApiSlice";
+// import { useGetTransactionsQuery } from "../../features/api/transactionApiSlice";
 import Loader from "../../utils/Loader";
 import TransactionTable from "./TransactionTable";
 const Transactions = () => {
   const [params, setParams] = useState(1);
-  const { data: res, isLoading } = useGetTransactionsQuery(params);
+  // const { data: res, isLoading } = useGetTransactionsQuery(params);
   const limit = res?.total / 10;
   const iterator = new Array(limit).fill(1);
   return (
