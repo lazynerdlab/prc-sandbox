@@ -6,7 +6,7 @@ const {transaction} = require('./Controller/transaction');
 const {Fund} = require('./Controller/fund');
 const { transactionHistory } = require('./Controller/transactionHistoy');
 const { balance } = require('./Controller/balance');
-const { downloadTransactionInvoice } = require('./Controller/invoice/downloadTransaction')
+const { downloadTransactionInvoice } = require('./services/invoice/downloadTransaction')
 const router = require('express').Router();
 
 

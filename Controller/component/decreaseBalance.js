@@ -2,7 +2,7 @@ const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
 const digitGenerator = require('crypto-secure-random-digit');
-const createInvoice = require('../invoice/createInvoice')
+const createInvoice = require('../../services/invoice/createInvoice')
 
 
 

@@ -1,7 +1,7 @@
 const decreaseBalance = require("./component/decreaseBalance");
 const increaseBalance = require("./component/increaseBalance");
-const createInvoice = require('./invoice/createInvoice'),
-    invoiceSchema = require('./invoice/invoiceSchema');
+const createInvoice = require('../services/invoice/createInvoice'),
+    invoiceSchema = require('../services/invoice/invoiceSchema');
 
 
 const transaction = (req, res) => {
