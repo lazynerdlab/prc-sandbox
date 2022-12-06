@@ -2,12 +2,9 @@ const Transaction = require('../../models/transaction');
 const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
 const digitGenerator = require('crypto-secure-random-digit');
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
-=======
 const createInvoice = require('../../services/invoice/createInvoice')
 
->>>>>>> invoice
 
 
 
@@ -93,10 +90,8 @@ const decreaseBalance = async (req, res) =>{
             )
 
             const savetransaction = await newtransaction.save();
-<<<<<<< HEAD
             // transactionMail(req, res, newBalance);
             res.status(201).json(savetransaction); 
-=======
             console.log({savetransaction})
             const invoiceSchema = {
                 senderDetails: {
@@ -120,7 +115,6 @@ const decreaseBalance = async (req, res) =>{
            
             const saverecievetransaction = await newrecievetransact.save();
             res.status(201).json({savetransaction,saverecievetransaction}); 
->>>>>>> invoice
            
     
     
