@@ -8,7 +8,7 @@ function generateHeader(doc) {
 	).text(
 		'Purscliq Header',
 		50,
-		780,
+		70,
 		{ align: 'center', width: 500 },
 	);
 }
@@ -18,8 +18,8 @@ function generateFooter(doc) {
         10,
     ).text(
         'Purscliq Footer',
-        50,
-        780,
+        20,
+        500,
         { align: 'center', width: 500 },
     );
 }
@@ -44,7 +44,7 @@ function generateBody(doc, invoice) {
 }
 
 const createInvoice = (invoice, path) => {
-    let document = new PDFdoc({margin: 50})
+    let document = new PDFdoc({margin: 5})
 
     generateHeader(document); 
     generateBody(document, invoice)
