@@ -1,21 +1,21 @@
 import "./Navigation.scss";
+import styled from 'styled-components'
 import useActions from "../../utils/Hooks/hookActions";
 // import { FaUserAlt } from "react-icons/fa";
+
+
+const Navcontainer = styled.nav`
+  width: 100%;
+  background: #001DB8;
+  height: 55px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+` 
+
+
 const Navigation = () => {
-  const { userName } = useActions();
+  // const { userName } = useActions();
   return (
-    <div className="w-full fixed z-1000 top-[0] left-[0] p-[0.5rem] bg-primary-bold">
-      <div className="flex justify-between items-center">
-        <div className="text-blue-800 text-[2rem]"> Hello {userName}!</div>
-        <div className="flex-item">
-          {/* <FaUserAlt /> */}
-          <img
-            src="https://xsgames.co/randomusers/avatar.php?g=male"
-            alt="avatar"
-          />
-        </div>
-      </div>
-    </div>
+    <Navcontainer></Navcontainer>
   );
 };
 

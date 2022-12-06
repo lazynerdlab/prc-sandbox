@@ -9,6 +9,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import SuperAdminDashboard from "./Components/Admin/SuperAdminDashboard";
 
 import useActions from "./utils/Hooks/hookActions";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 function App() {
   const { user } = useActions();
@@ -20,6 +21,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/resetpassword" element={<ResetPass />} />
       <Route path="/userauth/*" element={<Token />} />
+      <Route path="/test" element={<Home />} />
 
       {/* Protected Routes */}
       <Route path="*" element={<RequireAuth />}>
@@ -29,6 +31,7 @@ function App() {
           <Route path="/*" element={<SuperAdminDashboard />} />
         )}
       </Route>
+
     </Routes>
   );
 }
