@@ -1,15 +1,14 @@
-
-const {Register, Login} = require('../Controller/user');
-const {forgotPassword, resetPassword} = require('../Controller/resetpassword');
-const { logout } = require('../Controller/logout');
 const router = require('express').Router();
 
+const {register, login} = require('../Controller/user');
+const {forgotPassword, resetPassword} = require('../Controller/resetpassword');
+const { logout } = require('../Controller/logout');
 
-router.post('/register', Register);
-router.post('/login', Login);
+
+router.post('/register', register);
+router.post('/login', login);
 router.put('/forgotpassword', forgotPassword);
 router.put('/resetpassword', resetPassword);
-router.post('/logout', logout);
 
 
 module.exports = router;
