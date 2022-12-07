@@ -71,12 +71,13 @@ const Login = async (req,res) => {
 
      const {password, ...others} = user._doc;
      const dataInfo = (others.email, others.userId) 
-
      const accessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '1d'});
-
      const refreshAccessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '10d'});
 
-     res.status(200).json({others, accessToken, refreshAccessToken });
+    //  res.status(200).json({others, accessToken, refreshAccessToken });
+    //  const accessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '1d'})
+    //  const refreshAccessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '10d'})
+     res.status(200).header('access-token').json({ others, accessToken, refreshAccessToken });
 
   } catch(err){
     res.status(500).json({message: `error: ${err}`});
