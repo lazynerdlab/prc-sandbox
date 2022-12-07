@@ -1,9 +1,9 @@
 
-const User =  require('../models/user');
+const User =  require('../../models/user');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
-const {registerMail} = require('./component/mailer');
-const userIdDigit = require('./component/userIdDigit');
+const {registerMail} = require('../component/mailer');
+// const userIdDigit = require('../component/userIdDigit');
 const digitGenerator = require('crypto-secure-random-digit');
 
 

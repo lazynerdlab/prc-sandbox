@@ -1,10 +1,10 @@
 const Flutterwave = require('flutterwave-node-v3');
-const increaseBalance = require('./component/increaseBalance');
-const dotenv = require('dotenv');
+const increaseBalance = require('../component/increaseBalance');
 
 
 
-const Fund = (req,res) =>{
+
+const fund = (req,res) =>{
     
     const transactionRef = req.body.trx_ref;
     const amount = req.body.value;
@@ -49,4 +49,4 @@ verify();
 
 
 
-module.exports = {Fund};
+module.exports = {fund};

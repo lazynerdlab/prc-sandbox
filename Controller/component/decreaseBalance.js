@@ -16,8 +16,6 @@ const decreaseBalance = async (req, res) =>{
     const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
     const senderEmail = info.email;
 
-   console.log(webToken);
-   console.log(webTokenResult);
 
     console.log(senderEmail);
     if(senderEmail === req.body.receiverEmail){
