@@ -11,13 +11,15 @@ const createInvoice = require('../../services/invoice/createInvoice')
 const decreaseBalance = async (req, res) =>{
     
     const webToken = req.headers.authorization;
-    const webTokenResult = webToken.split(' ');
-    const tokenResult = webTokenResult[1];
+    const webTokenResult = webToken.split(' ')[1];
 
-    const info = jwt.verify(tokenResult, process.env.JWT_SEC);
+    const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
     const senderEmail = info.email;
 
-   
+   console.log(webToken);
+   console.log(webTokenResult);
+
+    console.log(senderEmail);
     if(senderEmail === req.body.receiverEmail){
         return res.status(401).json({message: 'cannot send send money to your self'});
 
@@ -113,8 +115,8 @@ const decreaseBalance = async (req, res) =>{
             
            
            
-            const saverecievetransaction = await newrecievetransact.save();
-            res.status(201).json({savetransaction,saverecievetransaction}); 
+            // const saverecievetransaction = await newrecievetransact.save();
+            // res.status(201).json({savetransaction,saverecievetransaction}); 
            
     
     

@@ -70,9 +70,11 @@ const login = async (req,res) => {
     } 
 
      const {password, ...others} = user._doc;
-     const dataInfo = (others.email, others.userId) 
-     const accessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '1d'});
-     const refreshAccessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '10d'});
+     const email = others.email;
+     const id = others.userId
+     
+     const accessToken = jwt.sign({email, id}, process.env.JWT_SEC);
+     const refreshAccessToken = jwt.sign({email, id}, process.env.JWT_SEC);
 
     //  res.status(200).json({others, accessToken, refreshAccessToken });
     //  const accessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '1d'})
@@ -84,4 +86,18 @@ const login = async (req,res) => {
   }
 }
 
-module.exports = {register, login};
+
+const logout = async (req, res) => {
+  const webToken = req.headers.authorization;
+  const webTokenResult = webToken.split(' ')[1];
+
+  const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
+  const senderId = info.id;
+
+  const logoutUser = await User.findOneAndUpdate({userId: senderId}, {isLoggeIn: false});
+  if(!logoutUser){
+    return res.json(403).json({message: 'failed to you logout'});
+  }
+}
+
+module.exports = {register, login, logout};
