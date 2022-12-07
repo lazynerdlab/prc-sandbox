@@ -59,15 +59,23 @@ const Login = async (req,res) => {
     const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)  
     const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
 
+    const userUpdate = await User.findOneAndUpdate(req.body.email, {isLoggeIn: true});
+    if(!userUpdate) {return res.status(403).json({message: 'User not logged in'})}
+
+
+    console.log(userUpdate);
   
     if( !user || (logpassword !== req.body.password)) {
       return res.status(401).json({ message: 'Email or password is incorrect'});
     } 
 
      const {password, ...others} = user._doc;
+     const dataInfo = (others.email, others.userId) 
 
-     const accessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '1d'})
-     const refreshAccessToken = jwt.sign(others, process.env.JWT_SEC,{expiresIn: '10d'})
+     const accessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '1d'});
+
+     const refreshAccessToken = jwt.sign(dataInfo, process.env.JWT_SEC,{expiresIn: '10d'});
+
      res.status(200).json({others, accessToken, refreshAccessToken });
 
   } catch(err){
