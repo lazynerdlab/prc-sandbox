@@ -9,6 +9,7 @@ const { balance } = require('./Controller/balance');
 const { downloadTransactionInvoice } = require('./services/invoice/downloadTransaction')
 const router = require('express').Router();
 const { authPermission, adminPermission } = require('./middleware/permissions') 
+const { toggleAdminStatus } = require('./Controller/toggleAdminStatus')
 
 router.post('/register', Register);
 router.post('/login', Login);
@@ -20,6 +21,7 @@ router.post('/history/:quantity', transactionHistory);
 router.post('/fund', Fund);
 router.post('/balance', balance);
 router.get('/transaction/download', authPermission, adminPermission, downloadTransactionInvoice)
+router.patch('/user/:userId/changeadmin', toggleAdminStatus)
 
 
 
