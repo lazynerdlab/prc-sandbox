@@ -3,7 +3,8 @@ const User =  require('../../models/user');
 const { transactionMail } = require('./mailer');
 const digitGenerator = require('crypto-secure-random-digit');
 const jwt = require('jsonwebtoken');
-const createInvoice = require('../../services/invoice/createInvoice')
+const createInvoice = require('../../services/invoice/createInvoice');
+const { transferIdDigit } = require('./digitGenerator');
 
 
 
@@ -14,6 +15,8 @@ const decreaseBalance = async (req, res) =>{
     const webTokenResult = webToken.split(' ')[1];
 
     const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
+
+
     if(!info){
         return res.status(403).json({message:  `error: ${err}`})
     }
@@ -23,7 +26,6 @@ const decreaseBalance = async (req, res) =>{
 
 
 
-    console.log(senderEmail);
     if(senderEmail === req.body.receiverEmail){
         return res.status(401).json({message: 'cannot send send money to your self'});
 
@@ -39,26 +41,10 @@ const decreaseBalance = async (req, res) =>{
 
    if(typeof req.body.value !== "number"){
     return res.status(401).json({message: "not a number"});
-   }
-    
+   }      
 
- if( req.body.type === "decrease" ){
 
-        try {
-            
-            let randomDigits = 0;
-
-            const userIdDigit = async () =>{
-               randomDigits = digitGenerator.randomDigits(11).join("");
-              const checkId = await Transaction.findOne({transactionId: randomDigits});
-              if(checkId){
-                userIdDigit();
-                 }
-                 return randomDigits;
-              }
-          
-          
-            userIdDigit();
+            const newDigit = await transferIdDigit()
        
             const newBalance = user.balance -= req.body.value
 
@@ -67,7 +53,7 @@ const decreaseBalance = async (req, res) =>{
             if(newBalance < 1){
                 return res.status(401).json({message:"You have exceeded account limit"});
             }
-
+            
             const transact = await User.findOneAndUpdate({email: senderEmail}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
             
 
@@ -86,7 +72,7 @@ const decreaseBalance = async (req, res) =>{
                     Recieve: req.body.value,
                     Sent: req.body.value,
                     recieverUserEmail: req.body.receiverEmail,
-                    transactId: randomDigits,
+                    transactId: newDigit,
                     acccountCharge: 5,
                     managmentCharge: 5,
                     maintenanceCharge: mtCharge,
@@ -98,7 +84,8 @@ const decreaseBalance = async (req, res) =>{
             const savetransaction = await newtransaction.save();
             // transactionMail(req, res, newBalance);
             res.status(201).json(savetransaction); 
-            console.log({savetransaction})
+            
+            
             const invoiceSchema = {
                 senderDetails: {
                     senderEmail: savetransaction.transactionUserEmail
@@ -113,7 +100,7 @@ const decreaseBalance = async (req, res) =>{
 
                 }
             }
-            createInvoice(invoiceSchema, `services/invoice/saveInvoice/invoice${invoiceSchema.transactionDetails.transactId}.pdf`)
+            createInvoice(invoiceSchema, 'transanctionInvoice.pdf')
 
             transactionMail(req, res, newBalance);
             
@@ -122,14 +109,6 @@ const decreaseBalance = async (req, res) =>{
             // const saverecievetransaction = await newrecievetransact.save();
             // res.status(201).json({savetransaction,saverecievetransaction}); 
            
-    
-    
-        } catch (err) {
-             res.status(500).json({message: err});   
         }
-
-    }
-
-}
 
 module.exports = decreaseBalance;

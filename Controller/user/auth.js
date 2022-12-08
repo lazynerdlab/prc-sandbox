@@ -3,8 +3,8 @@ const User =  require('../../models/user');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const {registerMail} = require('../component/mailer');
-// const userIdDigit = require('../component/userIdDigit');
-const digitGenerator = require('crypto-secure-random-digit');
+const {userIdDigit} = require('../component/digitGenerator');
+//const digitGenerator = require('crypto-secure-random-digit');
 
 
 const register =  async (req,res) =>{
@@ -14,28 +14,16 @@ const register =  async (req,res) =>{
   const findUser = await User.findOne({username: req.body.username})
   if(findUser) {return res.status(401).json({message: 'Username already exist'});}
 
-  let randomDigits = 0;
 
-  const userIdDigit = async () =>{
-     randomDigits = digitGenerator.randomDigits(10).join("");
-    const checkId = await User.findOne({userId: randomDigits});
-    if(checkId){
-      userIdDigit();
-       }
-       return randomDigits;
-    }
+const newDigit = await userIdDigit()
 
-
-  userIdDigit();
-
- 
 
  const newUser = new User({
     username: req.body.username,
     email: req.body.email,
     password: CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString(),
     isverified: false,
-    userId: randomDigits
+    userId: newDigit
     
 }
  )

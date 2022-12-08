@@ -25,7 +25,7 @@ app.use(bodyParser.json({limit:"30mb", extended: true}));
 app.use('/api', router);
 
 
- app.listen( process.env.SERVER_URL || 7000, ()=>{
+ app.listen( process.env.PORT || 7000, ()=>{
     console.log('tested');
  });
 

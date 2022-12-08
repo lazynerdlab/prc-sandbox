@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema(
         lastName: { type: String},
         middleName: { type: String},
         userId: { type: Number, required: true, unique: true},
-        BVN: { type: Number, unique: true},
+        BVN: { type: Number},
         email: { type: String, required:true, unique:true},
         password: { type: String, required:true, unique:true},
         isverified: { type: Boolean, default: false},
