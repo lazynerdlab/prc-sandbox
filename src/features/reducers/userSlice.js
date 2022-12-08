@@ -4,7 +4,11 @@ const initialStateValue = {
   username: "",
   isVerified: null,
   isAdmin: null,
-  isSuperAdmin: true,
+  isSuperAdmin: null,
+  accessToken: "",
+  isActive: null,
+  AccountNumber: "",
+  BankName: "",
 };
 
 const userSlice = createSlice({
@@ -14,10 +18,13 @@ const userSlice = createSlice({
     setCredentials: (state, action) => {
       state.value = action.payload;
     },
+    setToken: (state, action) => {
+      state.value.accessToken = action.payload;
+    },
     logout: (state) => {
       state.value = initialStateValue;
     },
   },
 });
-export const { logout, setCredentials } = userSlice.actions;
+export const { logout, setCredentials, setToken } = userSlice.actions;
 export default userSlice.reducer;

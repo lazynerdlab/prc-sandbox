@@ -19,6 +19,8 @@ const Home = () => {
 
   return (
     <main>
+      <Navigation />
+      <Sidebar />
       <Routes>
         <Route path={"/"} element={<Dashboard />} />
         <Route path="/transfer" element={<Transfer />} />

@@ -4,13 +4,13 @@ export const transactionsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTransactions: builder.query({
       query: (id) => ({
-        url: `/history/${id}`,
+        url: `transaction/history/${id}`,
       }),
       providesTags: (id) => [{ type: "transactions", id }],
     }),
     transfer: builder.mutation({
       query: (amount) => ({
-        url: "/transfer",
+        url: "transaction/transfer",
         method: "Post",
         body: { amount },
       }),
@@ -18,7 +18,7 @@ export const transactionsApiSlice = apiSlice.injectEndpoints({
     }),
     fund: builder.mutation({
       query: (credentials) => ({
-        url: "/fund",
+        url: "transaction/fund",
         method: "Post",
         body: { ...credentials },
       }),
@@ -27,4 +27,5 @@ export const transactionsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTransactionsQuery, useTransferMutation, useFundMutation } = transactionsApiSlice;
+export const { useGetTransactionsQuery, useTransferMutation, useFundMutation } =
+  transactionsApiSlice;

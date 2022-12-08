@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import useActions from "../../utils/Hooks/hookActions";
-import { useTransferMutation } from "../../features/api/transactionApiSlice";
+import { useRegisterMutation } from "../../features/api/userApiSlice";
 import ErrorModal from "../../Components/Modals/errorModal";
 import SuccessModal from "../../Components/Modals/successModal";
 import Loader from "../../utils/Loader";
@@ -8,8 +8,7 @@ import Loader from "../../utils/Loader";
 const Register = () => {
   const userRef = useRef();
   const { navigate } = useActions();
-  const [register, { isLoading, isError, isSuccess, error }] =
-    useTransferMutation();
+  const [register, { isLoading, error }] = useRegisterMutation();
 
   const [user, setUser] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -34,14 +33,14 @@ const Register = () => {
       password: pwd,
       email: email,
     });
-    if (isSuccess) {
+    if (res.data) {
       setUser("");
       setPwd("");
       setCPwd("");
       setEmail("");
       setSuccess(true);
     }
-    if (isError) {
+    if (res.error) {
       setErr(true);
       setErrMsg(error?.message);
     }
@@ -56,7 +55,7 @@ const Register = () => {
         }}
       />
       <SuccessModal
-        alter={isSuccess}
+        alter={success}
         message={
           "Thanks For Signing up, Check your Email for a verification mail."
         }

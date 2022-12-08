@@ -5,9 +5,19 @@ import { BiTransferAlt } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { AiOutlineProfile } from "react-icons/ai";
+import { useSignoutQuery } from "../../features/api/userApiSlice";
 import SidebarOption from "../SidebarOptions/SidebarOptions";
+import LargeLoader from "../../utils/LargeLoader";
 const Sidebar = () => {
   const { navigate, dispatch } = useActions();
+  const [signout, { isLoading }] = useSignoutQuery();
+
+  const handleSignOut = async () => {
+    const res = await signout();
+    dispatch(logout());
+    sessionStorage.setItem("token", "");
+  };
+
   return (
     <div className="fixed h-screen bg-primary-bold text-white font-medium text-left">
       <nav className="flex flex-col items-start justify-start h-[90%] relative">
@@ -15,7 +25,7 @@ const Sidebar = () => {
           title={"Dashboard"}
           icon={<MdOutlineSpaceDashboard />}
           event={() => {
-            navigate("/dashboard");
+            navigate("/");
           }}
         />
         <SidebarOption
@@ -27,11 +37,35 @@ const Sidebar = () => {
           }}
         />
         <SidebarOption
+          title={"Bill Payment"}
+          icon={<BiTransferAlt />}
+          className="nav-item"
+          event={() => {
+            navigate("/bills");
+          }}
+        />
+        <SidebarOption
           title={"Transfer"}
           icon={<BiTransferAlt />}
           className="nav-item"
           event={() => {
             navigate("/transfer");
+          }}
+        />
+        <SidebarOption
+          title={"Airtime/Data"}
+          icon={<BiTransferAlt />}
+          className="nav-item"
+          event={() => {
+            navigate("/topup");
+          }}
+        />
+        <SidebarOption
+          title={"Self-Services"}
+          icon={<BiTransferAlt />}
+          className="nav-item"
+          event={() => {
+            navigate("/self-services");
           }}
         />
         <SidebarOption
@@ -46,11 +80,9 @@ const Sidebar = () => {
           <SidebarOption
             title={"Sign Out"}
             icon={<FaSignOutAlt />}
-            event={() => {
-              dispatch(logout());
-              sessionStorage.setItem("token", "");
-            }}
+            event={handleSignOut}
           />
+          {isLoading && <LargeLoader />}
         </div>
       </nav>
     </div>

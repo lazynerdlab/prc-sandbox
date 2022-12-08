@@ -9,6 +9,10 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import SuperAdminDashboard from "./Components/Admin/SuperAdminDashboard";
 
 import useActions from "./utils/Hooks/hookActions";
+import SetupKYC from "./utils/UserAuthorization/SetupKYC";
+import VerifyBVN from "./utils/UserAuthorization/VerifyBVN";
+import UserRequireAuth from "./utils/UserRequireAuth";
+import OtherTransfer from "./pages/Transfer/OtherTransfer";
 
 function App() {
   const { user } = useActions();
@@ -20,10 +24,18 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/resetpassword" element={<ResetPass />} />
       <Route path="/userauth/*" element={<Token />} />
+      <Route path="test" element={<OtherTransfer />} />
+      {/* Authorization Routes */}
+      <Route path="accountsetup" element={<SetupKYC />} />
+      <Route path="verifybvn" element={<VerifyBVN />} />
 
-      {/* Protected Routes */}
+      {/* Protected routes */}
       <Route path="*" element={<RequireAuth />}>
-        {user.isVerified && <Route path="/*" element={<Home />} />}
+        {!user.isVerified && (
+          <Route path="/*" element={<UserRequireAuth />}>
+            <Route index element={<Home />} />
+          </Route>
+        )}
         {user.isAdmin && <Route path="/*" element={<AdminDashboard />} />}
         {user.isSuperAdmin && (
           <Route path="/*" element={<SuperAdminDashboard />} />

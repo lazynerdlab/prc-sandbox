@@ -1,4 +1,3 @@
-import "./Modals.scss";
 import { useState } from "react";
 import { useTransferMutation } from "../../features/api/transactionApiSlice";
 import useActions from "../../utils/Hooks/hookActions";

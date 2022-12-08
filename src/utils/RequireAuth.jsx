@@ -1,21 +1,11 @@
-import {
-  Navigate,
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import useActions from "./Hooks/hookActions";
 
 const RequireAuth = () => {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user.value);
-
+  const { user } = useActions();
   const location = useLocation();
 
-  return user.token ? (
+  return user?.accessToken ? (
     <Outlet />
   ) : (
     <Navigate to={"/login"} state={{ from: location }} replace />

@@ -22,8 +22,8 @@ const Transactions = () => {
           </li>
           {iterator.map((_, index) => (
             <li className="page-item active">
-              <a className="page-link" onClick={() => setParams(index)}>
-                {index}
+              <a className="page-link" onClick={() => setParams(index + 1)}>
+                {index + 1}
               </a>
             </li>
           ))}

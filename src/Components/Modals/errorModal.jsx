@@ -4,6 +4,7 @@ import { Fragment } from "react";
 export default function ErrorModal({ alter, message, setAlter }) {
   return (
     <>
+      <div className="fixed ">open</div>
       <Transition appear show={alter} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setAlter}>
           <Transition.Child
@@ -37,7 +38,7 @@ export default function ErrorModal({ alter, message, setAlter }) {
                     An Error Ocurred
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">{message}</p>
+                    {/* <p className="text-sm text-gray-500">{message}</p> */}
                   </div>
 
                   <div className="mt-4">

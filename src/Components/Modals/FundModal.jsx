@@ -1,4 +1,3 @@
-import "./Modals.scss";
 import { useState } from "react";
 import useActions from "../../utils/Hooks/hookActions";
 import FlutterWave from "../../utils/Payments/FlutterWave";

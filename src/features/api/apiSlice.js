@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { setToken } from "../reducers/userSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:7000/api",
-  credentials: "include",
-  prepareHeaders: (headers) => {
-    // const token = getState().user.value.token;
-    const token = sessionStorage.getItem("token");
+  baseUrl: "https://prc-sandbox-production.up.railway.app/api",
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().user.value.accessToken;
+    console.log(token);
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -18,20 +18,13 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   console.log(result);
   if (result?.error?.originalStatus === 403) {
     console.log("sending refresh token");
-    // send refresh token to get new access token
+    setToken(sessionStorage.getItem("token"));
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
     console.log(refreshResult);
     if (refreshResult?.data) {
-      // const user = api.getState().user.value;
-      // store the new token
-      //   api.dispatch(setCredentials({ ...refreshResult.data, user }));get/store the response
-      sessionStorage.setItem("token", refreshResult.data.token);
-
-      // retry the original query with new access token
+      setToken(refreshResult?.data?.token);
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // api.dispatch(logOut())
-      // dispatch logout
     }
   }
 
