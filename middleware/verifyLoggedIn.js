@@ -1,18 +1,18 @@
-const User = require("../../models/user");
+const User = require("../models/user");
 
 
-const checkLoggedIn = async (req, res, next) =>{
+const verifyLoggedIn = async (req, res, next) =>{
 
     const webToken = req.headers.authorization;
     const webTokenResult = webToken.split(' ')[1];
 
     const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
 
-    console.log(info.userId)
+    console.log(info.id)
     try {
         
    
-    const userInfo = await User.findOne({userId: info.userId});
+    const userInfo = await User.findOne({userId: info.id});
 
     if(userInfo.isLoggeIn === true){
         next();
@@ -27,3 +27,6 @@ const checkLoggedIn = async (req, res, next) =>{
 }
 
 }    
+
+
+module.exports = {verifyLoggedIn}

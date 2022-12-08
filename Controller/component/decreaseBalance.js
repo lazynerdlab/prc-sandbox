@@ -14,7 +14,13 @@ const decreaseBalance = async (req, res) =>{
     const webTokenResult = webToken.split(' ')[1];
 
     const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
+    if(!info){
+        return res.status(403).json({message:  `error: ${err}`})
+    }
+
     const senderEmail = info.email;
+
+
 
 
     console.log(senderEmail);
@@ -74,8 +80,8 @@ const decreaseBalance = async (req, res) =>{
             const newtransaction =  new Transaction(
                 {
                     transactionUserEmail: senderEmail,
-                    senderBalance: newBalance,
-                    senderBalance: newreceiveBalance,
+                    senderbalance: newBalance,
+                    recieverbalance: newreceiveBalance,
                     senderUserEmail: senderEmail,
                     Recieve: req.body.value,
                     Sent: req.body.value,
