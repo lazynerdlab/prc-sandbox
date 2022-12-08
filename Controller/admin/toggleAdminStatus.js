@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const User = require('../../models/user')
 
 const toggleAdminStatus = async (req, res) => {
     const user = await User.findOne({userId: req.params.userId})

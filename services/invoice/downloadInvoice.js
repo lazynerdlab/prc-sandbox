@@ -1,7 +1,8 @@
 const path = require('path')
 
 const downloadInvoice = (req, res) => {
-    let filepath = path.join('transanctionInvoice.pdf');
+    const transactionId = req.params.transactionid
+    let filepath = path.join(`services/invoice/saveInvoice/invoice${transactionId}.pdf`);
     res.download(filepath)
 }
 

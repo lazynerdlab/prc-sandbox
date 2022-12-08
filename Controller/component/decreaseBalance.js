@@ -113,7 +113,7 @@ const decreaseBalance = async (req, res) =>{
 
                 }
             }
-            createInvoice(invoiceSchema, 'transanctionInvoice.pdf')
+            createInvoice(invoiceSchema, `services/invoice/saveInvoice/invoice${invoiceSchema.transactionDetails.transactId}.pdf`)
 
             transactionMail(req, res, newBalance);
             
