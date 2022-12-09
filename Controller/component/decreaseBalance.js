@@ -5,26 +5,16 @@ const digitGenerator = require('crypto-secure-random-digit');
 const jwt = require('jsonwebtoken');
 const createInvoice = require('../../services/invoice/createInvoice');
 const { transferIdDigit } = require('./digitGenerator');
+const { webToken } = require('./webToken');
 
 
 
 
 const decreaseBalance = async (req, res) =>{
     
-    const webToken = req.headers.authorization;
-    const webTokenResult = webToken.split(' ')[1];
+    const verifyJWT = await webToken(req)
 
-    const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
-
-
-    if(!info){
-        return res.status(403).json({message:  `error: ${err}`})
-    }
-
-    const senderEmail = info.email;
-
-
-
+    const senderEmail = verifyJWT.email
 
     if(senderEmail === req.body.receiverEmail){
         return res.status(401).json({message: 'cannot send send money to your self'});
@@ -85,7 +75,7 @@ const decreaseBalance = async (req, res) =>{
             // transactionMail(req, res, newBalance);
             res.status(201).json(savetransaction); 
             
-            
+
             const invoiceSchema = {
                 senderDetails: {
                     senderEmail: savetransaction.transactionUserEmail
