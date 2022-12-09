@@ -1,22 +1,24 @@
 const mongoose = require('mongoose');
 
-const transactionSchema = new mongoose.Schema(
+const flutterWaveSchema = new mongoose.Schema(
     {
-        transactionUserEmail: { type: String, required: true },
-        recieverUserEmail: { type: String, default: "" },
-        senderUserEmail: { type: String, default: "" },
-        senderbalance: {type: Number},
-        recieverbalance: {type: Number },
-        Recieve: {type: Number, default: null},
-        Sent: {type: Number, default: null},
-        transactId: {type: Number, default: null},
-        acccountCharge: {type: Number, default: 0},
-        managmentCharge: {type: Number, default: 0},
-        maintenanceCharge: {type: Number, default: 0}
-        
+            BVNFirstName: { type: String, required: true},
+            BVNLastName: { type: String, required: true},
+            BVNMiddleName: { type: String, required: true},
+            BVNBVN: { type: String, unique: true, required: true},
+            BVNGender: { type: String, required: true},
+            BVNNationality: { type: String, required: true},
+            BVNNumber: { type: String, unique: true, required: true},
+            BVNMaritalStatus: { type: String, required: true},
+            BVNStateOfResidence: { type: String, required: true},           
+            BVNLGAOfResidence: { type: String, required: true},
+            BVNImage: { type: String, required: true},
+            BVNNImageBase64: { type: String, required: true},
+            BVNDateOfBirth: { type: Date, required: true},
+            userId: { type: String, unique: true, required: true} 
 
     },
     {timestamps: true}
 )
 
-module.exports = mongoose.model('Transaction', transactionSchema);
+module.exports = mongoose.model('flutterWave', flutterWaveSchema);

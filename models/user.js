@@ -14,13 +14,18 @@ const UserSchema = new mongoose.Schema(
         balance: {type: Number, default: 500},
         DOB: {type: Date},
         BVN: {type: String},
-        lastSent: {type: Number, default: 0},
-        lastRecieve: {type: Number, default: 0},
         transactionCount: {type: Number, default: 0},
         isAdmin: { type: Boolean, default: false},
         isSuperAdmin: { type: Boolean, default: false},
         isActive: { type: Boolean, default: true},
-        isLoggeIn: { type: Boolean, default: false}
+        isLoggeIn: { type: Boolean, default: false},
+        isApproved: { type: Boolean, default: false},
+        BVNDetails: {
+            BVNFirstName: { type: String},
+            BVNLastName: { type: String},
+            BVNMiddleName: { type: String},
+            BVNBVN: {type: String}
+        }
 
     },
     {timestamps: true}

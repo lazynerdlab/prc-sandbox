@@ -19,7 +19,7 @@ const Form = async (req, res) =>{
         const updateUser = await User.findOneAndUpdate({email: email},{firstName: firstName, middleName: middleName, lastName: lastName});
 
         if(!updateUser){
-            return res.status(402).json(`${firstName} data updated`);
+            return res.status(402).json(`${firstName} data not updated`);
         }
 
         res.status(201).json(`${firstName} data updated`);
