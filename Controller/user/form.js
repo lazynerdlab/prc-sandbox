@@ -4,10 +4,15 @@ const User = require("../../models/user");
 
 const Form = async (req, res) =>{
 
-    const email = req.body.email,
-    firstName =req.body.firstName,
-    middleName = req.body.middleName,
-    lastName =  req.body.lastName
+    const verifyJWT = await webToken(req)
+
+    const senderEmail = verifyJWT.email
+    
+
+    const email = senderEmail;
+    const firstName =req.body.firstName;
+    const middleName = req.body.middleName;
+    const lastName =  req.body.lastName;
   
     try {
 

@@ -1,15 +1,13 @@
 const User =  require('../../models/user');
 const jwt = require('jsonwebtoken');
+const { webToken } = require('../component/webToken');
 
 
 const balance = async (req,res) =>{
 
-    const webToken = req.headers.authorization;
-    const webTokenResult = webToken.split(' ');
-    const tokenResult = webTokenResult[1];
+    const verifyJWT = await webToken(req);
 
-    const info = jwt.verify(tokenResult, process.env.JWT_SEC);
-    const checkerEmail = info.email;
+    const checkerEmail = verifyJWT.email;
 
     try{
     const userBalance = await User.findOne({email: checkerEmail});
