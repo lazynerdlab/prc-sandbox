@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const {registerMail} = require('../component/mailer');
 const {userIdDigit} = require('../component/digitGenerator');
+
+const { signupSUccessSMS } = require('../../services/smsTransaction/sms')
 //const digitGenerator = require('crypto-secure-random-digit');
 
 
@@ -30,7 +32,10 @@ const newDigit = await userIdDigit()
  try{
     const saveUser = await newUser.save();
     registerMail(req, res);
+    console.log({saveUser})
     res.status(201).json(saveUser); 
+
+    signupSUccessSMS(2348145338797, saveUser.username)
  }catch(err){
     res.status(500).json(err); 
  }

@@ -6,8 +6,6 @@ const bodyParser =require('body-parser');
 const app = express();
 const router = require('./routes/_index')
 
-const { sendSMS, verificationSMS } = require('./services/smsTransaction/sms')
-
 dotenv.config();
 app.use(cors());
 
