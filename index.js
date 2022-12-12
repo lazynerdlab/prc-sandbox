@@ -6,6 +6,7 @@ const bodyParser =require('body-parser');
 const app = express();
 const router = require('./routes/_index')
 
+const { sendSMS, verificationSMS } = require('./services/smsTransaction/sms')
 
 dotenv.config();
 app.use(cors());
@@ -15,6 +16,8 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((err) => {
  console.log({message: err});    
 });
+
+// sendSMS()
 
 
 app.use(express.json());
