@@ -6,6 +6,8 @@ const bodyParser =require('body-parser');
 const app = express();
 const router = require('./routes/_index')
 
+const { handle404Error, handleServerError } = require('./middleware/errorHandling')
+
 dotenv.config();
 app.use(cors());
 
@@ -24,6 +26,7 @@ app.use(bodyParser.json({limit:"30mb", extended: true}));
 
 // Router
 app.use('/api', router);
+app.use(handle404Error, handleServerError)
 
 
  app.listen( process.env.PORT || 7000, ()=>{
