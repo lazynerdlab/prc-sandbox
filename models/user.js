@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
         lastName: { type: String},
         middleName: { type: String},
         userId: { type: Number, required: true, unique: true},
+        phoneNo: { type: Number, unique: true},
         BVN: { type: Number},
         email: { type: String, required:true, unique:true},
         password: { type: String, required:true, unique:true},
@@ -19,14 +20,7 @@ const UserSchema = new mongoose.Schema(
         isSuperAdmin: { type: Boolean, default: false},
         isActive: { type: Boolean, default: true},
         isLoggeIn: { type: Boolean, default: false},
-        isApproved: { type: Boolean, default: false},
-        BVNDetails: {
-            BVNFirstName: { type: String},
-            BVNLastName: { type: String},
-            BVNMiddleName: { type: String},
-            BVNBVN: {type: String}
-        }
-
+        isApproved: { type: Boolean, default: false}
     },
     {timestamps: true}
 )
