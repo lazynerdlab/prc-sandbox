@@ -18,8 +18,6 @@ try{
         
     const token = jwt.sign({id: userVerify._id}, process.env.PASSSEC, {expiresIn:"1d"})
 
-
-
     const data = {
       from: 'me@samples.mailgun.org',
       to: req.body.email,

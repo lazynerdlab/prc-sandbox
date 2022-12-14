@@ -1,12 +1,13 @@
+const { webToken } = require("../Controller/component/webToken");
 const User = require("../models/user");
+
 
 
 const verifyLoggedIn = async (req, res, next) =>{
 
-    const webToken = req.headers.authorization;
-    const webTokenResult = webToken.split(' ')[1];
+    
 
-    const info = jwt.verify(webTokenResult, process.env.JWT_SEC);
+    const info = await webToken(req)
 
     console.log(info.id)
     try {
