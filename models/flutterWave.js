@@ -2,20 +2,27 @@ const mongoose = require('mongoose');
 
 const flutterWaveSchema = new mongoose.Schema(
     {
-            BVNFirstName: { type: String, required: true},
-            BVNLastName: { type: String, required: true},
-            BVNMiddleName: { type: String, required: true},
-            BVNBVN: { type: String, unique: true, required: true},
-            BVNGender: { type: String, required: true},
-            BVNNationality: { type: String, required: true},
-            BVNNumber: { type: String, unique: true, required: true},
-            BVNMaritalStatus: { type: String, required: true},
-            BVNStateOfResidence: { type: String, required: true},           
-            BVNLGAOfResidence: { type: String, required: true},
-            BVNImage: { type: String, required: true},
-            BVNNImageBase64: { type: String, required: true},
-            BVNDateOfBirth: { type: Date, required: true},
-            userId: { type: String, unique: true, required: true} 
+            BVNFirstName: { type: String},
+            BVNLastName: { type: String},
+            BVNMiddleName: { type: String},
+            BVNBVN: { type: Number},
+            BVNGender: { type: String},
+            BVNNationality: { type: String},
+            BVNNumber: { type: String},
+            BVNMaritalStatus: { type: String},
+            BVNStateOfResidence: { type: String},           
+            BVNLGAOfResidence: { type: String},
+            BVNImage: { type: String},
+            BVNNImageBase64: { type: String},
+            BVNDateOfBirth: { type: Date},
+            userId: { type: String},
+            flutterFlwRef: { type: String},
+            flutterOrderRef: { type: String},
+            flutterAccountNumber: { type: Number},
+            flutterBankName: { type: String},
+            flutterCreatedAt: { type: Number},
+            amount: { type: Number}
+
 
     },
     {timestamps: true}
