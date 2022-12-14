@@ -1,4 +1,4 @@
-const Transaction = require('../../models/transaction')
+const Transaction = require('../../models')
 
 const transactionInvoiceSchema = () => {
 	const transaction = Transaction.findOne({transactId: req.body.transactId})

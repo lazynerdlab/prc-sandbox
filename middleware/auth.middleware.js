@@ -1,7 +1,6 @@
-const User = require("../models/user");
+const User = require("../models");
 
-
-const verifyLoggedIn = async (req, res, next) =>{
+const authMiddleware = async (req, res, next) =>{
 
     const webToken = req.headers.authorization;
     const webTokenResult = webToken.split(' ')[1];
@@ -29,4 +28,4 @@ const verifyLoggedIn = async (req, res, next) =>{
 }    
 
 
-module.exports = {verifyLoggedIn}
+module.exports = {authMiddleware}

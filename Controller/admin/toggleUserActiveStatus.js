@@ -1,4 +1,4 @@
-const User = require('../../models/user')
+const User = require('../../models')
 
 const toggleUserActiveStatus = async (req, res) => {
     const user = await User.findOne({userId: req.params.userId})

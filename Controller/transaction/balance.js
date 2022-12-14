@@ -1,8 +1,8 @@
-const User =  require('../../models/user');
+const User =  require('../../models');
 const jwt = require('jsonwebtoken');
 
 
-const balance = async (req,res) =>{
+const getUserBalance = async (req,res) =>{
 
     const webToken = req.headers.authorization;
     const webTokenResult = webToken.split(' ');
@@ -16,9 +16,9 @@ const balance = async (req,res) =>{
     const viewBalance = userBalance.balance
 
     res.status(200).json(viewBalance);
-    }catch{
-        res.status(401).json(err);
+    }catch(error){
+        res.status(401).json(error);
     }
 }
 
-module.exports = {balance}
+module.exports = { getUserBalance }
