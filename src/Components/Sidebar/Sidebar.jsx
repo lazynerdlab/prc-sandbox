@@ -10,16 +10,16 @@ import SidebarOption from "../SidebarOptions/SidebarOptions";
 import LargeLoader from "../../utils/LargeLoader";
 const Sidebar = () => {
   const { navigate, dispatch } = useActions();
-  const [signout, { isLoading }] = useSignoutQuery();
+  // const [signout, { isLoading }] = useSignoutQuery();
 
   const handleSignOut = async () => {
-    const res = await signout();
+    // const res = await signout();
     dispatch(logout());
     sessionStorage.setItem("token", "");
   };
 
   return (
-    <div className="fixed h-screen bg-primary-bold text-white font-medium text-left">
+    <div className="h-screen bg-blue-700 text-white font-medium text-left">
       <nav className="flex flex-col items-start justify-start h-[90%] relative">
         <SidebarOption
           title={"Dashboard"}
@@ -82,7 +82,7 @@ const Sidebar = () => {
             icon={<FaSignOutAlt />}
             event={handleSignOut}
           />
-          {isLoading && <LargeLoader />}
+          {/* {isLoading && <LargeLoader />} */}
         </div>
       </nav>
     </div>

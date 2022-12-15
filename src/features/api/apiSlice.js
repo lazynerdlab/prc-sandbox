@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setToken } from "../reducers/userSlice";
-
+//////"https://prc-sandbox-production.up.railway.app/api"
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://prc-sandbox-production.up.railway.app/api",
+  baseUrl: "https:localhost:7000/api",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().user.value.accessToken;
     console.log(token);

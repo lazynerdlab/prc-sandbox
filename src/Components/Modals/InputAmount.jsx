@@ -7,7 +7,7 @@ const InputAmount = ({ title, value, state, balance }) => {
         {title} (₦): {balance && `(${amount})`}
       </label>
       <input
-        className="border-solid border-b-[2px] w-full m-auto text-[1.5rem] text-center focus:outline-none focus:border-primary-bold"
+        className="border-solid border-b-[2px] w-full m-auto mb-[1rem] text-[1.5rem] text-center focus:outline-none focus:border-primary-bold"
         type="number"
         min="1"
         required

@@ -1,17 +1,16 @@
-import "./SidebarOptions.scss";
 const SidebarOption = ({ title, icon, event }) => {
   return (
     <a
       onClick={event}
-      className="sidebaroption block active:bg-primary-bold cursor-pointer p-[1rem] text-[1.5rem]"
+      className="block active:bg-primary-bold cursor-pointer p-[1rem] text-[1.2rem]"
     >
       {icon && (
-        <>
-          <p>{title}</p>
+        <div className="flex justify-start items-center">
           {icon}
-        </>
+          <p className="ml-[0.5rem]">{title}</p>
+        </div>
       )}
-      {!icon && <h4>{title}</h4>}
+      {!icon && <h4 className="ml-[0.5rem]">{title}</h4>}
     </a>
   );
 };

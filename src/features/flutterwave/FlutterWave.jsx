@@ -24,7 +24,7 @@ const FlutterWave = ({ amount, email, name }) => {
   console.log(config);
   return (
     <button
-      className="bg-blue-700 mb-[1rem] border-none p-[1rem] rounded-[5px] text-white"
+      className="bg-blue-600 mb-[1rem] border-none p-[1rem] rounded-[5px] text-white"
       type="submit"
       onClick={() => {
         if (amount && amount >= 1) {

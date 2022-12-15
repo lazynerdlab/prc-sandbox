@@ -7,7 +7,7 @@ const UserRequireAuth = () => {
 
   return user.AccountNumber ? (
     <Outlet />
-  ) : user.KYC ? (
+  ) : user.Firstname ? (
     <Navigate to={"verifybvn"} state={{ from: location }} replace />
   ) : (
     <Navigate to={"accountsetup"} state={{ from: location }} replace />

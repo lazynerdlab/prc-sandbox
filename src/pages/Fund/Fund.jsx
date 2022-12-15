@@ -1,7 +1,7 @@
 import FundModal from "../../Components/Modals/FundModal";
 const Fund = () => {
   return (
-    <div>
+    <div className="flex h-[70vh] align-center items-center justify-center">
       <FundModal />
     </div>
   );

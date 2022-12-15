@@ -54,7 +54,7 @@ const TransferModal = ({ action, type }) => {
         message={error?.message}
       />
       <SuccessModal alter={opensuccess} setAlter={closeSuccessModal} />
-      <div className="w-full absolute h-screen flex justify-center items-center bg-primary-light">
+      <div className="w-full flex justify-center items-center">
         <form
           className="h-[60%] w-[40%] flex flex-col justify-between align-start bg-white p-[1rem] rounded-[5px] relative"
           onSubmit={handleSubmit}
@@ -71,21 +71,21 @@ const TransferModal = ({ action, type }) => {
             value={remarks}
             state={setRemarks}
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col pt-[1rem]  ">
             <button
-              className="bg-blue-700 mb-[1rem] border-none p-[1rem] rounded-[5px] text-white"
+              className="bg-blue-600 mb-[1rem] border-none p-[1rem] rounded-[5px] text-white"
               type="submit"
             >
               {isLoading && <Loader />}
               {action}
             </button>
-            <button
+            {/* <button
               className="bg-rose-600 border-none p-[1rem] rounded-[5px] text-white"
               type="submit"
               onClick={navigateHandler}
             >
               Cancel
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

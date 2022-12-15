@@ -5,7 +5,7 @@ const InputMessage = ({ title, value, state }) => {
         {title}:
       </label>
       <input
-        className="border-solid border-b-[2px] w-full m-auto focus:outline-none focus:border-primary-bold"
+        className="border-solid border-b-[2px] w-full m-auto mb[1rem] focus:outline-none focus:border-primary-bold"
         type="text"
         id={title}
         value={value}

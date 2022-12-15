@@ -13,17 +13,6 @@ const OtherTransfer = () => {
   const { data: name, isLoading, isError, error } = useFetchBanksQuery();
   console.log(name, isLoading, isError, error);
   const [fetchAccountName, {}] = useFetchBankNameMutation();
-  useEffect(() => {
-    run();
-    console.log("rendered");
-  }, []);
-  const run = async () => {
-    const res = await fetchAccountName({
-      account_number: "0690000032",
-      account_bank: "058",
-    });
-    console.log(res);
-  };
   const firstnameRef = useRef();
   useEffect(() => {
     firstnameRef.current.focus();
@@ -65,7 +54,7 @@ const OtherTransfer = () => {
         message={error?.message}
         setAlter={() => setErr(false)}
       /> */}
-      <main className="h-screen flex flex-col items-center justify-center">
+      <main className="flex flex-col items-center justify-center">
         <div className="w-[40%] m-auto flex flex-col justify-center items-center p-[1rem] pt-[2rem] rounded-[5px] bg-gray-50">
           <form
             className="w-full flex flex-col justify-stretch align-stretch relative"
@@ -96,6 +85,7 @@ const OtherTransfer = () => {
             </label>
             <input
               type="text"
+              disabled
               id="accountname"
               className="border-solid text-[1.2rem] border-b-[2px] w-full m-auto mb-[1rem] focus:outline-none focus:border-primary-bold"
               ref={firstnameRef}
@@ -114,8 +104,8 @@ const OtherTransfer = () => {
               value={narration}
               required
             />
-            <button className="bg-blue-400 mb-[1rem] mt-[1rem] border-none p-[1rem] rounded-[5px] text-white">
-              {<LargeLoader />} Proceed
+            <button className="bg-blue-600 mb-[1rem] mt-[1rem] border-none p-[1rem] rounded-[5px] text-white">
+              Proceed
             </button>
           </form>
         </div>

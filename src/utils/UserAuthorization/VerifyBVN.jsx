@@ -64,7 +64,7 @@ const VerifyBVN = () => {
             BVN Number:
           </label>
           <input type="number" minLength={11} required />
-          <button className="bg-blue-400 mb-[1rem] mt-[1rem] border-none p-[1rem] rounded-[5px] text-white">
+          <button className="bg-blue-600 mb-[1rem] mt-[1rem] border-none p-[1rem] rounded-[5px] text-white">
             {isLoading && <Loader />} Proceed
           </button>
         </form>
