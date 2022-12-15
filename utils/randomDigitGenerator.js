@@ -1,9 +1,6 @@
 const digitGenerator = require('crypto-secure-random-digit');
-const User =  require('../../models/user');
-const Transaction =  require('../../models/transaction');
-const dotenv = require('dotenv');
-
-
+const User =  require('../models/user');
+const Transaction =  require('../models/transaction');
 
   let randomDigits = 0;
 

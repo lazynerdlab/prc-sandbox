@@ -1,13 +1,12 @@
  
-    const Flutterwave = require('flutterwave-node-v3');
-    const flutterWebHook = require('../../models/flutterWebHook');
-    const flw = new Flutterwave(process.env.FLW_PUBLIC_KEY, process.env.FLW_SECRET_KEY);
+const Flutterwave = require('flutterwave-node-v3');
+const flutterWebHook = require('../../models/flutterWebHook');
 
 
 const flutterCharges = async (payload) =>{
 
-       
-      const response = flw.Transaction.verify({ id: payload.data.id })
+    const flw = new Flutterwave(process.env.FLW_PUBLIC_KEY, process.env.FLW_SECRET_KEY);  
+    const response = flw.Transaction.verify({ id: payload.data.id })
             
             if ( response.data.status === "successful" && response.data.amount === payload.data.amount && response.data.currency === payload.data.currency) {
 

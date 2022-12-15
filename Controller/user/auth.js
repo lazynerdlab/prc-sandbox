@@ -1,13 +1,14 @@
 
-const User =  require('../../models/user');
+const {User} =  require('../../models');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
-const {registerMail} = require('../component/mailer');
-const {userIdDigit} = require('../component/digitGenerator');
-//const digitGenerator = require('crypto-secure-random-digit');
+const { signupSuccessEMail } = require('../../services');
+const {userIdDigit} = require('../../utils');
+
+const {signupSUccessSMS} = require('../../services')
 
 
-const register =  async (req,res) =>{
+const signup =  async (req,res) =>{
   const findEmail = await User.findOne({email: req.body.email})
   if(findEmail) {return res.status(401).json({message: 'Mail already exist'});}
 
@@ -16,7 +17,6 @@ const register =  async (req,res) =>{
 
 
 const newDigit = await userIdDigit()
-
 
  const newUser = new User({
     username: req.body.username,
@@ -29,13 +29,19 @@ const newDigit = await userIdDigit()
  )
  try{
     const saveUser = await newUser.save();
-    registerMail(req, res);
-    res.status(201).json(saveUser); 
- }catch(err){
-    res.status(500).json(err); 
+    // registerMail(req, res);
+    console.log({saveUser})
+
+    // signupSUccessSMS(2348145338797, saveUser.username)
+    return res.status(201).json(saveUser); 
+
+ }  catch(err){
+      return res.status(500).json(err); 
  }
 
 };
+
+
 
 const login = async (req,res) => {
 
@@ -88,4 +94,4 @@ const logout = async (req, res) => {
   }
 }
 
-module.exports = {register, login, logout};
+module.exports = {signup, login, logout};

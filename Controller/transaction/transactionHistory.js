@@ -1,6 +1,4 @@
-const Transaction = require('../../models/transaction');
-
-
+// const Transaction = require('../../models');
 
 
 const transactionHistory = async (req,res) =>{
@@ -17,4 +15,4 @@ const transactionHistory = async (req,res) =>{
     res.status(200).json({history, totalHistoryNumber});
 }
 
-module.exports={transactionHistory}
+module.exports = { transactionHistory }

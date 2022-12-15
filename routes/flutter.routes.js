@@ -1,11 +1,11 @@
 const router = require('express').Router();
-
+const { fundWallet } = require('../controller');
 const { accountDetails } = require('../Controller/flutter/accountDetails');
-const {fund} = require('../Controller/flutter/fund');
 const { webHook } = require('../Controller/flutter/webHook');
-const { verifyLoggedIn } = require('../middleware/verifyLoggedIn');
+const { authMiddleware } = require('../middleware/auth.middleware');
 
-router.post('/fund',verifyLoggedIn, fund);
+
+router.post('/fund', authMiddleware, fundWallet);
 router.post('/webhook', webHook );
 router.post('/accountdetails', accountDetails );
 

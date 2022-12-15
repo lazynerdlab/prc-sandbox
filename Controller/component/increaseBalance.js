@@ -1,17 +1,11 @@
-const Transaction = require('../../models/transaction');
-const User =  require('../../models/user');
-const dotenv = require('dotenv');
+const Transaction = require('../../models')
+const User =  require('../../models');
 const digitGenerator = require('crypto-secure-random-digit');
-
-
 
 const increaseBalance = async (response, res) =>{
 
-    
-
    const user = await User.findOne({email: response.data.customer.email} )
    if(!user) { return res.status(401).json({message: 'no account with this email'});}
-
 
         try {
             
@@ -25,8 +19,6 @@ const increaseBalance = async (response, res) =>{
                  }
                  return randomDigits;
               }
-          
-          
             userIdDigit();
     
        
@@ -68,4 +60,4 @@ const increaseBalance = async (response, res) =>{
 
 
 
-module.exports = increaseBalance;
+module.exports = { increaseBalance };

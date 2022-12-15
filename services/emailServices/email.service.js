@@ -1,18 +1,13 @@
-const User =  require('../../models/user');
+const User =  require('../../models');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
 const mailgun = require("mailgun-js");
 const DOMAIN = process.env.MAIL_GUN_DOMAIN;
 const api_key = '533048384d80e863c0a1e8e04ff04ecb-69210cfc-a017c0fe';
 const mg = mailgun({apiKey: api_key, domain: DOMAIN});
 
 
-
-const registerMail = async (req,res)=>{
-
+const signupSuccessEMail = async (req,res)=>{
 try{
-
-
     const userVerify = await User.findOne({email: req.body.email}) 
       !userVerify && res.status(401).json({message: 'no user with this email'})
         
@@ -29,23 +24,19 @@ try{
       console.log(body);
     });
 
-
-  }catch(err){
-            res.status(500).json({message: err});
-          }
+  } catch(err){
+        res.status(500).json({message: err});
+    }
 }
 
 
-
-
-const verifyPasswordMail = async (req,res)=>{
-
-try{
-
+const verifyPasswordMail = async (req,res) => {
+  try {
     const userPassword = await User.findOne({email: req.body.email}) 
       !userPassword && res.status(401).json({message: 'no user with this email'})
       
-    const token = jwt.sign({_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
+    const token = jwt.sign(
+      {_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
 
     const data = {
       from: 'me@samples.mailgun.org',
@@ -56,23 +47,20 @@ try{
     };
     mg.messages().send(data, function (error, body) {
       console.log(body);
-    });
-
-
-  }catch(err){
+  });
+  } catch(err){
             
             res.status(500).json({message: err});
           }
 }
-const transactionMail = async (req,res, newBalance)=>{
 
-try{
 
+const transactionMail = async (req,res, newBalance) => {
+  try {
     const userPassword = await User.findOne({email: req.body.receiverEmail}) 
       !userPassword && res.status(401).json({message: 'no user with this email'})
       
-      if(req.body.type === "increase"){
-
+      if(req.body.type === "increase") {
         const data = {
           from: 'noreply@mail.com',
           to: req.body.email,
@@ -82,14 +70,9 @@ try{
         };
         mg.messages().send(data, function (error, body) {
           console.log(body);
-        });
-    
+  });
+    } else if(req.body.type === "decrease") {
 
-      
-      
-    }else if(req.body.type === "decrease"){
-
-      
       const data = {
         from: 'noreply@mail.com',
         to: req.body.email,
@@ -104,16 +87,10 @@ try{
 
       
     }
-
-
-  }catch(err){
-            res.status(500).json({message: err});
-          }
+  } catch(err) {
+      res.status(500).json({message: err});
+    }
 }
 
 
-
-
-
-
-module.exports = {verifyPasswordMail, registerMail, transactionMail}
+module.exports = {signupSuccessEMail, verifyPasswordMail, transactionMail}

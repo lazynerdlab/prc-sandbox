@@ -4,7 +4,7 @@ const increaseBalance = require('../component/increaseBalance');
 
 
 
-const fund = (req,res) =>{
+const fundWallet = (req,res) =>{
     
     const transactionRef = req.body.trx_ref;
     const amount = req.body.value;
@@ -49,4 +49,4 @@ verify();
 
 
 
-module.exports = {fund};
+module.exports = { fundWallet };
