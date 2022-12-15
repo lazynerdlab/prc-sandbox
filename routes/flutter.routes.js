@@ -1,8 +1,9 @@
 const router = require('express').Router();
 
-const { fundWallet } = require('../controller');
+const { fundWallet, webHook, accountDetails } = require('../controller');
 
-router.post('/fund', fundWallet);
-
+router.post('/fund', fundWallet)
+.post('/webhook', webHook )
+.post('/accountdetails', accountDetails );
 
 module.exports = router;

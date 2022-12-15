@@ -4,9 +4,9 @@ const signupSUccessSMS = async (userNumber, username) => {
     const url = new URL(
         `https://www.bulksmsnigeria.com/api/v2/sms/create`
     );
-    
+
     const params = {
-        "api_token":"U8lg0PsifZsSwPg2bSJQpEhgg3sgAp2GvcZW09tlat4ZqvxgAiBKs262q1Kq",
+        "api_token": "U8lg0PsifZsSwPg2bSJQpEhgg3sgAp2GvcZW09tlat4ZqvxgAiBKs262q1Kq",
         "to": userNumber,
         "from": "Purscliq",
         "body": `Welcome to PursClliq ${username}`,
@@ -15,7 +15,7 @@ const signupSUccessSMS = async (userNumber, username) => {
     };
     Object.keys(params)
         .forEach(key => url.searchParams.append(key, params[key]));
-    
+
     try {
         const authKey = "U8lg0PsifZsSwPg2bSJQpEhgg3sgAp2GvcZW09tlat4ZqvxgAiBKs262q1Kq"
         const send = await axios.post(
@@ -24,14 +24,14 @@ const signupSUccessSMS = async (userNumber, username) => {
         )
         console.log(send)
         return send
-        
+
     } catch (error) {
         if (error.response) {
-            console.log({errorResponse: error.response})
+            console.log({ errorResponse: error.response })
         } else if (error.request) {
-            console.log({errorRequest: error.request})
+            console.log({ errorRequest: error.request })
         } else {
-            console.log({error})
+            console.log({ error })
         }
     }
 }
