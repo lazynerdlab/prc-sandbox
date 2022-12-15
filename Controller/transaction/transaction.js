@@ -9,12 +9,12 @@ const transaction = (req, res) => {
 
   
 
-    if(req.body.type === 'increase' )
+    if(req.body.type === 'inflow' )
     {
         
         increaseBalance(req, res);
 
-    }else if(req.body.type === 'decrease')
+    }else if(req.body.type === 'outflow')
     {
         decreaseBalance(req, res);
         // createInvoice(invoiceSchema, 'invoice.pdf')

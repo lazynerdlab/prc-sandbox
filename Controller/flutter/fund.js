@@ -33,11 +33,11 @@ const verify = async () => {
         if(verifyStatus && veryEmail && verifyTransactionRef && verifyAmount){
             increaseBalance(response, res);
         }else{
-            res.status(407).json('not')
+            res.status(407).json('account not funded')
         
         }
     } catch (error) {
-        console.log(error)
+        return res.status(500).json(`${error}`)
     }
 
 }
