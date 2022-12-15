@@ -1,8 +1,6 @@
  
     const Flutterwave = require('flutterwave-node-v3');
-    const flutterWave = require('../../models/flutterWave');
-const flutterWebHook = require('../../models/flutterWebHook');
-    const Transaction = require('../../models/transaction');
+    const flutterWebHook = require('../../models/flutterWebHook');
     const flw = new Flutterwave(process.env.FLW_PUBLIC_KEY, process.env.FLW_SECRET_KEY);
 
 
@@ -11,26 +9,7 @@ const flutterCharges = async (payload) =>{
        
       const response = flw.Transaction.verify({ id: payload.data.id })
             
-            if ( response.data.status === "successful" && response.data.amount === payload.data.amount && response.data.currency === expectedCurrency) {
-                
-            const transactionId =response.data.id,
-            tx_ref = response.data.tx_ref,
-            chargeAmount =response.data.amount,
-            currency = response.data.currency,
-            narration= response.data.narration,
-            paymentType=response.data.payment_type,
-            createdAt=response.data.created_at,
-            customerId=response.data.customer.id,
-            customerName=response.data.customer.name,
-            customerEmail=response.data.customer.email,
-            customerPhoneNumber=response.data.customer.phone_number,
-            cardFirst6Digit=response.data.card.first_6digits,
-            cardLast4Digit=response.data.card.last_4digits,
-            cardIssue=response.data.card.issuer,
-            cardtype=response.data.card.type
-            
-
-            
+            if ( response.data.status === "successful" && response.data.amount === payload.data.amount && response.data.currency === payload.data.currency) {
 
          
             const newFlutterWebHook =  new flutterWebHook(
@@ -39,7 +18,7 @@ const flutterCharges = async (payload) =>{
                     id: response.data.id,
                     tx_ref: response.data.tx_ref,
                     flw_ref: response.data.flw_ref,
-                    device_fingerprint: response.device_fingerprint,
+                    device_fingerprint: response.data.device_fingerprint,
                     amount: response.data.amount,
                     currency: response.data.currency,
                     charged_amount: response.data.charged_amount,
