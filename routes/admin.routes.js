@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const { toggleAdminStatus } = require('../Controller/admin/toggleAdminStatus'),
-    { toggleUserActiveStatus } = require('../Controller/admin/toggleUserActiveStatus')
+const { toggleAdminStatus } = require('../controller/admin/toggleAdminStatus'),
+    { toggleUserActiveStatus } = require('../controller/admin/toggleUserActiveStatus')
 
 
 router.patch('/user/:userId/changeadmin', toggleAdminStatus)

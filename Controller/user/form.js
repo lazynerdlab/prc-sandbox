@@ -1,8 +1,8 @@
-const User = require("../../models/user");
+const User = require("../../models");
 
 
 
-const Form = async (req, res) =>{
+const form = async (req, res) =>{
 
     const verifyJWT = await webToken(req)
 
@@ -26,9 +26,7 @@ const Form = async (req, res) =>{
     } catch (err) {
         res.status(401).json({message: `${firstName} err: ${err}`});   
     }
-    
-    
 }
 
 
-module.exports = {Form}
+module.exports = {form}

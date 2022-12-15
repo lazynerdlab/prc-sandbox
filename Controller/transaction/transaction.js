@@ -1,9 +1,7 @@
-const jwt = require('jsonwebtoken');
-const decreaseBalance = require("../component/decreaseBalance");
-const increaseBalance = require("../component/increaseBalance");
-const createInvoice = require('../../services/invoice/createInvoice'),
-    invoiceSchema = require('../../services/invoice/invoiceSchema');
-
+// const {increaseBalance, decreaseBalance } = require('../../controller')
+const { increaseBalance } = require("../component/increaseBalance");
+const { decreaseBalance } = require("../component/decreaseBalance");
+const createInvoice = require('../../services');
 
 const transaction = (req, res) => {
 
@@ -18,8 +16,6 @@ const transaction = (req, res) => {
     {
         decreaseBalance(req, res);
         // createInvoice(invoiceSchema, 'invoice.pdf')
-
-
     }
 }
 

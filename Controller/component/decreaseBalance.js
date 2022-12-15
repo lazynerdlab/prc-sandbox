@@ -1,18 +1,16 @@
-const Transaction = require('../../models/transaction');
-const User =  require('../../models/user');
-const { transactionMail } = require('./mailer');
-const digitGenerator = require('crypto-secure-random-digit');
-const jwt = require('jsonwebtoken');
-const createInvoice = require('../../services/invoice/createInvoice');
-const { transferIdDigit } = require('./digitGenerator');
-const { webToken } = require('./webToken');
+const Transaction = require('../../models');
+const User =  require('../../models');
+const { transactionMail } = require('../../services/emailServices/email.service');
+const createInvoice = require('../../services');
+const { transferIdDigit } = require('../../utils');
+const { getWebToken } = require('../../utils');
 
 
 
 
 const decreaseBalance = async (req, res) =>{
     
-    const verifyJWT = await webToken(req)
+    const verifyJWT = await getWebToken(req)
 
     const senderEmail = verifyJWT.email
 
@@ -101,4 +99,4 @@ const decreaseBalance = async (req, res) =>{
            
         }
 
-module.exports = decreaseBalance;
+module.exports = { decreaseBalance };

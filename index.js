@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser =require('body-parser');
 const app = express();
-const router = require('./routes/_index')
+const router = require('./routes/')
 
-const { handle404Error, handleServerError } = require('./middleware/errorHandling')
+const { handle404Error, handleServerError } = require('./middleware/error.middleware')
 
 dotenv.config();
 app.use(cors());
@@ -16,8 +16,6 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((err) => {
  console.log({message: err});    
 });
-
-// sendSMS()
 
 
 app.use(express.json());
@@ -29,7 +27,7 @@ app.use('/api', router);
 app.use(handle404Error, handleServerError)
 
 
- app.listen( process.env.PORT || 7000, ()=>{
-    console.log('tested');
- });
+app.listen( process.env.PORT || 7000, ()=>{
+   console.log('tested');
+});
 

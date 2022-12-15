@@ -1,13 +1,12 @@
-const { webToken } = require("../Controller/component/webToken");
+const { getWebToken } = require("../utils");
 const User = require("../models/user");
 
 
-
-const verifyLoggedIn = async (req, res, next) =>{
+const authMiddleware = async (req, res, next) =>{
 
     
 
-    const info = await webToken(req)
+    const info = await getWebToken(req)
 
     console.log(info.id)
     try {
@@ -30,4 +29,4 @@ const verifyLoggedIn = async (req, res, next) =>{
 }    
 
 
-module.exports = {verifyLoggedIn}
+module.exports = {authMiddleware}

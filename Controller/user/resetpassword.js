@@ -1,10 +1,8 @@
 
-const User =  require('../../models/user');
-const {verifyPasswordMail} = require('../component/mailer');
+const User =  require('../../models/');
+const {verifyPasswordMail} = require('../../services/emailServices/email.service');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
-
-
 
 
 const forgotPassword = async (req, res)=>{
@@ -31,8 +29,6 @@ const resetPassword = async (req,res)=>{
         res.status(500).json(err);
     }    
   }
-  
-  
   
   
   module.exports = { forgotPassword, resetPassword};
