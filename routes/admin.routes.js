@@ -5,6 +5,6 @@ const { toggleAdminStatus } = require('../controller/admin/toggleAdminStatus'),
 
 
 router.patch('/user/:userId/changeadmin', toggleAdminStatus)
-.patch('/user/:userId/changeactivestatus', toggleUserActiveStatus)
+    .patch('/user/:userId/changeactivestatus', toggleUserActiveStatus)
 
 module.exports = router

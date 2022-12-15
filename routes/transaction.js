@@ -1,15 +1,19 @@
 const router = require('express').Router();
 
-const {transaction} = require('../Controller/transaction/transaction');
-const { transactionHistory } = require('../Controller/transaction/transactionHistoy');
-const { balance } = require('../Controller/transaction/balance');
-const { userIsActivePermission } = require('../middleware/permissions');
-const { verifyLoggedIn } = require('../middleware/verifyLoggedIn');
+const {
+    createTransaction,
+    transactionHistory,
+    getUserBalance
+} = require('../Controller');
 
-// router.put('/transact', transaction);
-router.put('/transact',verifyLoggedIn, userIsActivePermission, transaction);
-router.post('/history/:quantity',verifyLoggedIn, transactionHistory);
-router.post('/balance', verifyLoggedIn, balance);
+const {
+    permissions, authMiddleware
+} = require('../middleware/');
+
+
+router.put('/new', authMiddleware, permissions.userIsActivePermission, createTransaction)
+    .post('/history/:quantity', authMiddleware, transactionHistory)
+    .post('/balance', authMiddleware, getUserBalance);
 
 
 module.exports = router;
