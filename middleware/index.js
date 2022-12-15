@@ -1,5 +1,6 @@
 const { errorHandling } = require('./error.middleware'),
-    permissions = require('./permissions.middleware'),
-    authMiddleware = require('./auth.middleware')
+    { authMiddleware } = require('./auth.middleware'),
+    permissions  = require('./permissions.middleware');
+
 
 module.exports = { errorHandling, permissions, authMiddleware }

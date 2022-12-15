@@ -4,7 +4,7 @@ const CryptoJS = require('crypto-js');
 
 const { userIdDigit } = require('../../utils');
 const { User } = require('../../models');
-const { signupSuccessEMail, signupSUccessSMS } = require('../../services');
+const { signupSuccessEmail, signupSuccessSMS } = require('../../services');
 
 
 
@@ -23,15 +23,14 @@ const signup = async (req, res) => {
     password: CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString(),
     isverified: false,
     userId: newDigit
-
   })
 
   try {
     const saveUser = await newUser.save();
-    // signupSuccessEMai(req, res);
+    // signupSuccessEmail(req, res);
     console.log({ saveUser })
 
-    // signupSUccessSMS(2348145338797, saveUser.username)
+    // signupSuccessSMS(2348116432742, saveUser.username)
     return res.status(201).json(saveUser);
 
   } catch (err) {
@@ -54,7 +53,7 @@ const login = async (req, res) => {
     const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)
     const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
     const userUpdate = await User.findOneAndUpdate(req.body.email, { isLoggeIn: true });
-    
+
     if (!userUpdate) { return res.status(403).json({ message: 'User not logged in' }) }
 
     console.log(userUpdate);

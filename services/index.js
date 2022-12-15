@@ -1,19 +1,19 @@
+const { signupSuccessSMS } = require('./smsServices/sms.service');
+
 const { 
-    signupSUccessSMS, 
+    signupSuccessEmail, 
     verifyPasswordEmail, 
     transactionSuccessEmail 
-} = require('./smsServices/sms.service');
-
-const { signupSUccessEmail } = require('./emailServices/email.service')
+} = require('./emailServices/email.service')
 
 const { createInvoice } = require('./invoice/createInvoice'),
     { downloadInvoice }  = require('./invoice/downloadInvoice');
 
 module.exports =  { 
-    signupSUccessSMS,
+    signupSuccessSMS,
     createInvoice, 
     downloadInvoice,
-    signupSUccessEmail,
+    signupSuccessEmail,
     verifyPasswordEmail,
     transactionSuccessEmail
 }

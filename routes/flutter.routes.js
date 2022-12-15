@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { fundWallet, webHook, accountDetails } = require('../controller');
-const { authMiddleware } = require('../middleware/auth.middleware');
+const { authMiddleware } = require('../middleware');
 
 
 router.post('/fund', authMiddleware, fundWallet);

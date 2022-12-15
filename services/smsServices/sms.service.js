@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const signupSUccessSMS = async (userNumber, username) => {
+const signupSuccessSMS = async (userNumber, username) => {
     const url = new URL(
         `https://www.bulksmsnigeria.com/api/v2/sms/create`
     );
@@ -38,4 +38,4 @@ const signupSUccessSMS = async (userNumber, username) => {
 
 
 
-module.exports = { signupSUccessSMS }
+module.exports = { signupSuccessSMS }

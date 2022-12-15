@@ -1,10 +1,9 @@
 const User = require('../../models');
-const jwt = require('jsonwebtoken');
-const { webToken } = require('../../utils');
+const { getWebToken } = require('../../utils');
 
 
 const getUserBalance = async (req, res) => {
-    const verifyJWT = await webToken(req);
+    const verifyJWT = await getWebToken(req);
     const checkerEmail = verifyJWT.email;
 
     try {

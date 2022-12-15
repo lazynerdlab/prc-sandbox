@@ -1,7 +1,7 @@
 
 const Flutterwave = require('flutterwave-node-v3');
 
-const flutterWebHook = require('../../models');
+const { FlutterWebHook } = require('../../models');
 
 
 const flutterTransfer = async (payload) => {
@@ -14,7 +14,7 @@ const flutterTransfer = async (payload) => {
         && response.data.currency === expectedCurrency
     ) {
 
-        const newFlutterWebHook = new flutterWebHook({
+        const newFlutterWebHook = new FlutterWebHook({
             event: response.event,
             id: response.data.id,
             tx_ref: response.data.tx_ref,

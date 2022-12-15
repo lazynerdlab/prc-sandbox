@@ -6,7 +6,7 @@ const api_key = '533048384d80e863c0a1e8e04ff04ecb-69210cfc-a017c0fe';
 const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
 
 
-const signupSuccessEMail = async (req, res) => {
+const signupSuccessEmail = async (req, res) => {
   try {
     const userVerify = await User.findOne({ email: req.body.email })
     !userVerify && res.status(401).json({ message: 'no user with this email' })
@@ -94,7 +94,7 @@ const transactionSuccessEmail = async (req, res, newBalance) => {
 
 
 module.exports = {
-  signupSuccessEMail,
+  signupSuccessEmail,
   verifyPasswordEmail,
   transactionSuccessEmail
 }

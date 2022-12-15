@@ -1,8 +1,6 @@
-const { form } = require('../controller');
-const {verify} = require('../controller/verify');
-
-
 const router = require('express').Router();
+
+const { form, verify } = require('../controller');
 
 
 router.put('/verify', verify);
