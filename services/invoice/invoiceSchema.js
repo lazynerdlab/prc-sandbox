@@ -1,8 +1,8 @@
 const Transaction = require('../../models')
 
 const transactionInvoiceSchema = () => {
-	const transaction = Transaction.findOne({transactId: req.body.transactId})
-	
+	const transaction = Transaction.findOne({ transactId: req.body.transactId })
+
 	const invoiceSchema = {
 		senderDetails: {
 			senderEmail: transaction.transactionUserEmail
@@ -19,6 +19,7 @@ const transactionInvoiceSchema = () => {
 
 	return invoiceSchema
 }
+
 
 module.exports = transactionInvoiceSchema;
 

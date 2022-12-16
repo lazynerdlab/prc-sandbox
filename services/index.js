@@ -1,12 +1,19 @@
-// export { signupSUccessSMS } from './smsServices/sms.service'
-const { signupSUccessSMS } = require('./smsServices/sms.service'),
-    { createInvoice } = require('./invoice/createInvoice'),
-    { downloadInvoice }  = require('./invoice/downloadInvoice'),
-    { signupSuccessEMail } = require('./emailServices/email.service')
+const { signupSuccessSMS } = require('./smsServices/sms.service');
+
+const { 
+    signupSuccessEmail, 
+    verifyPasswordEmail, 
+    transactionSuccessEmail 
+} = require('./emailServices/email.service')
+
+const { createInvoice } = require('./invoice/createInvoice'),
+    { downloadInvoice }  = require('./invoice/downloadInvoice');
 
 module.exports =  { 
-    signupSUccessSMS,
+    signupSuccessSMS,
     createInvoice, 
     downloadInvoice,
-    signupSuccessEMail,
+    signupSuccessEmail,
+    verifyPasswordEmail,
+    transactionSuccessEmail
 }
