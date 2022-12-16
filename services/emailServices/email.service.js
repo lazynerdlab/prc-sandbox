@@ -1,15 +1,17 @@
-const User = require('../../models');
+const {User} = require('../../models');
 const jwt = require('jsonwebtoken');
 const mailgun = require("mailgun-js");
-const DOMAIN = process.env.MAIL_GUN_DOMAIN;
-const api_key = '533048384d80e863c0a1e8e04ff04ecb-69210cfc-a017c0fe';
-const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
-
 
 const signupSuccessEmail = async (req, res) => {
-  try {
+
+  const DOMAIN = process.env.MAIL_GUN_DOMAIN;
+  const api_key = process.env.MAIL_GUN_SEC_KEY;
+
+  const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
     const userVerify = await User.findOne({ email: req.body.email })
-    !userVerify && res.status(401).json({ message: 'no user with this email' })
+    if(!userVerify) {
+      return res.status(401).json({ message: 'no user with this email' })
+    }
 
     const token = jwt.sign({ id: userVerify._id }, process.env.PASSSEC, { expiresIn: "1d" })
 
@@ -24,14 +26,14 @@ const signupSuccessEmail = async (req, res) => {
       console.log(body);
     });
 
-  } catch(err){
-      return  res.status(500).json({message:`${err}`});
-    }
 }
 
 
 const verifyPasswordEmail = async (req, res) => {
-  try {
+  const DOMAIN = process.env.MAIL_GUN_DOMAIN;
+  const api_key = process.env.MAIL_GUN_SEC_KEY;
+
+  const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
     const userPassword = await User.findOne({email: req.body.email}) 
       if(!userPassword) {
         return res.status(401).json({message: 'no user with this email'})
@@ -51,16 +53,15 @@ const verifyPasswordEmail = async (req, res) => {
       console.log(body);
     });
 
-  } catch (err) {
-    res.status(500).json({ message: err });
-  }
 }
 
 
 const transactionSuccessEmail = async (req, res, newBalance) => {
-  try {
+  const DOMAIN = process.env.MAIL_GUN_DOMAIN;
+  const api_key = process.env.MAIL_GUN_SEC_KEY;
+  const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
     const userPassword = await User.findOne({ email: req.body.receiverEmail })
-    !userPassword && res.status(401).json({ message: 'no user with this email' })
+    if(!userPassword) {return res.status(401).json({ message: 'no user with this email' })}
 
     if (req.body.type === "increase") {
       const data = {
@@ -89,9 +90,6 @@ const transactionSuccessEmail = async (req, res, newBalance) => {
       });
 
       
-    }
-  } catch(err) {
-      res.status(500).json({message: `mail error: ${err}`});
     }
 
 }

@@ -31,10 +31,10 @@ const signup = async (req, res) => {
     console.log({ saveUser })
 
     // signupSuccessSMS(2348116432742, saveUser.username)
-    return res.status(201).json(saveUser);
+     res.status(201).json(saveUser);
 
   } catch (err) {
-    return res.status(500).json(err);
+    res.status(500).json({message: `${err}`});
   }
 
 };
