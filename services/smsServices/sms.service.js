@@ -12,7 +12,7 @@ const signupSuccessSMS = async (userNumber, username) => {
     )
 
     const params = {
-        "api_token": "U8lg0PsifZsSwPg2bSJQpEhgg3sgAp2GvcZW09tlat4ZqvxgAiBKs262q1Kq",
+        "api_token": process.env.BULKSMS_API_KEY,
         "to": userNumber,
         "from": "Purscliq",
         "body": body,
@@ -25,10 +25,8 @@ const signupSuccessSMS = async (userNumber, username) => {
         .forEach(key => url.searchParams.append(key, params[key]));
 
     try {
-        const authKey = "U8lg0PsifZsSwPg2bSJQpEhgg3sgAp2GvcZW09tlat4ZqvxgAiBKs262q1Kq"
         const sendSMS = await axios.post(
             url,
-            // {headers:{'Authorization': `Bearer ${authKey}`}}
         )
         return sendSMS
 
