@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser =require('body-parser');
 const app = express();
-const router = require('./routes/')
+const ejs = require('ejs')
 
+const router = require('./routes/')
 const { handle404Error, handleServerError } = require('./middleware/error.middleware')
 
 dotenv.config();
@@ -17,6 +18,8 @@ mongoose.connect(process.env.MONGO_URL)
  console.log({message: err});    
 });
 
+// View engine
+app.set('view engine', 'ejs')
 
 app.use(express.json());
 
