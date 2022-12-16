@@ -13,7 +13,7 @@ router.use('/', adminRoutes)
     .use('/verify', verifyRoutes)
     .use('/transaction', transactionRoutes)
     .use('/invoice', downloadInvoice)
-    .use('/flutter', flutter)
+    .use('/flutterwave', flutter)
 
 
 module.exports = router;

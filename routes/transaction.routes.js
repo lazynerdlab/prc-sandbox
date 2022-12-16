@@ -1,17 +1,19 @@
 const router = require('express').Router();
 
-const { 
-    getUserBalance, 
-    createTransaction, 
-    transactionHistory 
-} = require('../controller');
+const {
+    createTransaction,
+    transactionHistory,
+    getUserBalance
+} = require('../Controller');
 
-const { permissions } = require('../middleware')
+const {
+    authMiddleware
+} = require('../middleware');
 
 
-router.put('/new', permissions.userIsActivePermission, createTransaction)
-.post('/history/:quantity', transactionHistory)
-.get('/balance', getUserBalance);
+router.put('/internal/transfer', authMiddleware, createTransaction)
+    .post('/history/:quantity', authMiddleware, transactionHistory)
+    .post('/balance', authMiddleware, getUserBalance);
 
 
 module.exports = router;

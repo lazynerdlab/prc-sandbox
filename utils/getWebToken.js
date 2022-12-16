@@ -11,7 +11,6 @@ const info = jwt.verify(tokenResult, process.env.JWT_SEC);
     if(!info){
         return res.status(403).json({message:  `error: ${err}`})
     }
-
     return info;
 }
 

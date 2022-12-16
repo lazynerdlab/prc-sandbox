@@ -5,11 +5,19 @@ const createInvoice = require('../../services');
 
 const createTransaction = (req, res) => {
     if (req.body.type === 'inflow') {
+        
         increaseBalance(req, res);
 
     } else if (req.body.type === 'outflow') {
-        decreaseBalance(req, res);
-        // createInvoice(invoiceSchema, 'invoice.pdf')
+
+        try {
+            //console.log(req.body)
+            decreaseBalance(req, res);
+            // createInvoice(invoiceSchema, 'invoice.pdf')
+        } catch (error) {
+            res.status(500).json({message: `${error}`})   
+        }
+
     }
 }
 

@@ -4,7 +4,7 @@ const { form, verify } = require('../controller');
 
 
 router.put('/verify', verify);
-router.put('/form', form);
+router.post('/setupkyc', form);
 
 
 module.exports = router;

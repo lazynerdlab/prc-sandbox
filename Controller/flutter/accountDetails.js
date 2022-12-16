@@ -14,7 +14,7 @@ const accountDetails = async (req, res) => {
             accountNumber = response.data.account_number;
             accountName = response.data.account_name;
 
-            res.status(200).json(accountNumber, accountName)
+            res.status(200).json({accountNumber, accountName})
         } else {
             res.status(400).json('Cannot resolve account details')
         }

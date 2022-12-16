@@ -1,10 +1,13 @@
 const { User } = require("../../models");
+const { getWebToken } = require("../../utils");
 
 
 const form = async (req, res) => {
-    const verifyJWT = await webToken(req)
-    
+
+    console.log('hello');
+    const verifyJWT = await getWebToken(req)
     const senderEmail = verifyJWT.email
+
     const email = senderEmail;
     const firstName = req.body.firstName;
     const middleName = req.body.middleName;
@@ -14,7 +17,7 @@ const form = async (req, res) => {
     try {
         const updateUser = await User.findOneAndUpdate(
             { email: email }, 
-            { firstName: firstName, middleName: middleName, lastName: lastName }
+            { firstName: firstName, middleName: middleName, lastName: lastName, phoneNo: phoneNo }
         );
 
         if (!updateUser) {
