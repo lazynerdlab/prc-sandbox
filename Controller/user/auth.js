@@ -29,14 +29,13 @@ const newDigit = await userIdDigit()
  )
  try{
     const saveUser = await newUser.save();
-    // registerMail(req, res);
-    console.log({saveUser})
 
+  signupSuccessEMail(req,res);
     // signupSUccessSMS(2348145338797, saveUser.username)
     return res.status(201).json(saveUser); 
 
  }  catch(err){
-      return res.status(500).json(err); 
+      return res.status(500).json({message: `${err}`}); 
  }
 
 };

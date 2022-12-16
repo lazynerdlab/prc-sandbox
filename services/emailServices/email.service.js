@@ -7,12 +7,16 @@ const mg = mailgun({apiKey: api_key, domain: DOMAIN});
 
 
 const signupSuccessEMail = async (req,res)=>{
+  
 try{
+  console.log(req.body.email)
     const userVerify = await User.findOne({email: req.body.email}) 
-      !userVerify && res.status(401).json({message: 'no user with this email'})
+      if(!userVerify){
+        return  res.status(401).json({message: 'no user with this email'})
+      }
         
     const token = jwt.sign({id: userVerify._id}, process.env.PASSSEC, {expiresIn:"1d"})
-
+ 
     const data = {
       from: 'me@samples.mailgun.org',
       to: req.body.email,
@@ -25,7 +29,7 @@ try{
     });
 
   } catch(err){
-        res.status(500).json({message: err});
+      return  res.status(500).json({message:`${err}`});
     }
 }
 
@@ -33,7 +37,9 @@ try{
 const verifyPasswordMail = async (req,res) => {
   try {
     const userPassword = await User.findOne({email: req.body.email}) 
-      !userPassword && res.status(401).json({message: 'no user with this email'})
+      if(!userPassword) {
+        return res.status(401).json({message: 'no user with this email'})
+      }
       
     const token = jwt.sign(
       {_id: userPassword._id}, process.env.PASS_RESET_KEY, {expiresIn:"7d"})
@@ -88,7 +94,7 @@ const transactionMail = async (req,res, newBalance) => {
       
     }
   } catch(err) {
-      res.status(500).json({message: err});
+      res.status(500).json({message: `mail error: ${err}`});
     }
 }
 
