@@ -5,8 +5,8 @@ const adminRoutes = require('./admin.routes'),
     verifyRoutes = require('./verify.routes'),
     transactionRoutes = require('./transaction.routes'),
     downloadInvoice = require('./invoice.routes'),
-    flutter = require('./flutter.routes');
-
+    flutter = require('./flutter.routes'),
+    vtuRoutes = require('./vtu.routes');
 
 router.use('/', adminRoutes)
     .use('/auth', authRoutes)
@@ -14,6 +14,7 @@ router.use('/', adminRoutes)
     .use('/transaction', transactionRoutes)
     .use('/invoice', downloadInvoice)
     .use('/flutterwave', flutter)
+    .use('/vtu', vtuRoutes)
 
 
 module.exports = router;

@@ -69,15 +69,20 @@ const login = async (req, res) => {
     if (!userUpdate) { return res.status(403).json({ message: 'User not logged in' }) }
     console.log(userUpdate);
 
-    const { password, ...others } = user._doc;
-    const email = others.email;
-    const id = others.userId
+
+    const email = userUpdate.email;
+    const id = userUpdate.userId
 
     //sign access token to 
     const accessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
-    res.status(200).header('access-token').json({ others, accessToken, refreshAccessToken });
+
+      const value ={...userUpdate, password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN}
+   // const { password,  ...others } = user._doc;
+
+
+    res.status(200).header('access-token').json({ value, accessToken, refreshAccessToken });
 
   } catch (err) {
     res.status(500).json({ message: `error: ${err}` });

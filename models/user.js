@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema(
         isverified: { type: Boolean, default: false},
         balance: {type: Number, default: 500},
         DOB: {type: Date},
-        BVN: {type: String},
         transactionCount: {type: Number, default: 0},
         isAdmin: { type: Boolean, default: false},
         isSuperAdmin: { type: Boolean, default: false},

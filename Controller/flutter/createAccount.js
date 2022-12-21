@@ -66,8 +66,5 @@ const creatAccount = async (req, res) => {
     res.status(500).json({ message: `${error}` })
   }
 }
-<<<<<<< HEAD
     
 module.exports = {creatAccount}
-=======
->>>>>>> refactor
