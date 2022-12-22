@@ -9,15 +9,16 @@ const form = async (req, res) => {
     const senderEmail = verifyJWT.email
 
     const email = senderEmail;
-    const firstName = req.body.firstName;
-    const middleName = req.body.middleName;
-    const lastName =  req.body.lastName;
+    const firstName = req.body.firstname;
+    const middleName = req.body.middlename;
+    const lastName =  req.body.lastname;
     const phoneNo =  req.body.phone;
+    const adress =  req.body.adress;
   
     try {
         const updateUser = await User.findOneAndUpdate(
             { email: email }, 
-            { firstName: firstName, middleName: middleName, lastName: lastName, phoneNo: phoneNo }
+            { firstName: firstName, middleName: middleName, lastName: lastName, phoneNo: phoneNo, adress: adress }
         );
 
         if (!updateUser) {

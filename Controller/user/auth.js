@@ -78,7 +78,7 @@ const login = async (req, res) => {
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
 
-      const {password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = userUpdate._doc;
+    const {password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = userUpdate._doc;
    // const { password,  ...others } = user._doc;
 
 
