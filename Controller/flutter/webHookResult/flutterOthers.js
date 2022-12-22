@@ -1,6 +1,6 @@
 const Flutterwave = require('flutterwave-node-v3');
 
-const { FlutterWebHook } = require('../../models');
+const { FlutterWebHook } = require('../../../models');
 
 
 const flutterOthers = async (payload) => {

@@ -9,7 +9,7 @@ const decreaseBalance = async (req, res) => {
     /* Getting sender email from header token*/
     const verifyJWT = await getWebToken(req)
     const senderEmail = verifyJWT.email
-    console.log(senderEmail)
+   // console.log(senderEmail)
 
     /* Check if user is sending to himself*/
     if (senderEmail === req.body.receiverEmail){

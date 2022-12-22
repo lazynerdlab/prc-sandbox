@@ -1,11 +1,12 @@
 const Flutterwave = require('flutterwave-node-v3');
-const flw = new Flutterwave(FLW_PUBLIC_KEY, FLW_SECRET_KEY);
 const CryptoJS = require('crypto-js');
 const { getWebToken } = require('../../utils');
 const flutterWave = require('../../models');
+const { creatAccount } = require('./createAccount');
 
 
 const bvnDetails = async (req, res) => {
+    const flw = new Flutterwave(FLW_PUBLIC_KEY, FLW_SECRET_KEY);
     const verifyJWT = await getWebToken(req);
     const userId = verifyJWT.id;
     BVN = CryptoJS.AES.decrypt(req.body.bvn, process.env.PASSSEC).toString();
@@ -14,7 +15,13 @@ const bvnDetails = async (req, res) => {
 
     if (response.status === "success" && response.data.bvn === BVN) {
 
+
+
         try {
+
+
+            await creatAccount(req,res);
+
             const newFlutterWave = new flutterWave({
                 BVNFirstName: response.data.first_name,
                 BVNLastName: response.data.last_name,

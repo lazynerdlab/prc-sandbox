@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 const flutterWave = require('../../models/flutterWave'),
   User = require('../../models');
 const { getWebToken } = require('../../utils');

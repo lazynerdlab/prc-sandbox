@@ -12,7 +12,9 @@ const transactionSchema = new mongoose.Schema(
         transactId: { type: Number, default: null },
         acccountCharge: { type: Number, default: 0 },
         managmentCharge: { type: Number, default: 0 },
-        maintenanceCharge: { type: Number, default: 0 }
+        maintenanceCharge: { type: Number, default: 0 },
+        vtu_order_id: { type: Number, default: 0 },
+        vtu_credit_phone: { type: Number, default: 0 }
     }, {
         timestamps: true
 })

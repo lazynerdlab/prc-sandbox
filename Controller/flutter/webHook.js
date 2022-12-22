@@ -1,6 +1,6 @@
-const { flutterCharges } = require("./flutterCharges");
-const { flutterOthers } = require("./flutterOthers");
-const { flutterTransfer } = require("./flutterTransfer");
+const { flutterCharges } = require("./webHookResult/flutterCharges");
+const { flutterOthers } = require("./webHookResult/flutterOthers");
+const { flutterTransfer } = require("./webHookResult/flutterTransfer");
 
 const webHook = (req, res) => {
     const secretHash = process.env.FLW_SECRET_HASH;

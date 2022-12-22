@@ -1,9 +1,12 @@
 const axios = require('axios');
+const { getWebToken } = require('../../utils');
+const { vtudeductor } = require('./vtudeductor');
 
 const username = process.env.VTU_USERNAME;
 const password = process.env.VTU_PASSWORD;
 
 const vtuAirtime = async (req, res) => {
+    
     const username = process.env.VTU_USERNAME;
     const password = process.env.VTU_PASSWORD;
     const phone = req.body.phone;
@@ -15,10 +18,12 @@ const vtuAirtime = async (req, res) => {
             `https://vtu.ng/wp-json/api/v1/airtime?username=${username}&password=${password}&phone=${phone}&network_id=${network}&amount=${amount}`
         )
 
+        const updateTransaction = await vtudeductor(req, data)
+
     //    console.log(res.data)
 
         if(data.code === "success"){
-            res.status(200).json(data)
+            res.status(200).json(data, updateTransaction)
         }else{
             res.status(401).json(data)
         }
@@ -31,6 +36,7 @@ const vtuAirtime = async (req, res) => {
 
 
 const verifyCustomer = async (req, res) => {
+    
     const username = process.env.VTU_USERNAME;
     const password = process.env.VTU_PASSWORD;
     const customer_id = req.body.customer_id;
@@ -45,6 +51,7 @@ const verifyCustomer = async (req, res) => {
  //   console.log(res.data)
 
         if(data.code === "success"){
+
             res.status(200).json(data)
         }else{
             res.status(401).json(data)
@@ -57,12 +64,18 @@ const verifyCustomer = async (req, res) => {
 
 
 const cableTV = async (req, res) => {
+
     const username = process.env.VTU_USERNAME;
     const password = process.env.VTU_PASSWORD;
     const phone = req.body.phone;
     const service_id = req.body.service_id;
     const variation_id = req.body.variation_id;
-    const smartCard_number = req.body.smartCard_number
+    const smartCard_number = req.body.smartCard_number;
+ 
+
+
+
+
 
     try{
         const data = await axios.get(
@@ -71,12 +84,15 @@ const cableTV = async (req, res) => {
     //  console.log(res.data)
 
         if(data.code === "success"){
-            res.status(200).json(data)
+
+            const updateTransaction = await vtudeductor(req, data)
+
+            res.status(200).json(data, updateTransaction)
         }else{
             res.status(401).json(data)
         }
     } catch (error) {
-    res.status(500).json({message: `${error}`})
+        res.status(500).json({message: `${error}`})
     }
 
 }

@@ -1,17 +1,17 @@
 
 const Flutterwave = require('flutterwave-node-v3');
+const { FlutterWebHook } = require('../../../models');
 
-const { FlutterWebHook } = require('../../models');
 
+const flutterCharges = async (payload) => {
 
-const flutterTransfer = async (payload) => {
     const flw = new Flutterwave(process.env.FLW_PUBLIC_KEY, process.env.FLW_SECRET_KEY);
     const response = flw.Transaction.verify({ id: payload.data.id })
 
     if (
         response.data.status === "successful"
         && response.data.amount === payload.data.amount
-        && response.data.currency === expectedCurrency
+        && response.data.currency === payload.data.currency
     ) {
 
         const newFlutterWebHook = new FlutterWebHook({
@@ -19,7 +19,7 @@ const flutterTransfer = async (payload) => {
             id: response.data.id,
             tx_ref: response.data.tx_ref,
             flw_ref: response.data.flw_ref,
-            device_fingerprint: response.device_fingerprint,
+            device_fingerprint: response.data.device_fingerprint,
             amount: response.data.amount,
             currency: response.data.currency,
             charged_amount: response.data.charged_amount,
@@ -55,4 +55,4 @@ const flutterTransfer = async (payload) => {
 }
 
 
-module.exports = { flutterTransfer };
+module.exports = { flutterCharges };
