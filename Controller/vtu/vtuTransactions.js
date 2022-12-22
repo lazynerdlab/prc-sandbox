@@ -99,10 +99,6 @@ const cableTV = async (req, res) => {
     const service_id = req.body.service_id;
     const variation_id = req.body.variation_id;
     const smartCard_number = req.body.smartCard_number;
- 
-
-
-
 
 
     try{
