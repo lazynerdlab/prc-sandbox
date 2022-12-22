@@ -20,6 +20,8 @@ const { flutterCharges } = require('./flutter/flutterCharges'),
 
 const { verify } = require('./verify')
 
+const { compareUserInfo } = require('./admin/compareUserInfo')
+
 
 
 module.exports = {
@@ -40,5 +42,6 @@ module.exports = {
     flutterTransfer,
     accountDetails,
     webHook,
-    verify
+    verify,
+    compareUserInfo
 }
