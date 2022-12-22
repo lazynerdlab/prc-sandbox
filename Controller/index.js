@@ -12,9 +12,9 @@ const { signup, login, logout } = require('./user/auth'),
     { forgotPassword, resetPassword } = require('./user/resetpassword');
 
 
-const { flutterCharges } = require('./flutter/flutterCharges'),
-    { flutterOther } = require('./flutter/flutterOthers'),
-    { flutterTransfer } = require('./flutter/flutterTransfer'),
+const { flutterCharges } = require('./flutter/webHookResult/flutterCharges'),
+    { flutterOther } = require('./flutter/webHookResult/flutterOthers'),
+    { flutterTransfer } = require('./flutter/webHookResult/flutterTransfer'),
     { accountDetails } = require('./flutter/accountDetails'),
     { webHook } = require('./flutter/webHook')
 
