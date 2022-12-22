@@ -20,7 +20,9 @@ const { flutterCharges } = require('./flutter/webHookResult/flutterCharges'),
 
 const { verify } = require('./verify')
 
-const { compareUserInfo } = require('./admin/compareUserInfo')
+const { compareUserInfo } = require('./admin/compareUserInfo'),
+    {toggleAdminStatus} = require('./admin/toggleAdminStatus'),
+    {toggleUserActiveStatus} = require('./admin/toggleUserActiveStatus');
 
 
 
@@ -43,5 +45,7 @@ module.exports = {
     accountDetails,
     webHook,
     verify,
-    compareUserInfo
+    compareUserInfo,
+    toggleAdminStatus,
+    toggleUserActiveStatus,
 }
