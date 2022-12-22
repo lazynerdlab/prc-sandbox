@@ -24,5 +24,19 @@ const UserSchema = new mongoose.Schema(
     {timestamps: true}
 )
 
+UserSchema.statics.getUser = function(seacrhParam, selectFields) {
+    return new Promise(( resolve, reject) => {
+        this.findOne({seacrhParam},(err, docs) => {
+            if(err) {
+                console.log({err})
+                return reject(err)
+            }
+            resolve(docs)
+        })
+        .lean()
+        .select(selectFields)
+    })
+}
+
 module.exports = mongoose.model('User', UserSchema);
 
