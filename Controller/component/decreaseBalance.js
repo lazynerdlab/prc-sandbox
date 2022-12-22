@@ -9,6 +9,7 @@ const decreaseBalance = async (req, res) => {
     /* Getting sender email from header token*/
     const verifyJWT = await getWebToken(req)
     const senderEmail = verifyJWT.email
+    const  userId = verify.id
    // console.log(senderEmail)
 
     /* Check if user is sending to himself*/
@@ -18,7 +19,7 @@ const decreaseBalance = async (req, res) => {
     }
 
     /* Checking for sender info from the DB through email*/
-    const user = await User.findOne({email: senderEmail} )
+    const user = await User.findOne({userId: userId} )
     if (!user) { return res.status(401).json({message: 'Cannot find user'});}
 
      /* Checking for receiver info from the DB through email*/
@@ -45,7 +46,7 @@ const decreaseBalance = async (req, res) => {
     
     /*updating the sender info with new balance and transaction count*/
    
-     User.findOneAndUpdate(    {email: senderEmail}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
+     User.findOneAndUpdate(    {userId: userId}, {balance: newBalance}, {$inc: {transactionCount: 1}} );
 
  
     /*logic for maintainance charge after two transaction*/

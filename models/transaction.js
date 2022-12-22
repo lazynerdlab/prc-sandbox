@@ -13,8 +13,13 @@ const transactionSchema = new mongoose.Schema(
         acccountCharge: { type: Number, default: 0 },
         managmentCharge: { type: Number, default: 0 },
         maintenanceCharge: { type: Number, default: 0 },
-        vtu_order_id: { type: Number, default: 0 },
-        vtu_credit_phone: { type: Number, default: 0 }
+        vtu_credit_phone: { type: Number, default: 0 },
+        bank_name: { type: String, default: "" },
+        account_number: { type: Number, default: 0 },
+        full_name: { type: String, default: "" },
+        amount:{ type: Number, default: 0 },
+        fee: { type: Number, default: 0 },
+        reference: { type: String, default: "" }
     }, {
         timestamps: true
 })

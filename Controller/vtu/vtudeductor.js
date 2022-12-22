@@ -22,9 +22,8 @@ const vtudeductor = async (req, data) =>{
         transactionUserEmail: userinfo.email,
         senderbalance: updateUserBalance.balance,
         Sent: vutamount,
-        transactId: transactId,
-        vtu_credit_phone: data.data.phone,
-        vtu_order_id: data.data.order_id
+        transactId: data.data.order_id,
+        vtu_credit_phone: data.data.phone
     })
 
     const transaction = await newtransaction.save()
