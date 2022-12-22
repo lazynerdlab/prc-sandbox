@@ -78,11 +78,11 @@ const login = async (req, res) => {
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
 
-      const value ={...userUpdate, password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN}
+      const {password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = userUpdate._doc;
    // const { password,  ...others } = user._doc;
 
 
-    res.status(200).header('access-token').json({ value, accessToken, refreshAccessToken });
+    res.status(200).header('access-token').json({ ...response, accessToken, refreshAccessToken });
 
   } catch (err) {
     res.status(500).json({ message: `error: ${err}` });
