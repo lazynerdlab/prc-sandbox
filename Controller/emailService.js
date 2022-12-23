@@ -13,12 +13,6 @@ const emailService = async (req, res) => {
     const MAILGUN_HOST = process.env.MAILGUN_HOST
 
     const mg = mailgun({ apiKey: api_key, domain: DOMAIN, HOST: MAILGUN_HOST });
-      // const userVerify = await User.findOne({ email: req.body.email })
-      // if(!userVerify) {
-      //   return res.status(401).json({ message: 'no user with this email' })
-      // }
-
-      // const token = jwt.sign({ id: userVerify._id }, process.env.PASSSEC, { expiresIn: "1d" })
 
       const data = {
         from: 'me@samples.mailgun.org',
