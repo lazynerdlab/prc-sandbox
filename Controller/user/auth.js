@@ -65,7 +65,7 @@ const login = async (req, res) => {
     }
 
     // set user isloggedIn state to tru in db
-    const userUpdate = await User.findOneAndUpdate(req.body.email, { isLoggeIn: true });
+    const userUpdate = await User.findOneAndUpdate({email: req.body.email}, { isLoggeIn: true });
     if (!userUpdate) { return res.status(403).json({ message: 'User not logged in' }) }
     console.log(userUpdate);
 
@@ -78,7 +78,7 @@ const login = async (req, res) => {
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
 
-    const {password, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = user;
+    const {password, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = user._doc;
    // const { password,  ...others } = user._doc;
 
 
