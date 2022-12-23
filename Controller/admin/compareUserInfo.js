@@ -3,6 +3,7 @@ const { User, FlutterWave } = require('../../models')
 const compareUserInfo = async (req, res) => {
     /* Fetches user details from the user model and fllutterwave model for manual comparison */
     const userId = req.params.userId;
+    console.log({userId})
     const selectFields = 'username userId firstName middleName lastName phoneNo email'
     try {
         // Promise.all for parallel db operations

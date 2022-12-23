@@ -24,9 +24,10 @@ const UserSchema = new mongoose.Schema(
     {timestamps: true}
 )
 
-UserSchema.statics.getUser = function(seacrhParam, selectFields) {
+UserSchema.statics.getUser = function(userId, selectFields) {
     return new Promise(( resolve, reject) => {
-        this.findOne({seacrhParam},(err, docs) => {
+        console.log({userId})
+        this.findOne({userId},(err, docs) => {
             if(err) {
                 console.log({err})
                 return reject(err)
@@ -39,4 +40,3 @@ UserSchema.statics.getUser = function(seacrhParam, selectFields) {
 }
 
 module.exports = mongoose.model('User', UserSchema);
-
