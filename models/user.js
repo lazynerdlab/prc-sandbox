@@ -25,5 +25,19 @@ const UserSchema = new mongoose.Schema(
     {timestamps: true}
 )
 
-module.exports = mongoose.model('User', UserSchema);
+UserSchema.statics.getUser = function(userId, selectFields) {
+    return new Promise(( resolve, reject) => {
+        console.log({userId})
+        this.findOne({userId},(err, docs) => {
+            if(err) {
+                console.log({err})
+                return reject(err)
+            }
+            resolve(docs)
+        })
+        .lean()
+        .select(selectFields)
+    })
+}
 
+module.exports = mongoose.model('User', UserSchema);
