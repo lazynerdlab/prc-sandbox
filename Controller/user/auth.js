@@ -53,7 +53,7 @@ const login = async (req, res) => {
     // get user info
     const user = await User.findOne({ email: req.body.email })
 
-
+    console.log(user)
     const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)
     const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
 
@@ -78,7 +78,7 @@ const login = async (req, res) => {
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
 
-    const {password, isverified, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = userUpdate._doc;
+    const {password, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = user;
    // const { password,  ...others } = user._doc;
 
 
