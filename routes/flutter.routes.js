@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { fundWallet, webHook, accountDetails } = require('../controller');
+const { fundWallet, webHook, accountDetails } = require('../Controller');
 const { bankTransfer } = require('../Controller/flutter/banktransfer');
 const { bvnDetails } = require('../Controller/flutter/bvnDetails');
 const { authMiddleware } = require('../middleware');
