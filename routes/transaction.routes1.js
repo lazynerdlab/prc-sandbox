@@ -4,7 +4,7 @@ const {
     getUserBalance, 
     createTransaction, 
     transactionHistory 
-} = require('../controller');
+} = require('../Controller');
 
 const { permissions } = require('../middleware')
 

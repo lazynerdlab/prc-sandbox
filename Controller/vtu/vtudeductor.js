@@ -6,7 +6,6 @@ const { getWebToken, transferIdDigit } = require("../../utils")
 const vtudeductor = async (req, data) =>{
 
     const userinfo = await getWebToken(req)
-    const transactId = await transferIdDigit()
 
     const userId = userinfo.id
     const vutamount = data.data.amount

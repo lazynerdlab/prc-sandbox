@@ -33,6 +33,34 @@ const vtuAirtime = async (req, res) => {
 
 
 }
+const vtuData = async (req, res) => {
+    
+    const username = process.env.VTU_USERNAME;
+    const password = process.env.VTU_PASSWORD;
+    const phone = req.body.phone;
+    const network = req.body.network;
+    const variation_id = req.body.variation_id;
+
+    try{
+        const data = await axios.get(
+            `https://vtu.ng/wp-json/api/v1/data?username=${username}&password=${password}&phone=${phone}&network_id=${network}&variation_id=${variation_id}`
+        )
+
+        const updateTransaction = await vtudeductor(req, data)
+
+    //    console.log(res.data)
+
+        if(data.code === "success"){
+            res.status(200).json(data, updateTransaction)
+        }else{
+            res.status(401).json(data)
+        }
+    } catch (error) {
+    res.status(500).json({message: `${error}`})
+    }
+
+
+}
 
 
 const verifyCustomer = async (req, res) => {
@@ -71,10 +99,6 @@ const cableTV = async (req, res) => {
     const service_id = req.body.service_id;
     const variation_id = req.body.variation_id;
     const smartCard_number = req.body.smartCard_number;
- 
-
-
-
 
 
     try{
@@ -98,4 +122,4 @@ const cableTV = async (req, res) => {
 }
 
 
-module.exports = { vtuAirtime, cableTV, verifyCustomer }
+module.exports = { vtuAirtime, cableTV, verifyCustomer, vtuData }
