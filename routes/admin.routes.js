@@ -4,7 +4,7 @@ const {
     compareUserInfo, 
     toggleAdminStatus, 
     toggleUserActiveStatus 
-} = require('../controller')
+} = require('../Controller')
 
 
 router.patch('/user/:userId/changeadmin', toggleAdminStatus)
