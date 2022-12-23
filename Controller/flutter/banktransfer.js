@@ -1,5 +1,5 @@
 const Flutterwave = require('flutterwave-node-v3');
-const { flutterDeductor } = require('./flutterdeductor');
+const { flutterDeductor } = require('./flutterDeductor');
 
 const bankTransfer = async (req, res) => {
 
