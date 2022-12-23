@@ -7,7 +7,7 @@ const form = async (req, res) => {
     console.log('hello');
     const verifyJWT = await getWebToken(req)
     const senderEmail = verifyJWT.email
-
+    console.log(senderEmail)
     const email = senderEmail;
     const firstName = req.body.firstname;
     const middleName = req.body.middlename;

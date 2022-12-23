@@ -12,7 +12,7 @@ const emailService = async (req, res) => {
     const api_key = process.env.MAIL_GUN_SEC_KEY;
     const MAILGUN_HOST = process.env.MAILGUN_HOST
 
-    const mg = mailgun({ apiKey: api_key, domain: DOMAIN, HOST: MAILGUN_HOST });
+    const mg = mailgun({ apiKey: api_key, domain: DOMAIN, host: MAILGUN_HOST });
 
       const data = {
         from: 'me@samples.mailgun.org',
