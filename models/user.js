@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const CryptoJS = require('crypto-js');
+
 const UserSchema = new mongoose.Schema(
     {
         username: { type: String, required: true, unique: true},
@@ -38,6 +40,13 @@ UserSchema.statics.getUser = function(userId, selectFields) {
         .lean()
         .select(selectFields)
     })
+}
+
+UserSchema.statics.comparePassword = function (userPassword, inputPassword) {
+    const decryptPassword = CryptoJS.AES.decrypt(userPassword, process.env.PASSSEC)
+    const plainPassword = decryptPassword.toString(CryptoJS.enc.Utf8);
+
+    return plainPassword === inputPassword
 }
 
 module.exports = mongoose.model('User', UserSchema);

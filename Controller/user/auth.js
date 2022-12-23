@@ -53,16 +53,10 @@ const login = async (req, res) => {
     // get user info
     const user = await User.findOne({ email: req.body.email })
 
-    console.log(user)
-    const hashPassword = CryptoJS.AES.decrypt(user.password, process.env.PASSSEC)
-    const logpassword = hashPassword.toString(CryptoJS.enc.Utf8);
-
-
-   
-
-    if (!user || (logpassword !== req.body.password)) {
-      return res.status(401).json({ message: 'Email or password is incorrect' });
-    }
+   const passwordisCorrect = await User.comparePassword(user.password, req.body.password)
+   if (!user || !passwordisCorrect) {
+    return res.status(401).json({ message: 'Email or password is incorrect' });
+  }
 
     // set user isloggedIn state to tru in db
     const userUpdate = await User.findOneAndUpdate({email: req.body.email}, { isLoggeIn: true });
