@@ -9,11 +9,14 @@ const {
 const { createInvoice } = require('./invoice/createInvoice'),
     { downloadInvoice }  = require('./invoice/downloadInvoice');
 
+const userService = require('./userServices/user.service')
+
 module.exports =  { 
     signupSuccessSMS,
     createInvoice, 
     downloadInvoice,
     signupSuccessEmail,
     verifyPasswordEmail,
-    transactionSuccessEmail
+    transactionSuccessEmail,
+    userService
 }

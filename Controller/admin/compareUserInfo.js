@@ -8,7 +8,7 @@ const compareUserInfo = async (req, res) => {
     try {
         // Promise.all for parallel db operations
         const [user, flutterWaveUser] = await Promise.all([
-            User.getUser(userId, selectFields),
+            User.getUserById(userId, selectFields),
             FlutterWave.findOne({ userId })
         ])
 

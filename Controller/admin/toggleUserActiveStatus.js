@@ -1,28 +1,36 @@
-const User = require('../../models')
+const { User } = require('../../models')
 
 
 const toggleUserActiveStatus = async (req, res) => {
-    const user = await User.findOne({userId: req.params.userId})
-    const activeStatus = user.isActive == false ? true : false 
+    const userId = req.params.userId;
+    const user = await User.getUserById(userId)
+    // if (!user) {
+    //     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    // }
+    if (!user) {
+        return res.status(404).json('User not found')
+      }
+
+    const activeStatus = user.isActive == false ? true : false
 
     try {
         const changeActiveStatus = await User.findOneAndUpdate(
-            {userId: user.userId},
-            {isActive: activeStatus},
-            {new:true}
+            { user },
+            { isActive: activeStatus },
+            { new: true }
         )
         const userStatus = {
             username: changeActiveStatus.username,
             email: changeActiveStatus.email,
             isactive: changeActiveStatus.isActive,
         }
-        return res.status(200).json({userStatus})
-        
+        return res.status(200).json({ userStatus })
+
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 
 
-module.exports = {toggleUserActiveStatus};
+module.exports = { toggleUserActiveStatus };
 

@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema(
     {timestamps: true}
 )
 
-UserSchema.statics.getUser = function(userId, selectFields) {
+UserSchema.statics.getUserById = function(userId, selectFields) {
     return new Promise(( resolve, reject) => {
         console.log({userId})
         this.findOne({userId},(err, docs) => {
