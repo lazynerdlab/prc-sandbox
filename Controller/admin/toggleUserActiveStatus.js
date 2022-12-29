@@ -4,9 +4,7 @@ const { User } = require('../../models')
 const toggleUserActiveStatus = async (req, res) => {
     const userId = req.params.userId;
     const user = await User.getUserById(userId)
-    // if (!user) {
-    //     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-    // }
+
     if (!user) {
         return res.status(404).json('User not found')
       }
