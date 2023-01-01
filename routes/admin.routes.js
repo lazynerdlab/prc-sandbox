@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const { permissions } = require('../middleware')
+
 const { 
     compareUserInfo, 
     toggleAdminStatus, 
@@ -8,7 +10,7 @@ const {
 
 
 router.patch('/user/:userId/changeadmin', toggleAdminStatus)
-    .patch('/user/:userId/changeactivestatus', toggleUserActiveStatus)
+    .patch('/user/:userId/changeactivestatus', permissions.adminPermission, toggleUserActiveStatus)
     .get('/user/:userId/compare', compareUserInfo)
 
 module.exports = router

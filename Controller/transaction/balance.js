@@ -1,4 +1,4 @@
-const User = require('../../models');
+const { User } = require('../../models');
 const { getWebToken } = require('../../utils');
 
 
@@ -13,6 +13,7 @@ const getUserBalance = async (req, res) => {
         res.status(200).json(viewBalance);
 
     } catch (error) {
+        console.log({ error })
         res.status(401).json(error);
     }
 }

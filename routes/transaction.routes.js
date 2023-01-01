@@ -13,7 +13,7 @@ const {
 
 router.put('/internal/transfer', authMiddleware, createTransaction)
     .post('/history/:quantity', authMiddleware, transactionHistory)
-    .post('/balance', authMiddleware, getUserBalance);
+    .get('/balance', authMiddleware, getUserBalance);
 
 
 module.exports = router;
