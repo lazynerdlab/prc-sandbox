@@ -31,4 +31,4 @@ const userIsActivePermission = async (req, res, next) => {
 }
 
 
-module.exports = { authPermission, adminPermission, userIsActivePermission };
+module.exports = { adminPermission, userIsActivePermission };
