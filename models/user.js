@@ -42,11 +42,12 @@ UserSchema.statics.getUserById = function(userId, selectFields) {
     })
 }
 
-UserSchema.statics.comparePassword = function (userPassword, inputPassword) {
-    const decryptPassword = CryptoJS.AES.decrypt(userPassword, process.env.PASSSEC)
+UserSchema.methods.comparePassword = function (inputPassword) {
+    const decryptPassword = CryptoJS.AES.decrypt(this.password, process.env.PASSSEC)
     const plainPassword = decryptPassword.toString(CryptoJS.enc.Utf8);
 
     return plainPassword === inputPassword
 }
+
 
 module.exports = mongoose.model('User', UserSchema);
