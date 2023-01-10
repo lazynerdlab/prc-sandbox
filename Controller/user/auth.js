@@ -5,7 +5,7 @@ const CryptoJS = require('crypto-js');
 const { userIdDigit, getWebToken } = require('../../utils');
 const { User } = require('../../models');
 const { signupSuccessEmail, signupSuccessSMS } = require('../../services');
-
+const { userService } = require('../../services')
 
 // sign up new user
 const signup = async (req, res) => {
@@ -38,10 +38,10 @@ const signup = async (req, res) => {
     console.log({ saveUser })
 
     signupSuccessSMS(2349015667067, saveUser.username)
-     res.status(201).json(saveUser);
+    res.status(201).json(saveUser);
 
   } catch (err) {
-    res.status(500).json({message: `${err}`});
+    res.status(500).json({ message: `${err}` });
   }
 
 };
@@ -51,15 +51,16 @@ const login = async (req, res) => {
   try {
 
     // get user info
-    const user = await User.findOne({ email: req.body.email })
+    // const user = await User.findOne({ email: req.body.email })
+    const user = await userService.getUserByEmail(req.body.email )
 
-   const passwordisCorrect = await User.comparePassword(user.password, req.body.password)
-   if (!user || !passwordisCorrect) {
-    return res.status(401).json({ message: 'Email or password is incorrect' });
-  }
+    const passwordisCorrect = await user.comparePassword(req.body.password)
+    if (!user || !passwordisCorrect) {
+      return res.status(401).json({ message: 'Email or password is incorrect' });
+    }
 
     // set user isloggedIn state to tru in db
-    const userUpdate = await User.findOneAndUpdate({email: req.body.email}, { isLoggeIn: true });
+    const userUpdate = await User.findOneAndUpdate({ email: req.body.email }, { isLoggeIn: true });
     if (!userUpdate) { return res.status(403).json({ message: 'User not logged in' }) }
     console.log(userUpdate);
 
@@ -72,8 +73,8 @@ const login = async (req, res) => {
     const refreshAccessToken = jwt.sign({ email, id }, process.env.JWT_SEC);
 
 
-    const {password, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response} = user._doc;
-   // const { password,  ...others } = user._doc;
+    const { password, isLoggeIn, isSuperAdmin, isApproved, isActive, DOB, BVN, ...response } = user._doc;
+    // const { password,  ...others } = user._doc;
 
 
     res.status(200).header('access-token').json({ ...response, accessToken, refreshAccessToken });
@@ -90,7 +91,7 @@ const logout = async (req, res) => {
   const senderId = info.id;
   console.log(senderId);
 
-//  set is logged in status to false in db
+  //  set is logged in status to false in db
   const logoutUser = await User.findOneAndUpdate({ userId: senderId }, { isLoggeIn: false });
   res.status(200).json(`${logoutUser.username} logged out`)
 
