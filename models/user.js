@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const CryptoJS = require('crypto-js');
+
 
 const UserSchema = new mongoose.Schema(
     {
@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema(
         lastName: { type: String},
         middleName: { type: String},
         adress: { type: String},
-        userId: { type: Number, required: true, unique: true},
+        userId: { type: Number,  unique: true},
         phoneNo: { type: Number, default: 0},
         BVN: { type: Number},
         email: { type: String, required:true, unique:true},
@@ -41,6 +41,12 @@ UserSchema.statics.getUserById = function(userId, selectFields) {
         .select(selectFields)
     })
 }
+
+UserSchema.pre('save', async function (next) {
+    let user = this;
+    user.password = CryptoJS.AES.encrypt(user.password, process.env.PASSSEC).toString()
+    next()
+})
 
 UserSchema.methods.comparePassword = function (inputPassword) {
     const decryptPassword = CryptoJS.AES.decrypt(this.password, process.env.PASSSEC)

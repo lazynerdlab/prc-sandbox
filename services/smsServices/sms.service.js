@@ -20,7 +20,7 @@ const signupSuccessSMS = async (userNumber, username) => {
         "append_sender": "0",
     };
 
-    console.log({data: params.body})
+    // console.log({data: params.body})
     Object.keys(params)
         .forEach(key => url.searchParams.append(key, params[key]));
 

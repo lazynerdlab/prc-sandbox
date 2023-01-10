@@ -25,8 +25,7 @@ const signup = async (req, res) => {
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    password: CryptoJS.AES.encrypt(req.body.password, process.env.PASSSEC).toString(),
-    isverified: false,
+    password: req.body.password,
     userId: newDigit
   })
 
@@ -37,7 +36,7 @@ const signup = async (req, res) => {
     // signupSuccessEmail(req, res);
     console.log({ saveUser })
 
-    signupSuccessSMS(2349015667067, saveUser.username)
+    // signupSuccessSMS(2349015667067, saveUser.username)
     res.status(201).json(saveUser);
 
   } catch (err) {
