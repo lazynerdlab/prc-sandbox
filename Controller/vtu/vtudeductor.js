@@ -3,12 +3,12 @@ const { getWebToken, transferIdDigit } = require("../../utils")
 
 
 
-const vtudeductor = async (req, data) =>{
+const vtudeductor = async (req) =>{
 
     const userinfo = await getWebToken(req)
 
     const userId = userinfo.id
-    const vutamount = data.data.amount
+    const vutamount = req.body.amount
 
     
     const findUserBalance = await User.findOne({userId: userId})
@@ -21,8 +21,8 @@ const vtudeductor = async (req, data) =>{
         transactionUserEmail: userinfo.email,
         senderbalance: updateUserBalance.balance,
         Sent: vutamount,
-        transactId: data.data.order_id,
-        vtu_credit_phone: data.data.phone
+        // transactId: data.data.order_id,
+        // vtu_credit_phone: data.data.phone
     })
 
     const transaction = await newtransaction.save()
