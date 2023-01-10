@@ -1,13 +1,17 @@
 const axios = require('axios');
 
-const username = process.env.VTU_USERNAME;
-const password = process.env.VTU_PASSWORD;
+
 
 
     
 
-const vtubalance = () =>{
+const vtubalance = (req) =>{
 
+    const username = process.env.VTU_USERNAME;
+    const password = process.env.VTU_PASSWORD;
+    const balance = 2000
+
+    res.status(200).json({data: balance}) 
 
     try {   
             const data = axios.get(
