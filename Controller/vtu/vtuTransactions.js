@@ -124,7 +124,7 @@ const verifyCustomer = async (req, res) => {
 
             res.status(200).json(demodata)
         }else{
-            res.status(401).json(data)
+            res.status(401).json('none')
         }
     } catch (error) {
     res.status(500).json({message: `${error}`})
@@ -172,6 +172,51 @@ const cableTV = async (req, res) => {
 
             res.status(200).json({updateTransaction, demodata})
         }else{
+            res.status(401).json('none')
+        }
+    } catch (error) {
+        res.status(500).json({message: `${error}`})
+    }
+
+}
+
+const electricity = async (req, res) => {
+
+    const username = process.env.VTU_USERNAME;
+    const password = process.env.VTU_PASSWORD;
+    const phone = req.body.phone;
+    const amount = req.body.amount;
+    const service_id = req.body.service_id;
+    const variation_id = req.body.variation_id;
+    const meter_number = req.body.meter_number;
+    const demophone = req.body.phone;
+
+    const demodata = ({
+        "code":"success",
+        "message":"Electricity bill successfully paid",
+        "data":{
+            "electricity":"Ikeja (IKEDC)",
+            "meter_number":meter_number,
+            "token":"Token: 5345 8765 3456 3456 1232",
+            "units":"47.79kwH","phone":"07045461790",
+            "amount":amount,
+            "amount_charged":"NGN2970",
+            "order_id":"4324"
+        }
+    })
+
+    try{
+    //     const data = await axios.get(
+    //         `https://vtu.ng/wp-json/api/v1/electricity?username=${username}&password=${password}&phone=${phone}&meter_number=${meter_number}&service_id=${service_id}&variation_id=${variation_id}&amount=${amount}`
+    //         )
+    //  console.log(res.data)
+
+        if(/*data.code === "success" || */demodata.code === "success"){
+
+            const updateTransaction = await vtudeductor(req)
+
+            res.status(200).json({updateTransaction, demodata})
+        }else{
             res.status(401).json(data)
         }
     } catch (error) {
@@ -181,4 +226,4 @@ const cableTV = async (req, res) => {
 }
 
 
-module.exports = { vtuAirtime, cableTV, verifyCustomer, vtuData }
+module.exports = { vtuAirtime, cableTV, verifyCustomer, vtuData, electricity }
