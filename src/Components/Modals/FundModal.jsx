@@ -10,7 +10,6 @@ const FundModal = () => {
   const [remarks, setRemarks] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const navigateHandler = () => navigate(-1);
   return (
     <div className="w-full flex justify-center items-center">
       <form
@@ -20,7 +19,6 @@ const FundModal = () => {
         }}
       >
         <InputAmount title="Amount" value={value} state={setValue} />
-        <InputAmount title="Phone Number" value={phone} state={setPhone} />
         <InputEmail title="Email" value={email} state={setEmail} />
         <InputMessage
           title="Remarks(optional)"
@@ -28,7 +26,11 @@ const FundModal = () => {
           state={setRemarks}
         />
         <div className="flex flex-col">
-          <FlutterWave name={userName} email={userEmail} amount={value} />
+          <FlutterWave
+            name={userName}
+            email={userEmail}
+            amount={value.split(",").join("")}
+          />
         </div>
       </form>
     </div>

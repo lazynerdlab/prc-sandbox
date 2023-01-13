@@ -7,14 +7,14 @@ const InputAmount = ({ title, value, state, balance }) => {
         {title} (₦): {balance && `(${amount})`}
       </label>
       <input
-        className="border-solid border-b-[2px] w-full m-auto mb-[1rem] text-[1.5rem] text-center focus:outline-none focus:border-primary-bold"
-        type="number"
+        className="border-solid border-b-[2px] w-full m-auto mb-[1rem] text-[1.5rem] focus:outline-none focus:border-primary-bold"
+        type="text"
         min="1"
         required
         value={value}
         onChange={(e) => {
-          if (e.target.value >= 1 && e.target.value.charAt(0) !== "0") {
-            state(e.target.value);
+          if (e.target.value.charAt(0) !== "0") {
+            state(Number(e.target.value.split(",").join("")).toLocaleString());
             return;
           }
           state("0.00");

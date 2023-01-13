@@ -6,7 +6,6 @@ import user from "../features/reducers/userSlice";
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    [flutterwaveApiSlice.reducerPath]: flutterwaveApiSlice.reducer,
     user,
   },
   middleware: (getDefaultMiddleware) =>

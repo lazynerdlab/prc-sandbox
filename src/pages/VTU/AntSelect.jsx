@@ -15,11 +15,11 @@ import { Select } from "antd";
 //     },
 //   ]
 
-const AntSelect = ({ data, handleChange }) => (
+const AntSelect = ({ data, handleChange, width }) => (
   <Select
     labelInValue
     defaultValue={data[0]}
-    // style={{ width: 200 }}
+    style={{ width: width }}
     onChange={handleChange}
     options={data}
   />

@@ -60,15 +60,15 @@ const AntCordinatedSelect = ({
   //   const [cities, setCities] = useState(variations[data[0]]);
   //   const [secondCity, setSecondCity] = useState(variations[data[0]]);
 
-  const handleDataChange = (value) => {
-    setProvider(variations[value]);
-    setBundle(variations[value][0]);
-    setAmount(variations[value][0].label.split("₦")[1]);
+  const handleDataChange = (values) => {
+    setProvider(variations[values]);
+    setBundle(variations[values][0]);
+    setAmount(Number(variations[values][0].label.split("₦")[1].split("+")[0]));
   };
 
   const onDataChange = (value, obj) => {
     setBundle(value);
-    setAmount(obj.label.split("₦")[1]);
+    setAmount(Number(obj.label.split("₦")[1].split("+")[0]));
   };
 
   return (

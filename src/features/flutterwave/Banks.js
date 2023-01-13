@@ -227,7 +227,7 @@ export const Banks = [
   {
     id: 177,
     code: "058",
-    name: "GTBank Plc",
+    name: "Guaranty Trust/GTBank Plc",
   },
   {
     id: 178,

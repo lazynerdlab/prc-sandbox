@@ -10,24 +10,31 @@ import { LoginSchema } from "../../utils/Schemas/LoginSchema";
 const Login = () => {
   const emailRef = useRef();
   const { dispatch, navigate } = useActions();
-  const LoginSubmit = async (actions, values) => {
+  const [err, setErr] = useState(false);
+  const location = useLocation();
+  const LoginSubmit = async (values, actions) => {
+    console.log(values);
     const res = await login({
       email: values.email,
       password: values.password,
     });
     console.log(res, isLoading, error);
     if (res.data) {
-      actions.resetFrom();
-      navigate(from, { replace: true });
-      dispatch(setCredentials(res.data?.others));
-      dispatch(setToken(res?.data?.accessToken));
+      actions.resetForm();
+      console.log(res.data);
+      // navigate(from, { replace: true });
+
+      dispatch(setCredentials(res.data));
+      // dispatch(setToken(res?.data?.accessToken));
       sessionStorage.setItem("token", res?.data?.refreshAccessToken);
+      navigate("/");
     }
     if (res.error) {
       setErr(isError);
     }
   };
-  const [err, setErr] = useState(false);
+  const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
+  const from = location.state?.from?.pathname || "/";
   const {
     values,
     errors,
@@ -44,9 +51,6 @@ const Login = () => {
     validationSchema: LoginSchema,
     onSubmit: LoginSubmit,
   });
-  const location = useLocation();
-  const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
-  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     emailRef.current.focus();

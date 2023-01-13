@@ -8,7 +8,7 @@ const FlutterWave = ({ amount, email, name }) => {
     tx_ref: randomRef(name),
     amount: amount,
     currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
+    payment_options: "card",
     customer: {
       email: email,
       phone_number: "070********",

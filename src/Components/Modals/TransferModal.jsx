@@ -19,8 +19,8 @@ const TransferModal = ({ action, type }) => {
     useTransferMutation();
   const navigateHandler = () => navigate(-1);
   const payload = {
-    type: type,
-    value: parseInt(value),
+    type: "outflow",
+    value: value.split,
     receiverEmail: email,
   };
 
@@ -28,12 +28,12 @@ const TransferModal = ({ action, type }) => {
     e.preventDefault();
     const res = await transfer(payload);
     console.log(payload);
-    if (isSuccess) {
+    if (res.data) {
       setValue("");
       setEmail("");
       setSuccess(true);
     }
-    if (isError) {
+    if (res.error) {
       setErr(true);
     }
   };

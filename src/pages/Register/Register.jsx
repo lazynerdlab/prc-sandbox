@@ -153,13 +153,13 @@ const Register2 = () => {
                 <p className="text-red-600">{errors.password}</p>
               )}
             </div>
-            <label htmlFor="confirmpassword" className="block mb-[1rem]">
+            <label htmlFor="confirmPassword" className="block mb-[1rem]">
               ConfirmPassword:
             </label>
             <div className="mb-[1rem] relative">
               <input
                 type={showCpass ? "text" : "password"}
-                id="confirmpassword"
+                id="confirmPassword"
                 className={
                   errors.confirmPassword
                     ? "border-solid text-[1.2rem] border-b-[2px] w-full m-auto focus:outline-none focus:border-red-600"
@@ -172,7 +172,7 @@ const Register2 = () => {
               />
               {showCpass ? (
                 <BiHide
-                  className="absolute text-[2rem] text-gray-300 right-[2%]top-[20%] cursor-pointer"
+                  className="absolute text-[2rem] text-gray-300 right-[2%] top-[20%] cursor-pointer"
                   onClick={() => setShowCpass(false)}
                 />
               ) : (

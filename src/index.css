@@ -31,3 +31,10 @@ h5,
 p {
   margin: 0;
 }
+
+.ant-layout-sider.ant-layout-sider-dark {
+  flex: 0 0 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+  width: 150px !important;
+}

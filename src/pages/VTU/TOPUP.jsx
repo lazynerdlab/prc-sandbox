@@ -1,5 +1,5 @@
 import { Tabs } from "antd";
-import Airtime from "./Airtime";
+import Airtime from "./Airtime.jsx";
 import DataBundle from "./DataBundle";
 const onChange = (key) => {
   console.log(key);
@@ -8,7 +8,7 @@ const TOPUP = () => (
   <Tabs
     defaultActiveKey="1"
     onChange={onChange}
-    style={{ padding: "1rem" }}
+    style={{ paddingLeft: "1rem" }}
     items={[
       {
         label: `Airtime`,

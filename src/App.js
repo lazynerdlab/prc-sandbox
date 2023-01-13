@@ -18,6 +18,8 @@ import UserRequireAuth from "./utils/UserRequireAuth";
 import OtherTransfer from "./pages/Transfer/OtherTransfer";
 import TF from "./pages/Transfer/TF";
 import TOPUP from "./pages/VTU/TOPUP";
+import Bills from "./pages/BillsPayment/Bills";
+import Services from "./pages/SelfServices/services";
 
 function App() {
   const { user } = useActions();
@@ -29,29 +31,38 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/resetpassword" element={<ResetPass />} />
       <Route path="/userauth/*" element={<Token />} />
-      <Route path="/test/*" element={<TF />} />
-      <Route path="/test2/*" element={<Home />} />
+      {/* <Route path="/test/*" element={<TF />} />
+      <Route path="/test2/*" element={<Home />} /> */}
       {/* Authorization Routes */}
-      <Route path="accountsetup" element={<SetupKYC />} />
-      <Route path="verifybvn" element={<VerifyBVN />} />
-      <Route path="/" element={<Home />}>
+      <Route path="/accountsetup" element={<SetupKYC />} />
+      <Route path="/verifybvn" element={<VerifyBVN />} />
+      {/* <Route path="/" element={<Home />}>
         <Route path={"/"} element={<Dashboard />} />
         <Route path="/transfer" element={<TransferTabs />} />
         <Route path="/fund" element={<Fund />} />
-        <Route path="topup" element={<TOPUP />} />
-      </Route>
+        <Route path="airtime" element={<TOPUP />} />
+        <Route path="/bill" element={<Bills />} />
+        <Route path="/self-services" element={<Services />} />
+      </Route> */}
       {/* Protected routes */}
-      {/* <Route path="*" element={<RequireAuth />}>
+      <Route path="" element={<RequireAuth />}>
         {!user.isVerified && (
-          <Route path="/*" element={<UserRequireAuth />}>
-            <Route index element={<Home />} />
+          <Route path="" element={<UserRequireAuth />}>
+            <Route path="/" element={<Home />}>
+              <Route index element={<Dashboard />} />
+              <Route path="/transfer" element={<TransferTabs />} />
+              <Route path="/fund" element={<Fund />} />
+              <Route path="airtime" element={<TOPUP />} />
+              <Route path="/bill" element={<Bills />} />
+              <Route path="/self-services" element={<Services />} />
+            </Route>
           </Route>
         )}
         {user.isAdmin && <Route path="/*" element={<AdminDashboard />} />}
         {user.isSuperAdmin && (
           <Route path="/*" element={<SuperAdminDashboard />} />
         )}
-      </Route> */}
+      </Route>
     </Routes>
   );
 }

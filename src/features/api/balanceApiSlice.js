@@ -4,12 +4,11 @@ export const balanceApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBalance: builder.query({
       query: () => ({
-        url: "auth/balance",
+        url: "transaction/balance",
       }),
-      providesTags: (id) => [{ type: "balance", id }],
-    })
+      providesTags: ["balance"],
+    }),
   }),
 });
 
-export const { useGetBalanceQuery } =
-  balanceApiSlice;
+export const { useGetBalanceQuery } = balanceApiSlice;

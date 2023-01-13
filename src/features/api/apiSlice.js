@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setToken } from "../reducers/userSlice";
-//////"https://prc-sandbox-production.up.railway.app/api"
+// "https://purscliq-sandbox.onrender.com/api"
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https:localhost:7000/api",
+  baseUrl: "https://purscliq-sandbox.onrender.com/api",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().user.value.accessToken;
     console.log(token);
@@ -25,6 +25,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       setToken(refreshResult?.data?.token);
       result = await baseQuery(args, api, extraOptions);
     } else {
+      //dispatch logout
     }
   }
 
@@ -32,6 +33,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 };
 
 export const apiSlice = createApi({
+  reducerPath: "apiSlice",
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({}),
 });

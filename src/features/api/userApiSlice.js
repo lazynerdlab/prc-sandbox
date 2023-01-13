@@ -11,28 +11,30 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     register: builder.mutation({
       query: (credentials) => ({
-        url: "auth/register",
+        url: "auth/signup",
         method: "Post",
         body: { ...credentials },
       }),
     }),
     registerKYC: builder.mutation({
       query: (credentials) => ({
-        url: "auth/form",
+        url: "verify/setupkyc",
         method: "Post",
         body: { ...credentials },
       }),
     }),
-    verifyKYC: builder.mutation({
+    verifyEmail: builder.mutation({
       query: (credentials) => ({
-        url: "auth/verifykyc",
+        url: "verify/verify",
         method: "Post",
         body: { ...credentials },
       }),
     }),
-    signout: builder.query({
+    signout: builder.mutation({
       query: () => ({
         url: "auth/logout",
+        method: "Post",
+        body: {},
       }),
     }),
   }),
@@ -42,6 +44,6 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useRegisterKYCMutation,
-  useVerifyKYCMutation,
-  useSignoutQuery,
+  useVerifyEmailMutation,
+  useSignoutMutation,
 } = userApiSlice;

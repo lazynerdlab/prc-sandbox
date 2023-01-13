@@ -20,9 +20,9 @@ const Home = () => {
 
   return (
     <div className="h-screen overflow-hidden w-[80%] m-auto">
-      <Header>
+      {/* <Header>
         <Navigation />
-      </Header>
+      </Header> */}
       <Layout>
         <Sider
           style={{

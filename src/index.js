@@ -5,8 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { store } from "./features/store";
+import { apiSlice } from "./features/api/apiSlice";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

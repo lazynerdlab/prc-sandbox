@@ -10,8 +10,8 @@ export const transactionsApiSlice = apiSlice.injectEndpoints({
     }),
     transfer: builder.mutation({
       query: (amount) => ({
-        url: "transaction/transfer",
-        method: "Post",
+        url: "transaction/internal/transfer",
+        method: "Put",
         body: { amount },
       }),
       invalidatesTags: ["balance", "transactions"],

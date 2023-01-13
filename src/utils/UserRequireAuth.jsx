@@ -5,10 +5,8 @@ const UserRequireAuth = () => {
   const { user } = useActions();
   const location = useLocation();
 
-  return user.AccountNumber ? (
+  return user.firstName ? (
     <Outlet />
-  ) : user.Firstname ? (
-    <Navigate to={"verifybvn"} state={{ from: location }} replace />
   ) : (
     <Navigate to={"accountsetup"} state={{ from: location }} replace />
   );

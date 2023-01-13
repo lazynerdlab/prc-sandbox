@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
-// import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 // const people = [
 //   { id: 1, name: "Wade Cooper" },
@@ -11,7 +11,12 @@ import { Combobox, Transition } from "@headlessui/react";
 //   { id: 6, name: "Hellen Schmidt" },
 // ];
 
-export default function SearchBanks({ Array, selected, setSelected }) {
+export default function SearchBanks({
+  Array,
+  selected,
+  setSelected,
+  externalFunc,
+}) {
   //   const [selected, setSelected] = useState(Banks[0]);
   const [query, setQuery] = useState("");
 
@@ -27,7 +32,13 @@ export default function SearchBanks({ Array, selected, setSelected }) {
 
   return (
     <div className="border-solid text-[1.2rem] border-b-[2px] w-full m-auto mb-[1rem]">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox
+        value={selected}
+        onChange={(e) => {
+          setSelected(e);
+          externalFunc(e.code);
+        }}
+      >
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
@@ -36,11 +47,10 @@ export default function SearchBanks({ Array, selected, setSelected }) {
               onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              {/* <ChevronUpDownIcon
+              <ChevronUpDownIcon
                 className="h-5 w-5 text-gray-400"
                 aria-hidden="true"
-              /> */}
-              <div>^^</div>
+              />
             </Combobox.Button>
           </div>
           <Transition
@@ -81,8 +91,7 @@ export default function SearchBanks({ Array, selected, setSelected }) {
                               active ? "text-white" : "text-teal-600"
                             }`}
                           >
-                            {/* <CheckIcon className="h-5 w-5" aria-hidden="true" /> */}
-                            "^"
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
                         ) : null}
                       </>
