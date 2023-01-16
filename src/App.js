@@ -15,8 +15,6 @@ import useActions from "./utils/Hooks/hookActions";
 import SetupKYC from "./utils/UserAuthorization/SetupKYC";
 import VerifyBVN from "./utils/UserAuthorization/VerifyBVN";
 import UserRequireAuth from "./utils/UserRequireAuth";
-import OtherTransfer from "./pages/Transfer/OtherTransfer";
-import TF from "./pages/Transfer/TF";
 import TOPUP from "./pages/VTU/TOPUP";
 import Bills from "./pages/BillsPayment/Bills";
 import Services from "./pages/SelfServices/services";
