@@ -15,6 +15,7 @@ export const vtuApiSlice = apiSlice.injectEndpoints({
         method: "Post",
         body: { ...credentials },
       }),
+      invalidatesTags: ["balance", "transactions"],
     }),
     vtuAirtime: builder.mutation({
       query: (credentials) => ({
@@ -22,6 +23,7 @@ export const vtuApiSlice = apiSlice.injectEndpoints({
         method: "Post",
         body: { ...credentials },
       }),
+      invalidatesTags: ["balance", "transactions"],
     }),
     vtuData: builder.mutation({
       query: (credentials) => ({
@@ -29,6 +31,7 @@ export const vtuApiSlice = apiSlice.injectEndpoints({
         method: "Post",
         body: { ...credentials },
       }),
+      invalidatesTags: ["balance", "transactions"],
     }),
     vtuElectricity: builder.mutation({
       query: (credentials) => ({
@@ -36,6 +39,7 @@ export const vtuApiSlice = apiSlice.injectEndpoints({
         method: "Post",
         body: { ...credentials },
       }),
+      invalidatesTags: ["balance", "transactions"],
     }),
   }),
 });
