@@ -22,7 +22,7 @@ const Login = () => {
     if (res.data) {
       actions.resetForm();
       console.log(res.data);
-      // navigate(from, { replace: true });
+      navigate(from, { replace: true });
 
       dispatch(setCredentials(res.data));
       // dispatch(setToken(res?.data?.accessToken));
@@ -49,7 +49,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: LoginSchema,
-    onSubmit: LoginSubmit,
+    onSubmit: LoginSubmit({}),
   });
 
   useEffect(() => {
@@ -116,7 +116,8 @@ const Login = () => {
               )}
             </div>
             <button
-              disabled={isLoading}
+              // disabled={isLoading}
+              type="submit"
               className="bg-blue-600 mb-[1rem] border-none p-[1rem] rounded-[5px] text-white"
             >
               {" "}
